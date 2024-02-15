@@ -11,7 +11,7 @@ const Navbar = () => {
         <ThemeSwitch />
       </div>
       <div className="flex justify-between pt-2 font-bold font">
-        <span className="px-4 "><a href="/">درباره فروشگاه</a></span>
+        <span className="px-4  "><a href="/">درباره فروشگاه</a></span>
         <span className="px-4 "><a href="/">تماس با ما</a></span>
         <span className="px-4 "><a href="/">قوانین خرید</a></span>
         <p className="px-4">Changeston</p>

@@ -1,5 +1,6 @@
 import MainPagePhoto from "@/components/MainPage";
 import Navbar from "@/components/Navbar";
+import ProductsCard from "@/components/ProductsCard";
 
 export default function Home() {
   return (
@@ -8,7 +9,7 @@ export default function Home() {
       
       <Navbar/>
       <MainPagePhoto/>
-     
+      <ProductsCard/>
       
     </main>
   );

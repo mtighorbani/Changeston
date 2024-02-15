@@ -30,8 +30,8 @@ const ImageSwapper: React.FC<Props> = ({ images }) => {
   return (
     <div  className="mt-4 h-[500px]"onMouseMove={mouseHnadler}  onMouseLeave={mouseLeave}    >
       
-        {isShow?<GrPrevious onClick={previousImage} className="hover:text-white transition delay-150 size-16 absolute top-[300px] left-[200px]" />:null}
-        { isShow?<GrNext onClick={nextImage} className="hover:text-white transition delay-150 size-16 absolute top-[300px]  right-[200px]" />:null}  
+        {isShow?<GrPrevious  onClick={previousImage} type="button" className= "cursor-pointer hover:text-white transition delay-150 size-16 absolute top-[300px] left-[200px]" />:null}
+        { isShow?<GrNext onClick={nextImage} type="button" className="cursor-pointer hover:text-white transition delay-150 size-16 absolute top-[300px]  right-[200px]" />:null}  
 
 
       <img 
