@@ -1,0 +1,8 @@
+@font-face {
+    font-family: Bmitra;
+    src: url(/styles/fonts/B\ Mitra_0.ttf);
+}
+
+.font{
+    font-family:Bmitra ;
+}
