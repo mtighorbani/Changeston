@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import BlurText from "./BlurText";
+import PurchesRoute from "./PurchesRoute";
 
 interface Props {
   images: string[]; // Assuming these are relative paths
@@ -29,10 +30,10 @@ const ImageSwapper: React.FC<Props> = ({ images }) => {
   };
 
   return (
-    <div  className="mt-4 h-[500px]"onMouseMove={mouseHnadler}  onMouseLeave={mouseLeave}    >
+    <div  className="mt-4 h-[60%] "onMouseMove={mouseHnadler}  onMouseLeave={mouseLeave}    >
       
-        {isShow?<GrPrevious  onClick={previousImage} type="button" className= "cursor-pointer hover:text-white transition delay-150 size-16 absolute top-[300px] left-[200px]" />:null}
-        { isShow?<GrNext onClick={nextImage} type="button" className="cursor-pointer hover:text-white transition delay-150 size-16 absolute top-[300px]  right-[200px]" />:null}  
+        {isShow?<GrPrevious  onClick={previousImage} type="button" className= "cursor-pointer text-white  transition delay-150 size-16 sm:size-8 absolute top-[300px] left-[200px]" />:null}
+        { isShow?<GrNext onClick={nextImage} type="button" className="cursor-pointer text-white transition delay-150 size-16 sm:size-8 absolute top-[300px]  right-[200px]" />:null}  
       
       
         <BlurText/>
@@ -45,6 +46,7 @@ const ImageSwapper: React.FC<Props> = ({ images }) => {
         width={0} // Set width and height as per your requirements
         height={0}
       />
+      <PurchesRoute/>
     </div>
   );
 };

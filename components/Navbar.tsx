@@ -5,7 +5,7 @@ import './cssStyle/font.css'
 const Navbar = () => {
   return (
     <>
-    <div className="  flex justify-between  px-32 py-5 max-h-[100px] ">
+    <div className="  flex justify-between  px-28 py-5 max-h-[100px] ">
       <div className="flex w-1/3">
         <LogInButton />
         <ThemeSwitch />
