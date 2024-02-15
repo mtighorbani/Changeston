@@ -1,4 +1,5 @@
-import Navbar from "@/components/componentsExport";
+import MainPagePhoto from "@/components/MainPage";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
@@ -6,6 +7,7 @@ export default function Home() {
     <main>
       
       <Navbar/>
+      <MainPagePhoto/>
      
       
     </main>
