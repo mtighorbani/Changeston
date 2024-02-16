@@ -46,7 +46,6 @@ const ImageSwapper: React.FC<Props> = ({ images }) => {
         width={0} // Set width and height as per your requirements
         height={0}
       />
-      <PurchesRoute/>
     </div>
   );
 };
