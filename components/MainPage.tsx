@@ -13,6 +13,7 @@ export default function MainPagePhoto() {
   return (
     <div className='mb-[40px]'>
       <ImageSwapper images={images} />
+      <PurchesRoute/>
       
     </div>
   );
