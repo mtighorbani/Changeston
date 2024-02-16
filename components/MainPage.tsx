@@ -1,5 +1,6 @@
+'use client'
+import BlurText from './BlurText';
 import ImageSwapper from './ImageSwapper';
-import PurchesRoute from './PurchesRoute';
 
 
 
@@ -11,9 +12,9 @@ const images = [
 
 export default function MainPagePhoto() {
   return (
-    <div className='mb-[40px]'>
+    <div className='mb-[40px] '>
       <ImageSwapper images={images} />
-      <PurchesRoute/>
+      <BlurText/>
       
     </div>
   );

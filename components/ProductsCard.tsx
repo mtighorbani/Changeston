@@ -1,5 +1,5 @@
 import React from "react";
-import Products from "@/products/Ptoducts";
+import Products from "@/Array/Ptoducts";
 import Image from "next/image";
 
 
@@ -18,7 +18,7 @@ const ProductsCard = () => {
     ))
   return (
     
-    <div className=" max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[9%]  mt-28 gap-4 ">
+    <div className=" max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[9%] max-sm:mt-20  mt-28 gap-4 ">
       {listItem}
     </div>
   );
