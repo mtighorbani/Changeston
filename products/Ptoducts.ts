@@ -1,32 +1,51 @@
+import freeFire_prev_ui from '../asset/images/freeFire_prev_ui.png'
+import SPOTIFY_prev_ui from '../asset/images/SPOTIFY_prev_ui.png'
+import googleplay_prev_ui from '../asset/images/googleplay_prev_ui.png'
+import itunes_prev_ui from '../asset/images/itunes_prev_ui.png'
+import paypal_prev_ui from '../asset/images/paypal_prev_ui.png'
+import pubg_prev_ui from '../asset/images/pubg_prev_ui.png'
+
 
 const Products=[
   {
     id:1,
     FaName:'گیفت کارت پی پال',
-    Photo:'https://soccersekeconis.ir/media/categories/20231219-134934-3031.jpg',
+    Photo:paypal_prev_ui,
     name:'PayPal Gift Card',
     basePrice:'10$'
   },
   {
     id:2,
     FaName:'گیفت کارت ایتیونز',
-    Photo:'https://soccersekeconis.ir/media/categories/20231219-163123-3646.jpg',
+    Photo:itunes_prev_ui,
     name:'iTunes Gift Card',
     basePrice:'20$'
   },
   {
     id:3,
     FaName:'گیفت کارت جم فری فایر',
-    Photo:'https://soccersekeconis.ir/media/categories/20231219-160751-8091.jpg',
+    Photo:freeFire_prev_ui,
     name:'Free Fire Gift Card',
-    basePrice:'5$'
+    basePrice:'9$'
   },
   {
     id:4,
     FaName:'گیفت کارت پابجی موبایل',
-    Photo:'https://soccersekeconis.ir/media/categories/20231219-161113-7014.jpg',
+    Photo:pubg_prev_ui,
     name:'PUBG Mobile Gift Card',
-    basePrice:'12$'
+    basePrice:'35$'
+  },{
+    id:5,
+    FaName:'گیفت کارت اسپاتیفای',
+    Photo:SPOTIFY_prev_ui,
+    name:'Spotify Gift Card',
+    basePrice:'5$'
+  },{
+    id:6,
+    FaName:'گیفت کارت گوگل پلی',
+    Photo: googleplay_prev_ui ,
+    name:'Google Play Gift Card',
+    basePrice:'40$'
   }
 ]
 
