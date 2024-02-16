@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./cssStyle/font.css";
 import { MdOutlineClose } from "react-icons/md";
 
 const BlurText = () => {

@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Changeston | چنجستون",
-  description: "عرضه کننده انواع گیفت کارت بازی هاو اکانت ها",
+  description: "عرضه کننده انواع گیفت کارت بازی  و اکانت ",
 };
 
 export default function RootLayout({
