@@ -39,7 +39,7 @@ const ImageSwapper: React.FC<Props> = ({ images }) => {
 
       <img 
         
-        className="rounded-lg	 m-auto w-[1240px] h-[500px] max-sm:w-full "
+        className="rounded-xl	 m-auto w-[1240px] h-[500px] max-sm:w-full "
         src={images[currentImageIndex]} // Adjust the path here
         alt="Image"
         width={0} // Set width and height as per your requirements
