@@ -1,7 +1,6 @@
 // components/ImageSwapper.tsx
 import { useState } from "react";
 import { GrPrevious, GrNext } from "react-icons/gr";
-import PurchesRoute from "./PurchesRoute";
 
 
 interface Props {
@@ -33,10 +32,6 @@ const ImageSwapper: React.FC<Props> = ({ images }) => {
       
         {isShow?<GrPrevious  onClick={previousImage} type="button" className= "cursor-pointer text-white  transition delay-150 size-16 sm:size-8 absolute max-sm:left-0 top-[300px] left-[200px]" />:null}
         { isShow?<GrNext onClick={nextImage} type="button" className="cursor-pointer text-white transition delay-150 size-16 sm:size-8 absolute top-[300px] max-sm:right-0  right-[200px]" />:null}  
-      
-      
-        
-
       <img 
         
         className="rounded-xl	 m-auto w-[1240px] h-[500px] max-sm:w-full "
@@ -45,7 +40,7 @@ const ImageSwapper: React.FC<Props> = ({ images }) => {
         width={0} // Set width and height as per your requirements
         height={0}
       />
-            <PurchesRoute/>
+            
 
       
     </div>

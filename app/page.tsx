@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
-import MainPagePhoto from "@/components/MainPage";
 import Navbar from "@/components/Navbar";
 import ProductsCard from "@/components/GroupingCard";
+import MainPage from "@/components/MainPage";
 
 export default function Home() {
   return (
@@ -9,8 +9,7 @@ export default function Home() {
     <main>
       
       
-      <MainPagePhoto/>
-      <ProductsCard/>
+      <MainPage/>
       
     </main>
   );
