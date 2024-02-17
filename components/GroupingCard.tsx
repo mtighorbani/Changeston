@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Products, moreDetails } from "@/Array/Ptoducts";
 import Image from "next/image";
 import purchesStep from "@/Array/purchesStep";
@@ -8,27 +8,29 @@ import purchesStep from "@/Array/purchesStep";
 
 const ProductsCard = () => {
   const [id, setId] = useState(1);
-  const [visible, isVisible] = useState(false);
-  const [productId, setProductId] = useState(0);
+  const [visible, isVisible] = useState(true);
+  const [productId, setProductId] = useState(-0);
 
   const NextId = id + 1
   const PervId = id - 1
 
-
-  const setIdHandler2 = () => {
-    setId(NextId);
-    isVisible(true);
-  };
-
   const indexClick = () => {
     setId(PervId);
-    isVisible(false);
+    isVisible(true);
+    setProductId(0)
   }
+
+  const setIdHandler = () => {
+    setId(NextId);
+    isVisible(false);
+  };
+
+
 
 
 
   const listItem = Products.map((item) => (
-    <div onClick={setIdHandler2}>
+    <div onClick={setIdHandler}>
       <div
         onClick={() => setProductId(item.id)}
         className=" cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-xl max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
@@ -48,8 +50,8 @@ const ProductsCard = () => {
 
 
 
-  const productList = moreDetails.filter((item) => item.id == productId).map((item) => {
-    if (item.id = productId) {
+  const productList = moreDetails.map((item) => {
+    if (visible == false && productId == item.id) {
       return (
 
         <div
@@ -65,14 +67,14 @@ const ProductsCard = () => {
           </p>
         </div>)
     }
-    else { return null }
+    else if ( visible == true) { return null }
   });
 
 
 
   const PurchesStepBox = purchesStep.map(step =>
 
-    <div onClick={() => { step.id == 1 ? indexClick : null }} className=" text-black  place-content-center sm:h-[100px] " key={step.id}>
+    <div onClick={indexClick} className=" text-black  place-content-center sm:h-[100px] " key={step.id}>
 
       <div className={`sm:h-[40%]  shadow-3xl cursor-pointer ${id == step.id ? "bg-gradient-to-r from-green-400 to-blue-500" : " bg-gray-600"} shadow-gray-50/50 w-[30%] sm:mt-3 max-sm:h-[70%]   text-center py-2  text-white m-auto  rounded-lg `}>{step.id}</div>
       <p className="mt-1 pt-1 text-center cursor-pointer">{step.name}</p>
@@ -88,7 +90,7 @@ const ProductsCard = () => {
 
       <div className=" max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-16  mt-28 gap-4 ">
 
-        {visible ? productList : listItem}
+        {visible ?  listItem:productList}
 
       </div>
     </>

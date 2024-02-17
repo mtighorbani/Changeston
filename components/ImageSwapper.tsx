@@ -1,13 +1,15 @@
 // components/ImageSwapper.tsx
+import Image from "next/image";
 import { useState } from "react";
 import { GrPrevious, GrNext } from "react-icons/gr";
+import Header1 from "../asset/images/MainPageImage/Header1.jpg";
+import Header2 from "../asset/images/MainPageImage/header2.jpg";
+import Header3 from "../asset/images/MainPageImage/header3.jpg";
+import Header4 from "../asset/images/MainPageImage/header4.jpg";
 
 
-interface Props {
-  images: string[]; // Assuming these are relative paths
-}
 
-const ImageSwapper: React.FC<Props> = ({ images }) => {
+const ImageSwapper = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isShow, SetShow] = useState(false);
 
@@ -27,12 +29,15 @@ const ImageSwapper: React.FC<Props> = ({ images }) => {
     SetShow(false);
   };
 
+  const images = [Header1, Header2, Header3, Header4];
+
+
   return (
-    <div  className="mt-4 h-[60%] "onMouseMove={mouseHnadler}  onMouseLeave={mouseLeave}    >
+    <div  className="mt-4 h-[60%] "onMouseMove={mouseHnadler}  onMouseLeave={mouseLeave} >
       
         {isShow?<GrPrevious  onClick={previousImage} type="button" className= "cursor-pointer text-white  transition delay-150 size-16 sm:size-8 absolute max-sm:left-0 top-[300px] left-[200px]" />:null}
         { isShow?<GrNext onClick={nextImage} type="button" className="cursor-pointer text-white transition delay-150 size-16 sm:size-8 absolute top-[300px] max-sm:right-0  right-[200px]" />:null}  
-      <img 
+      < Image
         
         className="rounded-xl	 m-auto w-[1240px] h-[500px] max-sm:w-full "
         src={images[currentImageIndex]} // Adjust the path here
