@@ -15,8 +15,8 @@ const ProductsCard = () => {
   const PervId = id - 1
 
   const indexClick = () => {
-    setId(PervId);
-    isVisible(true);
+    setId(PervId) 
+    isVisible(true)
     setProductId(0)
   }
 
