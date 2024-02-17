@@ -2,8 +2,7 @@
 import BlurText from './BlurText';
 import ProductsCard from './GroupingCard';
 import ImageSwapper from './ImageSwapper';
-import PurchesRoute from './PurchesRoute';
-
+  
 
 
 const images = [
