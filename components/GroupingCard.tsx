@@ -24,7 +24,10 @@ const ProductsCard = () => {
     setId(NextId);
     isVisible(false);
   };
-
+  
+  const formPageHandler = () => {
+    
+  }
 
 
 
