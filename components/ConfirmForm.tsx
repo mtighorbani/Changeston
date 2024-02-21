@@ -1,6 +1,17 @@
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 
-const ConfirmForm = () => {
+
+
+interface FormProps {
+  id : number
+  imgUrl: StaticImageData
+  price: string
+  FaName:string
+}
+
+const ConfirmForm = ({id,imgUrl,price,FaName}:FormProps) => {
+
   return (
     <div dir="rtl" className="flex  justify-between h-[60%] mt-4  w-full mb-80">
       <div className="w-[35%] text-black  rounded-xl grid grid-cols-1 min-h-[400px] bg-[#EEEEEE] mt-4 max-h=[700px] mr-[14%]">
@@ -62,14 +73,23 @@ const ConfirmForm = () => {
           می شود.
         </div>
       </div>
-      <div className="w-[35%] rounded-xl  min-h-[300px] bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
-        <div className="bg-[#F9FAFB] w-full h-28 mt-8 rounded-xl"></div>
+      <div  className="w-[35%] rounded-xl  min-h-[300px] bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
+        <div className="bg-[#F9FAFB] w-full h-28 mt-8 rounded-xl flex justify-between">
+
+          <div key={id}>
+            <Image src={imgUrl} alt={FaName} className="h-[80%] pr-4 w-[30%] rounded-sm  pt-6"/>
+            <p>{FaName}</p>
+
+          </div>
+
+        </div>
         <div className="bg-[#F9FAFB] w-full h-14 mt-5 rounded-xl">
           {" "}
-          <p className="text-cente pt-3 pr-4">جمع مبلغ : </p>
+          <p key={id} className="text-cente pt-3 pr-4">جمع مبلغ : {price}</p>
         </div>
         <div>
           <div className="flex items-center mt-4">
+            
             <input
               id="RulConfirm"
               type="radio"

@@ -9,10 +9,9 @@ const ProductsCard = () => {
   const [id, setId] = useState(1);
   const [visible, isVisible] = useState(true);
   const [productId, setProductId] = useState(-0);
-
   const NextId = id + 1;
 
- const ProductVisibleHandler = () => {
+  const ProductVisibleHandler = () => {
     isVisible(true);
     setProductId(0);
     setId(1);
@@ -22,8 +21,6 @@ const ProductsCard = () => {
     setId(NextId);
     isVisible(false);
   };
-
-  useEffect(() => {});
 
   const listItem = Products.map((item) => (
     <div onClick={setIdHandler}>
@@ -42,7 +39,6 @@ const ProductsCard = () => {
       </div>
     </div>
   ));
-
 
   const PurchesStepBox = purchesStep.map((step) => (
     <div
@@ -69,8 +65,20 @@ const ProductsCard = () => {
         {PurchesStepBox}
       </div>
 
-      <div className=" max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-16  mt-28 gap-4 ">
-        {visible == false ? <ProductList productId={productId} id={id} visible={visible}/> : visible == true ? listItem : ""}
+      <div
+        className={`${
+          id == 3
+            ? ""
+            : "max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-16  mt-28 gap-4 "
+        } `}
+      >
+        {visible == false ? (
+          <ProductList productId={productId} id={id} visible={visible} />
+        ) : visible == true ? (
+          listItem
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

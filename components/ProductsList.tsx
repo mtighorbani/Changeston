@@ -1,5 +1,7 @@
 import { moreDetails } from "@/Array/Ptoducts";
 import Image from "next/image";
+import React, {  useState } from "react";
+import ConfirmForm from "./ConfirmForm";
 
 interface ProductsProps {
   visible: boolean;
@@ -7,13 +9,29 @@ interface ProductsProps {
   id: number;
 }
 
-const ProductList = ({ visible, productId, id }: ProductsProps) =>
-  moreDetails.map((item) => {
-    if (!visible && productId == item.id) {
-      return (
+
+
+const ProductList = ({ visible, productId, id }: ProductsProps) => {
+  const [PurchesVisible, setPurchesVisible] = useState(true);
+const [purchesId,SetPurchesId] = useState(0)
+
+
+  const ProductsListMap = moreDetails.map((item) => {
+    const purchesPageHandler = () => {
+        setPurchesVisible(false);
+        SetPurchesId(item.purchesId)
+        console.log(item.purchesId)
+      };
+    
+    
+    if (PurchesVisible) {
+      return(
+
         <div
           className=" cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-xl max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
-          key={id}
+          key={item.id}
+          onClick={purchesPageHandler }
+          
         >
           <Image
             src={item.Photo}
@@ -30,9 +48,19 @@ const ProductList = ({ visible, productId, id }: ProductsProps) =>
           </p>
         </div>
       );
-    } else if (visible) {
-      return "";
+      
     }
+    else if (!PurchesVisible)
+    return(moreDetails.filter((moreDetails)=> moreDetails.purchesId == purchesId).map((item)=>{
+        
+
+        <ConfirmForm id={item.purchesId} imgUrl={item.Photo} FaName={item.FaName} price={item.prrice}/>
+        
+      }))
+
   });
+
+  return ( ProductsListMap  ) 
+};
 
 export default ProductList;
