@@ -8,9 +8,13 @@ interface FormProps {
   imgUrl: StaticImageData
   price: string
   FaName:string
+  purchesId:number
+  visible: boolean
 }
 
-const ConfirmForm = ({id,imgUrl,price,FaName}:FormProps) => {
+const ConfirmForm = ({id,imgUrl,price,FaName, purchesId , visible}:FormProps) => {
+  if(visible){
+
 
   return (
     <div dir="rtl" className="flex  justify-between h-[60%] mt-4  w-full mb-80">
@@ -74,9 +78,9 @@ const ConfirmForm = ({id,imgUrl,price,FaName}:FormProps) => {
         </div>
       </div>
       <div  className="w-[35%] rounded-xl  min-h-[300px] bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
-        <div className="bg-[#F9FAFB] w-full h-28 mt-8 rounded-xl flex justify-between">
+        <div key={id} className="bg-[#F9FAFB] w-full h-28 mt-8 rounded-xl flex justify-between">
 
-          <div key={id}>
+          <div key={purchesId}>
             <Image src={imgUrl} alt={FaName} className="h-[80%] pr-4 w-[30%] rounded-sm  pt-6"/>
             <p>{FaName}</p>
 
@@ -111,7 +115,7 @@ const ConfirmForm = ({id,imgUrl,price,FaName}:FormProps) => {
         </div>
       </div>
     </div>
-  );
+  )}
 };
 
 export default ConfirmForm;

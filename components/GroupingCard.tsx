@@ -26,10 +26,10 @@ const ProductsCard = () => {
     <div onClick={setIdHandler}>
       <div
         onClick={() => setProductId(item.id)}
-        className=" cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-xl max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
+        className=" cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-md max-w-[360px] text-center justify-center ring-1 ring-cyan-500  max-h-[400px] mb-10"
         key={id}
       >
-        <Image src={item.Photo} alt={item.name} width={300} height={30} />
+        <Image src={item.Photo} alt={item.name} width={300} height={30} className="w-[400px] h-[140px] rounded-lg" />
         <p className="max-sm:font-normal font-extrabold font-lg mb-2 mt-2 ">
           {item.name}
         </p>
@@ -47,11 +47,10 @@ const ProductsCard = () => {
       key={step.id}
     >
       <div
-        className={`sm:h-[40%]  shadow-3xl cursor-pointer ${
-          id == step.id
-            ? "bg-gradient-to-r from-green-400 to-blue-500"
-            : " bg-gray-600"
-        } shadow-gray-50/50 w-[30%] sm:mt-3 max-sm:h-[70%]   text-center py-2  text-white m-auto  rounded-lg `}
+        className={`sm:h-[40%]  shadow-3xl cursor-pointer ${id == step.id
+          ? "bg-gradient-to-r from-green-400 to-blue-500"
+          : " bg-gray-600"
+          } shadow-gray-50/50 w-[30%] sm:mt-3 max-sm:h-[70%]   text-center py-2  text-white m-auto  rounded-lg `}
       >
         {step.id}
       </div>
@@ -66,14 +65,13 @@ const ProductsCard = () => {
       </div>
 
       <div
-        className={`${
-          id == 3
-            ? ""
-            : "max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-16  mt-28 gap-4 "
-        } `}
+        className={`${id == 3
+          ? ""
+          : "max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-16  mt-28 gap-4 "
+          } `}
       >
         {visible == false ? (
-          <ProductList productId={productId} id={id} visible={visible} />
+          <ProductList productId={productId} id={productId} visible={visible} />
         ) : visible == true ? (
           listItem
         ) : (
