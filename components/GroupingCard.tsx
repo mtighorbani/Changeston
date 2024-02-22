@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
-import { Products, moreDetails } from "@/Array/Ptoducts";
+import React, {  useState } from "react";
+import { Products } from "@/Array/Ptoducts";
 import Image from "next/image";
 import purchesStep from "@/Array/purchesStep";
 import ProductList from "./ProductsList";
@@ -26,14 +26,14 @@ const ProductsCard = () => {
     <div onClick={setIdHandler}>
       <div
         onClick={() => setProductId(item.id)}
-        className=" cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-md max-w-[360px] text-center justify-center ring-1 ring-cyan-500  max-h-[400px] mb-10"
+        className=" cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-md max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
         key={id}
       >
-        <Image src={item.Photo} alt={item.name} width={300} height={30} className="w-[400px] h-[140px] rounded-lg" />
-        <p className="max-sm:font-normal font-extrabold font-lg mb-2 mt-2 ">
+        <Image src={item.Photo} alt={item.name} width={300} height={30} className="w-[400px] h-[200px] rounded-lg" />
+        <p className=" max-sm:font-normal text-xl  font-extrabold font-lg mb-2 mt-4 ">
           {item.name}
         </p>
-        <p className="font-extrabold max-sm:font-normal font-lg pb-10 ">
+        <p className="font-extrabold max-sm:font-normal text-xl font-lg pb-10 ">
           {item.FaName}
         </p>
       </div>
@@ -64,20 +64,23 @@ const ProductsCard = () => {
         {PurchesStepBox}
       </div>
 
-      <div
-        className={`${id == 3
-          ? ""
-          : "max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-16  mt-28 gap-4 "
-          } `}
-      >
         {visible == false ? (
-          <ProductList productId={productId} id={productId} visible={visible} />
+          
+          <ProductList id={id} productId={productId} />
         ) : visible == true ? (
-          listItem
+          
+      <div
+      className={`${id == 3
+        ? ""
+        : "max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[15%] max-sm:mt-16  mt-28 gap-4 "
+        } `}
+    >
+          {listItem}
+          </div>
+
         ) : (
           ""
         )}
-      </div>
     </>
   );
 };

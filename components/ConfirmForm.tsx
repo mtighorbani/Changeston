@@ -4,20 +4,17 @@ import React from "react";
 
 
 interface FormProps {
-  id : number
   imgUrl: StaticImageData
   price: string
   FaName:string
   purchesId:number
-  visible: boolean
 }
 
-const ConfirmForm = ({id,imgUrl,price,FaName, purchesId , visible}:FormProps) => {
-  if(visible){
+const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
 
 
   return (
-    <div dir="rtl" className="flex  justify-between h-[60%] mt-4  w-full mb-80">
+    <div dir="rtl" className="flex   justify-between h-[60%] mt-20 w-full mb-80">
       <div className="w-[35%] text-black  rounded-xl grid grid-cols-1 min-h-[400px] bg-[#EEEEEE] mt-4 max-h=[700px] mr-[14%]">
         <form className="max-w-sm mr-3 mt-4">
           <label
@@ -77,19 +74,18 @@ const ConfirmForm = ({id,imgUrl,price,FaName, purchesId , visible}:FormProps) =>
           می شود.
         </div>
       </div>
-      <div  className="w-[35%] rounded-xl  min-h-[300px] bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
-        <div key={id} className="bg-[#F9FAFB] w-full h-28 mt-8 rounded-xl flex justify-between">
+      <div key={purchesId}  className="w-[35%] rounded-xl  min-h-[300px] bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
+        <div  className="bg-[#F9FAFB] w-full h-32 mt-8 rounded-xl ">
 
-          <div key={purchesId}>
-            <Image src={imgUrl} alt={FaName} className="h-[80%] pr-4 w-[30%] rounded-sm  pt-6"/>
-            <p>{FaName}</p>
+          <div key={purchesId} className="flex justify-between">
+            <Image src={imgUrl} alt={FaName} className="h-[80%] pr-4 w-[30%] rounded-sm pt-1 relative"/>
+            <p className="font-extrabold text-xl m-auto">{FaName}</p>
 
           </div>
 
         </div>
         <div className="bg-[#F9FAFB] w-full h-14 mt-5 rounded-xl">
-          {" "}
-          <p key={id} className="text-cente pt-3 pr-4">جمع مبلغ : {price}</p>
+          <p  className="text-cente pt-3 pr-4 font-extrabold text-xl">جمع مبلغ : {price}</p>
         </div>
         <div>
           <div className="flex items-center mt-4">
@@ -116,6 +112,6 @@ const ConfirmForm = ({id,imgUrl,price,FaName, purchesId , visible}:FormProps) =>
       </div>
     </div>
   )}
-};
+
 
 export default ConfirmForm;

@@ -35,14 +35,14 @@ const ImageSwapper = () => {
   return (
     <div  className="mt-4 h-[60%] "onMouseMove={mouseHnadler}  onMouseLeave={mouseLeave} >
       
-        {isShow?<GrPrevious  onClick={previousImage} type="button" className= "cursor-pointer text-white  transition delay-150 size-16 sm:size-8 absolute max-sm:left-0 top-[300px] left-[200px]" />:null}
-        { isShow?<GrNext onClick={nextImage} type="button" className="cursor-pointer text-white transition delay-150 size-16 sm:size-8 absolute top-[300px] max-sm:right-0  right-[200px]" />:null}  
+        {isShow?<GrPrevious  onClick={previousImage} type="button" className= "cursor-pointer text-white  transition delay-150 size-14 max-sm:size-8 absolute max-sm:left-0 top-[300px] left-[300px]" />:null}
+        { isShow?<GrNext onClick={nextImage} type="button" className="cursor-pointer text-white transition delay-150 size-14 max-sm:size-8 absolute top-[300px] max-sm:right-0  right-[300px]" />:null}  
       < Image
         
         className="rounded-xl	 m-auto w-[1240px] h-[500px] max-sm:w-full "
         src={images[currentImageIndex]} // Adjust the path here
         alt="Image"
-        width={0} // Set width and height as per your requirements
+        width={0} // Set width and height as
         height={0}
       />
             
