@@ -39,7 +39,7 @@ const ImageSwapper = () => {
         { isShow?<GrNext onClick={nextImage} type="button" className="cursor-pointer text-white transition delay-150 size-14 max-sm:size-8 absolute top-[300px] max-sm:right-0  right-[300px]" />:null}  
       < Image
         
-        className="rounded-xl	 m-auto w-[1240px] h-[500px] max-sm:w-full "
+        className="rounded-xl	 m-auto max-xl:w-[1640px] max-xl:h-[700px] w-[1240px] h-[500px] max-sm:w-full "
         src={images[currentImageIndex]} // Adjust the path here
         alt="Image"
         width={0} // Set width and height as

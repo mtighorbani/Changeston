@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <>
     
-    <div className="  flex justify-between max-sm:px-3 max-sm:py-2 max-sm:mt-3  sm:px-28 py-5 max-h-[100px] ">
+    <div className="  flex justify-between max-sm:px-3 max-sm:py-2 max-sm:mt-3  sm:px-28 py-5 sm:mx-24 md:mx-2 lg:mx-16 max-h-[100px] ">
       <div className="flex max-w-1/3">
       <BurgerMenu />
         <LogInButton />

@@ -42,13 +42,13 @@ const ProductsCard = () => {
 
   const PurchesStepBox = purchesStep.map((step) => (
     <div
-      onClick={ProductVisibleHandler}
+      onClick={ ProductVisibleHandler}
       className=" text-black  place-content-center sm:h-[100px] "
       key={step.id}
     >
       <div
         className={`sm:h-[40%]  shadow-3xl cursor-pointer ${id == step.id
-          ? "bg-gradient-to-r from-green-400 to-blue-500"
+          ? "bg-gradient-to-r from-[#C8338C] to-[#0A95E5]"
           : " bg-gray-600"
           } shadow-gray-50/50 w-[30%] sm:mt-3 max-sm:h-[70%]   text-center py-2  text-white m-auto  rounded-lg `}
       >
@@ -67,13 +67,11 @@ const ProductsCard = () => {
         {visible == false ? (
           
           <ProductList id={id} productId={productId} />
+          
         ) : visible == true ? (
           
       <div
-      className={`${id == 3
-        ? ""
-        : "max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[15%] max-sm:mt-16  mt-28 gap-4 "
-        } `}
+      className={"max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-16  mt-28 gap-4 "}
     >
           {listItem}
           </div>

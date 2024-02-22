@@ -14,14 +14,15 @@ const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
 
 
   return (
-    <div dir="rtl" className="flex   justify-between h-[60%] mt-20 w-full mb-80">
-      <div className="w-[35%] text-black  rounded-xl grid grid-cols-1 min-h-[400px] bg-[#EEEEEE] mt-4 max-h=[700px] mr-[14%]">
-        <form className="max-w-sm mr-3 mt-4">
+    <div dir="rtl" className="flex   justify-between h-[60%] mt-20 w-full mb-30">
+      <div className="w-[35%] text-black  rounded-xl grid grid-cols-1 min-h-[400px] dark:bg-black   bg-[#EEEEEE] mt-4 max-h=[700px] mr-[14%]">
+        <form className="max-w-sm mr-3 mt-4 ">
           <label
             typeof="email"
-            className="block  rtl:mr-0 mt-2 h-[10%] text-sm font-medium text-gray-900 dark:text-white"
+            className="block  dark:text-white  rtl:mr-0 mt-2 h-[10%] text-sm font-bold mb-1 text-gray-900 "
+            
           >
-            <p dir="rtl" className="text-right  dark:text-black">
+            <p dir="rtl" className="text-right  ">
               {" "}
               نام و نام خانوادگی
             </p>
@@ -29,15 +30,16 @@ const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
           <input
             type="name"
             id="name"
-            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            className="shadow-sm  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             placeholder=""
             required
           />
           <label
-            typeof="email"
-            className="block  rtl:mr-0 mt-2 h-[10%] text-sm font-medium text-gray-900 dark:text-white"
+          
+            typeof="number"
+            className="block dark:text-white  rtl:mr-0 mt-2 h-[10%] text-sm  font-bold mb-1 text-gray-900 "
           >
-            <p dir="rtl" className="text-right  dark:text-black">
+            <p dir="rtl" className="text-right ">
               {" "}
               شماره تماس
             </p>
@@ -52,9 +54,9 @@ const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
           />
           <label
             typeof="email"
-            className="block  rtl:mr-0 mt-2 h-[10%] text-sm font-medium text-gray-900 dark:text-white"
+            className="block  dark:text-white rtl:mr-0 mt-2 h-[10%] text-sm  font-bold mb-1 text-gray-900"
           >
-            <p dir="rtl" className="text-right  dark:text-black">
+            <p dir="rtl" className="text-right ">
               {" "}
               آدرس ایمیل
             </p>
@@ -68,23 +70,23 @@ const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
             required
           />
         </form>
-        <div className="w-full h-12 text-white pr-3 pt-[9px] rounded-lg font-bold   bg-[#3BA7F4] btn-primary">
+        <div className="w-full h-12 mt-5 text-white pr-3 pt-[9px] rounded-lg font-bold  bg-gradient-to-r from-[#C8338C] to-[#0A95E5] btn-primary">
           
           در هنگام ورود شماره همراه و ایمیل دقت کنید، اطلاعات خرید به آنها ارسال
           می شود.
         </div>
       </div>
-      <div key={purchesId}  className="w-[35%] rounded-xl  min-h-[300px] bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
-        <div  className="bg-[#F9FAFB] w-full h-32 mt-8 rounded-xl ">
+      <div key={purchesId}  className="w-[35%] rounded-xl  min-h-[300px] dark:bg-black bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
+        <div  className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
 
           <div key={purchesId} className="flex justify-between">
-            <Image src={imgUrl} alt={FaName} className="h-[80%] pr-4 w-[30%] rounded-sm pt-1 relative"/>
+            <Image src={imgUrl} alt={FaName} className="h-[80%] pr-4 w-[30%] rounded-sm pt-3 relative"/>
             <p className="font-extrabold text-xl m-auto">{FaName}</p>
 
           </div>
 
         </div>
-        <div className="bg-[#F9FAFB] w-full h-14 mt-5 rounded-xl">
+        <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-14 mt-5 rounded-xl">
           <p  className="text-cente pt-3 pr-4 font-extrabold text-xl">جمع مبلغ : {price}</p>
         </div>
         <div>
@@ -106,7 +108,7 @@ const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
             </label>
           </div>
         </div>
-        <div className="w-[20%] h-8 text-white pr-3 pt-[4px] mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-green-400 to-blue-500 ">
+        <div className="w-[20%] cursor-pointer h-8 text-white pr-3 pt-[4px] mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  ">
           تایید و پرداخت
         </div>
       </div>

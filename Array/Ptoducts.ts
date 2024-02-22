@@ -7,6 +7,25 @@ import pubg_prev_ui from "../asset/images/pubg_prev_ui.png";
 import giftCard from "../asset/images/giftcard.jpg";
 import Crypto from "../asset/images/cryptocurrency.jpg";
 
+const Products = [
+  {
+    id: 2,
+    FaName: "خرید کریپتو",
+    Photo: Crypto,
+    name: "Crypto",
+    basePrice: "20$",
+  },
+  {
+    id: 1,
+    FaName: "خرید انواع گیفت کارت",
+    Photo: giftCard,
+    name: "Gift Crads",
+    basePrice: "10$",
+  },
+];
+
+
+
 const moreDetails = [
   {
     id: 1,
@@ -178,21 +197,6 @@ const moreDetails = [
   },
 ];
 
-const Products = [
-  {
-    id: 2,
-    FaName: "خرید کریپتو",
-    Photo: Crypto,
-    name: "Crypto",
-    basePrice: "20$",
-  },
-  {
-    id: 1,
-    FaName: "خرید انواع گیفت کارت",
-    Photo: giftCard,
-    name: "Gift Crads",
-    basePrice: "10$",
-  },
-];
+
 
 export { Products, moreDetails };
