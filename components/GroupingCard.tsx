@@ -22,6 +22,11 @@ const ProductsCard = () => {
     isVisible(false);
   };
 
+  const idSetter = (id:number)=>{
+    setId(id)
+  }
+  
+
   const listItem = Products.map((item) => (
     <div onClick={setIdHandler}>
       <div
@@ -66,7 +71,7 @@ const ProductsCard = () => {
 
         {visible == false ? (
           
-          <ProductList id={id} productId={productId} />
+          <ProductList id={idSetter} productId={productId} />
           
         ) : visible == true ? (
           
