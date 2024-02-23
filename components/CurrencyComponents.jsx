@@ -44,25 +44,26 @@ const purchasePageHandler = ()=>{
     <form className="max-w-sm mx-auto mt-4">
       <label
         typeof="number-input"
-        className="block mb-2 text-sm  text-gray-900 dark:text-white font-bold"
-        
+        className="block mb-2 text-sm text-gray-900 dark:text-white font-bold"
+        required
       >
         مقدار ارز را وارد نمایید
       </label>
       <input
         value={amount}
         onChange={({target})=>setAmount(target?.value)}
-        
+        required
         type="number"
         id="number-input"
         aria-describedby="helper-text-explanation"
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="2"
-        required
+        
       />
     </form>
     <label
       typeof="email"
+      required
       className="block  dark:text-white rtl:mr-0 mt-2 h-[10%] text-sm  font-bold mb-1 text-gray-900"
     >
       <p dir="rtl" className="text-right ">
