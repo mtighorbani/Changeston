@@ -56,7 +56,7 @@ const ProductList = ({ productId,id }) => {
   return purchaseVisible ? (
     <div
       className={
-        "max-sm:grid-cols-1 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-20  mt-28 gap-4  "
+        "max-sm:grid-cols-1 grid grid-cols-4 justify-between place-content-center max-sm:mx-20 mx-[10%] max-sm:mt-20  mt-28 gap-4  "
       }
     >
 
