@@ -57,7 +57,7 @@ const ProductsCard = () => {
         className={`sm:h-[40%]  shadow-3xl cursor-pointer ${id == step.id
           ? "bg-gradient-to-r from-[#C8338C] to-[#0A95E5]"
           : " bg-gray-600"
-          } shadow-gray-50/50 w-[30%] sm:mt-3 max-sm:h-[70%]   text-center py-2  text-white m-auto  rounded-lg `}
+          } shadow-gray-50/50 w-[30%] sm:mt-3 max-sm:h-[60%]   text-center py-2  text-white m-auto  rounded-lg `}
       >
         {step.id}
       </div>
@@ -82,7 +82,7 @@ const ProductsCard = () => {
         visible == true ? (
           
       <div
-      className={"max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-16  mt-28 gap-4 "}
+      className={"max-sm:grid-cols-1  max-sm:grid  grid-cols-2 flex justify-center place-content-center mx-[10%] max-sm:mt-22  mt-28 gap-2 "}
     >
           {listItem}
           </div>

@@ -11,7 +11,7 @@ const BlurText = () => {
   return (
     <>
       {visible ? (
-        <div className=" max-sm:w-full bg-white bg-opacity-80  text-[#30508c]  max-sm:left-0 max-sm:bottom-5 max-sm:mt-20 max-sm:mb-0  max-sm:static rounded-2xl  w-[30%] h-[15%] pt-1 m-auto top-[20%] absolute left-[35%] p-5">
+        <div className=" max-sm:w-full bg-white bg-opacity-80  text-[#30508c]  max-sm:left-0 max-sm:bottom-[380px] max-sm:mb-[-70px] max-sm:relative rounded-2xl  w-[30%] h-[15%] pt-1 m-auto top-[20%] absolute left-[35%] p-5">
           <MdOutlineClose
             className="size-8 cursor-pointer"
             onClick={closeButtonHandler}
