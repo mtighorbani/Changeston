@@ -30,7 +30,7 @@ const ProductList = ({ productId,id }) => {
 
           <div onClick={ ()=>id(3) }>
             <div
-              className=" cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-xl max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
+              className=" max-sm:mt-2 cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-xl max-w-[360px] text-center justify-center  max-h-[400px] max-sm:mb-0 mb-10"
               key={item.id}
               onClick={purchesPageHandler}
             >
@@ -56,7 +56,7 @@ const ProductList = ({ productId,id }) => {
   return purchaseVisible ? (
     <div
       className={
-        "max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-16  mt-28 gap-4 "
+        "max-sm:grid-cols-1 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-20  mt-28 gap-4  "
       }
     >
 

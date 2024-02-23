@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./provider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,8 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" suppressHydrationWarning>
-   <body className={inter.className}>
+     <body className={inter.className}>
       <Providers>
+      <header><link rel="icon" href="/changeston-favicon-color.ico" sizes="any" /></header>
       <Navbar/>
         {children}
         <Footer/>

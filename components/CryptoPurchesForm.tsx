@@ -9,11 +9,13 @@ interface FormProps {
 }
 
 const CryptoPurchaseForm = ({crypto, amount,cardAddress }:FormProps) => {
-
+  const LogInErrHandler = ()=>{
+    alert('با عرض پوزش در حال حاضر امکان خرید و ساخت اکانت وجود ندارد')
+  }
 
   return (
-    <div dir="rtl" className="flex   justify-between h-[60%] mt-20 w-full mb-30">
-      <div className="w-[35%] text-black  rounded-xl grid grid-cols-1 min-h-[400px] dark:bg-black   bg-[#EEEEEE] mt-4 max-h=[700px] mr-[14%]">
+    <div dir="rtl" className="flex max-sm:grid max-sm:grid-cols-1   justify-between h-[60%] mt-20 w-full mb-30">
+      <div className="w-[35%] text-black max-sm:w-full max-sm:mr-0  rounded-xl grid grid-cols-1 min-h-[400px] dark:bg-black   bg-[#EEEEEE] mt-4 max-h=[700px] mr-[14%]">
         <form className="max-w-sm mr-3 mt-4 ">
           <label
             typeof="email"
@@ -68,13 +70,13 @@ const CryptoPurchaseForm = ({crypto, amount,cardAddress }:FormProps) => {
             required
           />
         </form>
-        <div className="w-full h-12 mt-5 text-white pr-3 pt-[9px] rounded-lg font-bold  bg-gradient-to-r from-[#C8338C] to-[#0A95E5] btn-primary">
+        <div className="w-full max-sm:h-16 h-12 mt-5 text-white pr-3 pt-[9px] rounded-lg font-bold  bg-gradient-to-r from-[#C8338C] to-[#0A95E5] btn-primary">
           
           در هنگام ورود شماره همراه و ایمیل دقت کنید، اطلاعات خرید به آنها ارسال
           می شود.
         </div>
       </div>
-      <div   className="w-[35%] rounded-xl  min-h-[300px] dark:bg-black bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
+      <div   className="w-[35%] max-sm:w-full max-sm:pb-8 rounded-xl  min-h-[300px] dark:bg-black bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
         <div  className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
 
           <div  className="flex justify-between  ">
@@ -106,7 +108,7 @@ const CryptoPurchaseForm = ({crypto, amount,cardAddress }:FormProps) => {
             </label>
           </div>
         </div>
-        <div className="w-[30%]  h-10 text-center pt-2 cursor-not-allowed text-white pr-3 mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  ">
+        <div onClick={LogInErrHandler} className="w-[30%]  h-10 text-center pt-2 cursor-not-allowed text-white pr-3 mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  ">
           تایید و پرداخت
         </div>
       </div>

@@ -21,10 +21,10 @@ const purchasePageHandler = ()=>{
     {!purchasePage?
     <div
       dir="rtl"
-      className=" m-auto w-[50%] rounded-lg h-[450px] dark:bg-black bg-[#EEEEEE] mt-24"
+      className=" m-auto w-[50%] max-sm:w-full rounded-lg h-[450px] dark:bg-black bg-[#EEEEEE] mt-24"
     >
       <h1 className=" font-bold text-2xl p-6">خرید ارز</h1>
-      <form dir="rtl" className="max-w-sm mr-8 mt-4">
+      <form dir="rtl" className="max-w-sm mr-8 max-sm:mr-3 mt-4">
     <label
       typeof="currency"
       className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
@@ -50,6 +50,7 @@ const purchasePageHandler = ()=>{
         مقدار ارز را وارد نمایید
       </label>
       <input
+      minLength={2}
         value={amount}
         onChange={({target})=>setAmount(target?.value)}
         required
@@ -79,6 +80,7 @@ const purchasePageHandler = ()=>{
       value={cardAddress}
       onChange={({target})=>setCardAddress(target?.value)}
       required
+      minLength={10}
     />
     <button
     onClick={purchasePageHandler}
@@ -93,6 +95,7 @@ const purchasePageHandler = ()=>{
   </form>
   
     </div>:
+    
     <CryptoPurchaseForm crypto={crypto} amount={amount} cardAddress={cardAddress}/>}
     </>
   );

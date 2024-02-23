@@ -33,7 +33,7 @@ const ProductsCard = () => {
     <div onClick={setIdHandler}>
       <div
         onClick={() => setProductId(item.id)}
-        className=" cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-md max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
+        className=" cursor-pointer hover:shadow-2xl mx-6 hover:shadow-cyan-500/50 rounded-md max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
         key={id}
       >
         <Image src={item.Photo} alt={item.name} width={300} height={30} className="w-[400px] h-[200px] rounded-lg" />

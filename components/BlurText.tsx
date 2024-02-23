@@ -19,7 +19,7 @@ const BlurText = () => {
           <p className="font text-center font-bold font-lg static">
            
             با پشتیبانی 24 ساعته ما از طریق لینک زیر در ارتباط باشید <br />
-            <a href="/">Telegram</a>
+            <a href="https://t.me/changeston_admin">Telegram</a>
           </p>
         </div>
       ) : null}
