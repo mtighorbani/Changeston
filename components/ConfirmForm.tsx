@@ -112,7 +112,7 @@ const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
             </label>
           </div>
         </div>
-        <div onClick={LogInErrHandler} className="w-[30%] text-center cursor-not-allowed h-10 text-white pr-3 pt-[7px] mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  ">
+        <div onClick={LogInErrHandler} className="w-[30%]  text-center cursor-not-allowed h-10 text-white pr-3 pt-[7px] mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  ">
           تایید و پرداخت
         </div>
       </div>

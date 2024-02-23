@@ -28,7 +28,7 @@ const ProductList = ({ productId,id }) => {
     if (productId == item.id) {
       return (
 
-          <div onClick={ ()=>id(3) }>
+          <div key={item.purchesId} onClick={ ()=>id(3) }>
             <div
               className=" max-sm:mt-2 cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-xl max-w-[360px] text-center justify-center  max-h-[400px] max-sm:mb-0 mb-10"
               key={item.id}

@@ -30,7 +30,7 @@ const ProductsCard = () => {
   
 
   const listItem = Products.map((item) => (
-    <div onClick={setIdHandler}>
+    <div key={item.id} onClick={setIdHandler}>
       <div
         onClick={() => setProductId(item.id)}
         className=" cursor-pointer hover:shadow-2xl mx-6 hover:shadow-cyan-500/50 rounded-md max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
