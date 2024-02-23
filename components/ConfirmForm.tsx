@@ -97,18 +97,18 @@ const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
               type="radio"
               name="ruls"
               value="confirm"
-              className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+              className="w-4 h-4 mr-3 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
               checked
             />
             <label
               typeof="country-option-1"
-              className="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300 "
+              className="block ms-2   text-sm font-medium text-gray-900 dark:text-gray-300 "
             >
               قوانین و ضوابط سایت را مطالعه کرده و می پذیرم. مشاهده قوانین و ضوابط
             </label>
           </div>
         </div>
-        <div className="w-[20%] cursor-pointer h-8 text-white pr-3 pt-[4px] mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  ">
+        <div className="w-[30%] text-center cursor-not-allowed h-10 text-white pr-3 pt-[7px] mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  ">
           تایید و پرداخت
         </div>
       </div>

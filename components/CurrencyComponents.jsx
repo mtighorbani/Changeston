@@ -11,14 +11,19 @@ const [cardAddress,setCardAddress]= useState('')
 const [purchasePage,setParchasePge] = useState(false)
 
 
+const purchasePageHandler = ()=>{
+  id(3)
+  setParchasePge(true)
+} 
+
   return (
     <>
     {!purchasePage?
     <div
       dir="rtl"
-      className=" m-auto w-[50%] rounded-lg h-[450px] bg-[#EEEEEE] mt-24"
+      className=" m-auto w-[50%] rounded-lg h-[450px] dark:bg-black bg-[#EEEEEE] mt-24"
     >
-      <h1 className=" font-bold text-2xl dark:text-black p-6">خرید ارز</h1>
+      <h1 className=" font-bold text-2xl p-6">خرید ارز</h1>
       <form dir="rtl" className="max-w-sm mr-8 mt-4">
     <label
       typeof="currency"
@@ -75,12 +80,12 @@ const [purchasePage,setParchasePge] = useState(false)
       required
     />
     <button
-    onClick={()=>setParchasePge(true)}
+    onClick={purchasePageHandler}
     
       typeof="submit"
       className="w-[40%] text-center cursor-pointer h-10  text-white pr-3 pt-[4px] mt-10   rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
     >
-      <div onClick={id(3)}>
+      <div >
       تایید اطلاعات
       </div>
     </button>

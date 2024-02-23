@@ -85,7 +85,7 @@ const CryptoPurchaseForm = ({crypto, amount,cardAddress }:FormProps) => {
 
         </div>
         <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-14 mt-5 rounded-xl">
-          <p  className="text-cente pt-3 pr-4 font-extrabold text-lg"> آدرس کیف پول : {cardAddress}</p>
+          <p  className="text-cente pt-4 pr-4 font-bold text-md"> آدرس کیف پول : {cardAddress}</p>
         </div>
         <div>
           <div className="flex items-center mt-4">
@@ -95,18 +95,18 @@ const CryptoPurchaseForm = ({crypto, amount,cardAddress }:FormProps) => {
               type="radio"
               name="ruls"
               value="confirm"
-              className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+              className="w-4 h-4 border-gray-300 mr-3 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
               checked
             />
             <label
               typeof="country-option-1"
-              className="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300 "
+              className="block ms-2   text-sm font-medium text-gray-900 dark:text-gray-300 "
             >
               قوانین و ضوابط سایت را مطالعه کرده و می پذیرم. مشاهده قوانین و ضوابط
             </label>
           </div>
         </div>
-        <div className="w-[20%] cursor-pointer h-8 text-white pr-3 pt-[4px] mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  ">
+        <div className="w-[30%]  h-10 text-center pt-2 cursor-not-allowed text-white pr-3 mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  ">
           تایید و پرداخت
         </div>
       </div>

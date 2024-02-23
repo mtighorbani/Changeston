@@ -2,6 +2,8 @@ import React from "react";
 import LogInButton from "./LogInButton";
 import ThemeSwitch from "./Theme";
 import BurgerMenu from "./BurgerMenu";
+import Image from "next/image";
+import Logo from "../asset/images/changeston-high-resolution-logo-transparent.png"
 
 
 const Navbar = () => {
@@ -18,7 +20,9 @@ const Navbar = () => {
         <span className="px-4 max-sm:hidden "><a href="/">درباره فروشگاه</a></span>
         <span className="px-4 max-sm:hidden"><a href="/">تماس با ما</a></span>
         <span className="px-4 max-sm:hidden "><a href="/">قوانین خرید</a></span>
-        <p className="px-4">Changeston</p>
+        <a href="/">
+          <Image src={Logo} alt="logo" className="px-4 w-36 cursor-pointer"></Image>
+        </a>
 
       </div>
     </div>
