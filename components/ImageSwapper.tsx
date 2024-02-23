@@ -2,9 +2,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import { GrPrevious, GrNext } from "react-icons/gr";
-import Header1 from "../asset/images/MainPageImage/Header1.jpg";
+import Header1 from "../asset/images/MainPageImage/header3.jpg";
 import Header2 from "../asset/images/MainPageImage/header2.jpg";
-import Header3 from "../asset/images/MainPageImage/header3.jpg";
+import Header3 from "../asset/images/MainPageImage/Header1.jpg";
 import Header4 from "../asset/images/MainPageImage/header4.jpg";
 
 

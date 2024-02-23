@@ -5,6 +5,8 @@ import Image from "next/image";
 import purchesStep from "@/Array/purchesStep";
 import ProductList from "./ProductsList";
 
+import CurrencyComponents from "./CurrencyComponents";
+
 const ProductsCard = () => {
   const [id, setId] = useState(1);
   const [visible, isVisible] = useState(true);
@@ -65,15 +67,19 @@ const ProductsCard = () => {
 
   return (
     <>
+    
       <div className="w-[40%]  max-sm:w-[100%] max-sm:h-[15%] sm:ml-[30%] mt-[-60px] grid   grid-cols-3 m-auto place-content-center  gap-3 absolute  ring-2 ring-[#5a8dee] rounded-2xl bg-white  ">
         {PurchesStepBox}
       </div>
 
-        {visible == false ? (
+        {visible == false && productId == 1 ? (
           
           <ProductList id={idSetter} productId={productId} />
           
-        ) : visible == true ? (
+        ) : productId == 2?
+        <CurrencyComponents id={idSetter}/>:
+        
+        visible == true ? (
           
       <div
       className={"max-sm:grid-cols-2 grid grid-cols-4 justify-between place-content-center mx-[10%] max-sm:mt-16  mt-28 gap-4 "}

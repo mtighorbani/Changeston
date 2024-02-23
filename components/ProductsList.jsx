@@ -20,6 +20,7 @@ const ProductList = ({ productId,id }) => {
       SetImgUrl(item.Photo)
       purchaseSetPrice(item.prrice)
       setFaName(item.FaName)     
+      SetPurchesId(item.purchesId)
        
       
     };
