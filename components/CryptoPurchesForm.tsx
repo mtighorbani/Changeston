@@ -4,11 +4,13 @@ import React from "react";
 
 interface FormProps {
   amount: string
-  crypto:string
+  Name:string
   cardAddress:string
+  AccountEmailAddress:string
+  
 }
 
-const CryptoPurchaseForm = ({crypto, amount,cardAddress }:FormProps) => {
+const CryptoPurchaseForm = ({Name, amount,cardAddress,AccountEmailAddress  }:FormProps) => {
   const LogInErrHandler = ()=>{
     alert('با عرض پوزش در حال حاضر امکان خرید و ساخت اکانت وجود ندارد')
   }
@@ -79,9 +81,10 @@ const CryptoPurchaseForm = ({crypto, amount,cardAddress }:FormProps) => {
       <div   className="w-[35%] max-sm:w-full max-sm:pb-8 rounded-xl  min-h-[300px] dark:bg-black bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
         <div  className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
 
-          <div  className="flex justify-between  ">
-            <p className="font-bold text-lg mt-12 mr-6">نوع ارز : ترون</p>
-            <p className="font-bold text-lg mt-12 m-auto">مقدار ارز : {amount}  </p>
+          <div  className="felx block  ">
+            <p className="font-bold text-lg pt-4 mr-6">نوع ارز : دلار</p>
+            <p className="font-bold text-lg pt-2 mr-6">نام: {Name}</p>
+            <p className="font-bold text-lg pt-2 mr-6">مقدار ارز : {amount}  </p>
 
           </div>
 

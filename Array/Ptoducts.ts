@@ -10,9 +10,9 @@ import Crypto from "../asset/images/cryptocurrency.jpg";
 const Products = [
   {
     id: 2,
-    FaName: "خرید کریپتو",
+    FaName: "شارژ پنل وایز",
     Photo: Crypto,
-    name: "Crypto",
+    name: "WISE",
     basePrice: "20$",
   },
   {

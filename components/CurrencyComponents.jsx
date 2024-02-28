@@ -8,6 +8,10 @@ const CurrencyComponents = ({id}) => {
 const [amount,setAmount]= useState('')
 const [crypto,setCrypto]= useState('')
 const [cardAddress,setCardAddress]= useState('')
+const [AccountEmailAddress,setAccountEmailAddress]= useState('')
+const [Name,setName]= useState('')
+
+
 const [purchasePage,setParchasePge] = useState(false)
 
 
@@ -21,7 +25,7 @@ const purchasePageHandler = ()=>{
     {!purchasePage?
     <div
       dir="rtl"
-      className=" m-auto w-[50%] max-sm:w-full rounded-lg h-[450px] dark:bg-black bg-[#EEEEEE] mt-24"
+      className=" m-auto w-[50%] max-sm:w-full rounded-lg h-[600px] dark:bg-black bg-[#EEEEEE] mt-24"
     >
       <h1 className=" font-bold text-2xl p-6">خرید ارز</h1>
       <form dir="rtl" className="max-w-sm mr-8 max-sm:mr-3 mt-4">
@@ -31,14 +35,15 @@ const purchasePageHandler = ()=>{
     >
       نوع ارز خود را انتخاب نمایید
     </label>
-    <select
-      value={crypto} 
+    <select 
       id="currency"
       onChange={(target)=>setCrypto(target.target)}
 
       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
     >
-      <option title="ترون"  selected>ترون</option>
+      <option title="ترون"  selected>دلار</option>
+      <option title="ترون"  selected>یورو</option>
+
     </select>
 
     <form className="max-w-sm mx-auto mt-4">
@@ -61,15 +66,35 @@ const purchasePageHandler = ()=>{
         placeholder="2"
         
       />
+            <label
+        typeof="name"
+        className="mt-2 block mb-2 text-sm text-gray-900 dark:text-white font-bold"
+        required
+      >
+        نام صاحب اکانت
+      </label>
+      <input
+      minLength={2}
+      dir="ltr"
+        value={Name}
+        onChange={({target})=>setName(target?.value)}
+        required
+        type="name"
+        id="number-input"
+        aria-describedby="helper-text-explanation"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Name of the account owner"
+        
+      />
     </form>
     <label
-      typeof="email"
+      typeof="string"
       required
       className="block  dark:text-white rtl:mr-0 mt-2 h-[10%] text-sm  font-bold mb-1 text-gray-900"
     >
       <p dir="rtl" className="text-right ">
-        آدرس کیف پول خود را وارد نمایید
-      </p>
+        شناسه   IBAN
+        </p>
     </label>
     <input
       type="address"
@@ -79,6 +104,26 @@ const purchasePageHandler = ()=>{
       placeholder=""
       value={cardAddress}
       onChange={({target})=>setCardAddress(target?.value)}
+      required
+      minLength={10}
+    />
+     <label
+      typeof="email"
+      required
+      className="block  dark:text-white rtl:mr-0 mt-2 h-[10%] text-sm  font-bold mb-1 text-gray-900"
+    >
+      <p dir="rtl" className="text-right ">
+        ایمیل اکانت
+        </p>
+    </label>
+    <input
+      type="address"
+      id="address"
+      dir="ltr"
+      className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+      placeholder="Account Email Address"
+      value={AccountEmailAddress}
+      onChange={({target})=>setAccountEmailAddress(target?.value)}
       required
       minLength={10}
     />
@@ -96,7 +141,7 @@ const purchasePageHandler = ()=>{
   
     </div>:
     
-    <CryptoPurchaseForm crypto={crypto} amount={amount} cardAddress={cardAddress}/>}
+    <CryptoPurchaseForm crypto={crypto} amount={amount} cardAddress={AccountEmailAddress} Name={Name}/>}
     </>
   );
 };
