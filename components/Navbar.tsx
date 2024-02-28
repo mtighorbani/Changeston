@@ -17,9 +17,8 @@ const Navbar = () => {
         <ThemeSwitch />
       </div>
       <div className="flex justify-between  font-bold max-sm:font-normal ">
-        <span className="px-4 max-sm:hidden pt-3 "><a href="/">درباره فروشگاه</a></span>
-        <span className="px-4 max-sm:hidden pt-3 "><a href="/">تماس با ما</a></span>
-        <span className="px-4 max-sm:hidden pt-3 "><a href="/ruls">قوانین خرید</a></span>
+        <span className="px-4 max-sm:hidden pt-3 "><a href="/contactus">تماس با ما</a></span>
+        <span className="px-4 max-sm:hidden pt-3 "><a href="/rules">قوانین خرید</a></span>
         <a href="/">
           <Image src={Logo} alt="logo" className="px-4 w-36 cursor-pointer pt-[-5px]"></Image>
         </a>

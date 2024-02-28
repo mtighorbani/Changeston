@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ProductsList.jsx", "components/CurrencyComponents.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ProductsList.jsx", "components/CurrencyComponents.jsx", "app/contactus"],
   "exclude": ["node_modules"]
 }
