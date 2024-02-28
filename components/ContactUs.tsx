@@ -45,14 +45,14 @@ const App: React.FC = () => (
     <Form.Item name={['user', 'name']} label="نام" rules={[{ required: true }]}>
       <Input />
     </Form.Item>
-    <Form.Item name={['user', 'email']} label="ایمیل" rules={[{ type: 'email', message: 'ادرس ایمیل وارد شده معتبر نمی باشد',required: true}]}>
+    <Form.Item name={['user', 'email']} label="ایمیل" rules={[{ type: 'email', message: 'ادرس ایمیل به صورت صحیح و ضروری باید وارد شود',required: true}]}>
       <Input />
     </Form.Item>
     <Form.Item
         name="phone"
         label="شماره تماس"
         
-        rules={[{ required: true, message: 'لطفا شماره تماس خود را به صورت صحبح وارد فرمایید',min:10 }]}
+        rules={[{ required: true, message: 'شماره تماس ضروری و می بایست 10 رقم باشد',min:10 }]}
       >
         <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
       </Form.Item>
