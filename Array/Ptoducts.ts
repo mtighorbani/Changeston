@@ -28,20 +28,7 @@ const Products = [
 
 const moreDetails = [
  
-  {
-    id: 1,
-    purchesId: 4,
-    FaName: "گیفت کارت 1.5 دلاری",
-    Photo: paypal_prev_ui,
-    prrice: "90,000 تومان  ",
-  },
-  {
-    id: 1,
-    purchesId: 5,
-    FaName: "گیفت کارت 2 دلاری",
-    Photo: paypal_prev_ui,
-    prrice: "40,000  تومان  ",
-  },
+
   {
     id: 1,
     purchesId: 6,
