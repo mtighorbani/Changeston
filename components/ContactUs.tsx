@@ -55,7 +55,7 @@ const App: React.FC = () => (
         
         rules={[{ required: true, message: 'شماره تماس ضروری و می بایست 10 رقم باشد',min:10 }]}
       >
-        <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+        <Input addonBefore={<span className=' dark:text-white'>+98</span>} style={{ width: '100%' }} />
       </Form.Item>
 
     <Form.Item name={['user', 'introduction']} label={<span className=' dark:text-white'>متن پیام</span>} rules={[{required:true}]}>
