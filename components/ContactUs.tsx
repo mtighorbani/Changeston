@@ -40,8 +40,8 @@ const App: React.FC = () => (
     name="nest-messages"
     onFinish={onFinish}
     style={{ maxWidth: 600, minWidth:500 }}
-    className=' dark:text-white'
     validateMessages={validateMessages}
+    className=' max-sm:max-w-28'
   >
     <Form.Item name={['user', 'name']} label={<span className=' dark:text-white'>نام</span>} rules={[{ required: true }]}>
       <Input />

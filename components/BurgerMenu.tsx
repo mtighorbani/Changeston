@@ -19,11 +19,11 @@ export default function BurgerMenu() {
     {isVisible? <GiHamburgerMenu onClick={visibleHandler} className="cursor-pointer size-8 mr-2 mt-1"/>:null}
     {!isVisible ?< MdOutlineClose onClick={closeVisibleHandler}  className="cursor-pointer size-8 mr-2 mt-1"/>:null}
    {!isVisible ? <div  className=" max-w-20">
-      <ul className="absolute ml-0 mt-4 bg-gray-300 m-2 px-4 ring-1 ring-black rounded-tr-lg rounded-br-lg rounded-bl-lg ">
+      <ul className=" absolute ml-2 mt-3 bg-white dark:bg-black m-2 px-4 ring-1 ring-black dark:ring-white: ">
         {itemMenu.map((item)=>
         <>
         <li className=" p-2 text-center  " key={item.id}><a href={item.href}>{item.name}</a></li>
-        <div className="h-[1px] w-full bg-black"></div>
+        <div className="h-[1px] w-full bg-black dark:bg-white"></div>
         </>
         )}
       </ul> 
