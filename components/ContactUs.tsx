@@ -58,7 +58,7 @@ const App: React.FC = () => (
         <Input addonBefore={<span className=' dark:text-white'>+98</span>} style={{ width: '100%' }} />
       </Form.Item>
 
-    <Form.Item name={['user', 'introduction']} label={<span className=' dark:text-white'>متن پیام</span>} rules={[{required:true}]}>
+    <Form.Item name={['user', 'introduction']} label={<span className=' dark:text-white'>متن پیام</span>} rules={[{required:true,message:'متن پیام می بایست مشخص شود'}]}>
       <Input.TextArea />
     </Form.Item>
     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
