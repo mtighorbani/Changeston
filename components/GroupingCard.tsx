@@ -76,7 +76,13 @@ const ProductsCard = () => {
           
           <ProductList id={idSetter} productId={productId} />
           
-        ) : productId == 2?
+        ):
+        visible == false && productId == 3 ? (
+          
+          <ProductList id={idSetter} productId={productId} />
+          
+        )
+         : productId == 2?
         <CurrencyComponents id={idSetter}/>:
         
         visible == true ? (

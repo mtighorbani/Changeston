@@ -39,7 +39,7 @@ const ProductList = ({ productId,id }) => {
                 alt={item.FaName}
                 width={0}
                 height={0}
-                className="min-w-300 min-h-40"
+                className="min-w-300 min-h-52 max-h-52 "
               />
               <p className="max-sm:font-normal font-extrabold font-lg mb-2 mt-2 ">
                 {item.FaName}

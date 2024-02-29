@@ -1,6 +1,7 @@
 'use client'
 import React from 'react';
 import { Button, Form, Input, InputNumber, Select } from 'antd';
+import { Span } from 'next/dist/trace';
 
 const layout = {
   labelCol: { span: 8 },
@@ -8,8 +9,8 @@ const layout = {
 };
 const prefixSelector = (
     <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
-        <option value="98">+98  </option>
+      <Select  style={{ width: 70 }}>
+        <option  value="98">+<span className=' dark:text-white dark:bg-black'>98</span>  </option>
       </Select>
     </Form.Item>
   );
@@ -42,22 +43,22 @@ const App: React.FC = () => (
     className=' dark:text-white'
     validateMessages={validateMessages}
   >
-    <Form.Item name={['user', 'name']} label="نام" rules={[{ required: true }]}>
+    <Form.Item name={['user', 'name']} label={<span className=' dark:text-white'>نام</span>} rules={[{ required: true }]}>
       <Input />
     </Form.Item>
-    <Form.Item name={['user', 'email']} label="ایمیل" rules={[{ type: 'email', message: 'ادرس ایمیل به صورت صحیح و ضروری باید وارد شود',required: true}]}>
+    <Form.Item name={['user', 'email']} label={<span className=' dark:text-white'>ایمیل</span>} rules={[{ type: 'email', message: 'ادرس ایمیل به صورت صحیح و ضروری باید وارد شود',required: true}]}>
       <Input />
     </Form.Item>
     <Form.Item
         name="phone"
-        label="شماره تماس"
+        label={<span className=' dark:text-white'>شماره تماس</span>}
         
         rules={[{ required: true, message: 'شماره تماس ضروری و می بایست 10 رقم باشد',min:10 }]}
       >
         <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
       </Form.Item>
 
-    <Form.Item name={['user', 'introduction']} label="متن پیام" rules={[{required:true}]}>
+    <Form.Item name={['user', 'introduction']} label={<span className=' dark:text-white'>متن پیام</span>} rules={[{required:true}]}>
       <Input.TextArea />
     </Form.Item>
     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
