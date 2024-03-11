@@ -3,9 +3,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { Button, Form, Input, notification } from "antd";
 import axios from "axios";
-import { getOtpCodeUrl } from "@/global/urls";
+import { checkOtpCodeUrl, getOtpCodeUrl } from "@/global/urls";
 import { customNotification } from "./CustomNotification";
-import { GetOtpCodeCommand } from "@/models/models";
+import { CheckOtpCodeCommand, GetOtpCodeCommand } from "@/models/models";
 
 const layout = {
   labelCol: { span: 8 },
@@ -17,7 +17,7 @@ const LoginForm = () => {
   const [api, contextHolder] = notification.useNotification();
 
   // ** API Calls
-  const { mutate: mutateProductEdit, isPending: pendingProductEdit } =
+  const { mutate: mutateGetOtpCode, isPending: pendingGetOtpCode } =
     useMutation({
       mutationFn: async (data: GetOtpCodeCommand) =>
         (
@@ -44,10 +44,37 @@ const LoginForm = () => {
       },
     });
 
+    const { mutate: mutateCheckOtpCode, isPending: pendingCheckOtpCode } =
+    useMutation({
+      mutationFn: async (data: CheckOtpCodeCommand) =>
+        (
+          await axios.post(checkOtpCodeUrl, data, {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              Origin: "https://changeston.com/",
+            },
+          })
+        ).data,
+      onSuccess: () => {
+        customNotification({
+          api: api,
+          type: "success",
+          message: "خوش آمدید",
+        });
+      },
+      onError: () => {
+        customNotification({
+          api: api,
+          type: "error",
+          message: "متاسفانه دریافت اطلاعات کاربر با خطا مواجه شد!",
+        });
+      },
+    });
+
   // ** Handlers
   const onSubmitHandler = (data: GetOtpCodeCommand) => {
     console.log(data);
-    mutateProductEdit(data);
+    mutateGetOtpCode(data);
   };
 
   /* // ** RegExp
@@ -85,7 +112,7 @@ const LoginForm = () => {
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button
-            loading={pendingProductEdit}
+            loading={pendingGetOtpCode}
             className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
             htmlType="submit"
           >
