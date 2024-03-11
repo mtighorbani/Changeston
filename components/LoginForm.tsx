@@ -5,15 +5,12 @@ import { Button, Form, Input, notification } from "antd";
 import axios from "axios";
 import { getOtpCodeUrl } from "@/global/urls";
 import { customNotification } from "./CustomNotification";
+import { GetOtpCodeCommand } from "@/models/models";
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
-
-interface GetOtpCommand {
-  phone_number: string;
-}
 
 const LoginForm = () => {
   // ** Notification
@@ -22,7 +19,7 @@ const LoginForm = () => {
   // ** API Calls
   const { mutate: mutateProductEdit, isPending: pendingProductEdit } =
     useMutation({
-      mutationFn: async (data: GetOtpCommand) =>
+      mutationFn: async (data: GetOtpCodeCommand) =>
         (
           await axios.post(getOtpCodeUrl, data, {
             headers: {
@@ -37,7 +34,6 @@ const LoginForm = () => {
           type: "success",
           message: "رمز عبور موقت برای شما ارسال شد",
         });
-        // alert("رمز عبور موقت برای شما ارسال شد"); // or any alert
       },
       onError: () => {
         customNotification({
@@ -45,13 +41,11 @@ const LoginForm = () => {
           type: "error",
           message: "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد!",
         });
-
-        // alert("متاسفانه ارسال رمز عبور موقت با خطا مواجه شد!");
       },
     });
 
   // ** Handlers
-  const onSubmitHandler = (data: GetOtpCommand) => {
+  const onSubmitHandler = (data: GetOtpCodeCommand) => {
     console.log(data);
     mutateProductEdit(data);
   };
