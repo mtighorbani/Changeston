@@ -17,7 +17,7 @@ const Login = () => {
         className=" mx-auto justify-center flex text-2xl mb-24 mt-4"
         dir="rtl"
       >
-      <div className="max-sm:ml-0 max-sm:mb-16 mr-20">{<LoginForm />}</div>
+        <div className="max-sm:ml-0 max-sm:mb-16 ">{<LoginForm />}</div>
       </div>
     </div>
   );

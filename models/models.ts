@@ -4,10 +4,9 @@ interface error {
   message: string | undefined;
 }
 
-export interface ResponseData<T> {
+export interface ResponseData {
   success?: boolean | undefined;
   error?: error | undefined;
-  data?: T;
 }
 
 // ** get otp code

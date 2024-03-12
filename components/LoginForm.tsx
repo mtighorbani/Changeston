@@ -5,7 +5,11 @@ import { Button, Form, Input, notification } from "antd";
 import axios from "axios";
 import { checkOtpCodeUrl, getOtpCodeUrl } from "@/global/urls";
 import { customNotification } from "./CustomNotification";
-import { CheckOtpCodeCommand, GetOtpCodeCommand } from "@/models/models";
+import {
+  CheckOtpCodeCommand,
+  GetOtpCodeCommand,
+  ResponseData,
+} from "@/models/models";
 
 const layout = {
   labelCol: { span: 8 },
@@ -21,30 +25,50 @@ const LoginForm = () => {
     useMutation({
       mutationFn: async (data: GetOtpCodeCommand) =>
         (
-          await axios.post(getOtpCodeUrl, data)
+          await axios.post(getOtpCodeUrl, data, {
+            headers: {
+              "Cache-Control": "no-cache",
+              "Postman-Token": "<calculated when request is sent>",
+              "Content-Type": "application/json",
+              "Content-Length": "<calculated when request is sent>",
+              Host: "<calculated when request is sent>",
+              "User-Agent": "PostmanRuntime/7.36.3",
+              Accept: "*/*",
+              "Accept-Encoding": "gzip, deflate, br",
+              Connection: "keep-alive",
+            },
+          })
         ).data,
-      onSuccess: () => {
-        customNotification({
-          api: api,
-          type: "success",
-          message: "رمز عبور موقت برای شما ارسال شد",
-        });
+      onSuccess: (res: ResponseData) => {
+        if (res.success) {
+          customNotification({
+            api: api,
+            type: "success",
+            message: "رمز عبور موقت برای شما ارسال شد",
+          });
+        } else {
+          customNotification({
+            api: api,
+            type: "error",
+            message:
+              "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+          });
+        }
       },
       onError: () => {
         customNotification({
           api: api,
           type: "error",
-          message: "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد!",
+          message:
+            "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
         });
       },
     });
 
-    const { mutate: mutateCheckOtpCode, isPending: pendingCheckOtpCode } =
+  const { mutate: mutateCheckOtpCode, isPending: pendingCheckOtpCode } =
     useMutation({
       mutationFn: async (data: CheckOtpCodeCommand) =>
-        (
-          await axios.post(checkOtpCodeUrl, data)
-        ).data,
+        (await axios.post(checkOtpCodeUrl, data)).data,
       onSuccess: () => {
         customNotification({
           api: api,
@@ -80,35 +104,34 @@ const LoginForm = () => {
         onFinish={onSubmitHandler}
         style={{ maxWidth: 600, minWidth: 500 }}
         // validateMessages={validateMessages}
-        className=" max-sm:max-w-28"
+        className=" max-sm:max-w-28 ml-28"
       >
-        <Form.Item
-          name="phone_number"
-          label={<span className="dark:text-white">شماره موبایل</span>}
-          rules={[
-            {
-              required: true,
-              message: "شماره تماس ضروری و می بایست 10 رقم باشد",
-              min: 10,
-              // pattern: phoneRegExp
-            },
-          ]}
-        >
-          <Input
-            addonBefore={<span className="dark:text-white">+98</span>}
-            style={{ width: "100%" }}
-          />
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <Button
-            loading={pendingGetOtpCode}
-            className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
-            htmlType="submit"
+        <div>
+          <Form.Item
+            name="phone_number"
+            label={<span className="dark:text-white">شماره موبایل</span>}
+            rules={[
+              {
+                required: true,
+                message: "شماره تماس ضروری و می بایست 10 رقم باشد",
+                min: 10,
+                // pattern: phoneRegExp
+              },
+            ]}
           >
-            ورود
-          </Button>
-        </Form.Item>
+            <Input  addonBefore={<span className="dark:text-white">+98</span>} />
+          </Form.Item>
+
+          <Form.Item label={<span className="dark:text-white"></span>}>
+            <Button
+              loading={pendingGetOtpCode}
+              className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+              htmlType="submit"
+            >
+              ورود
+            </Button>
+          </Form.Item>
+        </div>
 
         {/* <Button
         type="text"
