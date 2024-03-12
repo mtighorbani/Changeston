@@ -21,12 +21,7 @@ const LoginForm = () => {
     useMutation({
       mutationFn: async (data: GetOtpCodeCommand) =>
         (
-          await axios.post(getOtpCodeUrl, data, {
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              Origin: "https://changeston.com/",
-            },
-          })
+          await axios.post(getOtpCodeUrl, data)
         ).data,
       onSuccess: () => {
         customNotification({
@@ -48,12 +43,7 @@ const LoginForm = () => {
     useMutation({
       mutationFn: async (data: CheckOtpCodeCommand) =>
         (
-          await axios.post(checkOtpCodeUrl, data, {
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              Origin: "https://changeston.com/",
-            },
-          })
+          await axios.post(checkOtpCodeUrl, data)
         ).data,
       onSuccess: () => {
         customNotification({
