@@ -10,6 +10,8 @@ import {
   GetOtpCodeCommand,
   ResponseData,
 } from "@/models/models";
+import Countdown from "antd/es/statistic/Countdown";
+import { useState } from "react";
 
 const layout = {
   labelCol: { span: 8 },
@@ -19,6 +21,8 @@ const layout = {
 const LoginForm = () => {
   // ** Notification
   const [api, contextHolder] = notification.useNotification();
+  // ** Count Down
+  const [waitForNewRequest, setWaitForNewRequest] = useState<number>(10);
 
   // ** API Calls
   const { mutate: mutateGetOtpCode, isPending: pendingGetOtpCode } =
@@ -56,6 +60,9 @@ const LoginForm = () => {
         }
       },
       onError: () => {
+        //TODO: Remove below line
+        // setWaitForNewRequest(10);
+
         customNotification({
           api: api,
           type: "error",
@@ -119,7 +126,7 @@ const LoginForm = () => {
               },
             ]}
           >
-            <Input  addonBefore={<span className="dark:text-white">+98</span>} />
+            <Input addonBefore={<span className="dark:text-white">+98</span>} />
           </Form.Item>
 
           <Form.Item label={<span className="dark:text-white"></span>}>
@@ -127,10 +134,18 @@ const LoginForm = () => {
               loading={pendingGetOtpCode}
               className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
               htmlType="submit"
+              // disabled={waitForNewRequest > 0}
             >
               ورود
             </Button>
           </Form.Item>
+          {/* {(Date.now() + waitForNewRequest * 1000) > 0 ??(
+            <Countdown
+              className="text-white"
+              value={Date.now() + waitForNewRequest * 1000}
+              format="ss"
+            />
+          )} */}
         </div>
 
         {/* <Button
