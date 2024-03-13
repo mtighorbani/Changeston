@@ -7,11 +7,13 @@ import { checkOtpCodeUrl, getOtpCodeUrl } from "@/global/urls";
 import { customNotification } from "./CustomNotification";
 import {
   CheckOtpCodeCommand,
+  CheckOtpCodeResponse,
   GetOtpCodeCommand,
-  ResponseData,
+  GetOtpCodeResponse,
 } from "@/models/models";
 import { CountdownProps } from "antd/es/statistic/Countdown";
 import { useEffect, useState } from "react";
+import { useUserContext } from "@/context/UserContext";
 
 const layout = {
   labelCol: { span: 8 },
@@ -19,6 +21,9 @@ const layout = {
 };
 
 const LoginForm = () => {
+  // ** Context
+  const userContext = useUserContext();
+
   // ** Notification
   const [api, contextHolder] = notification.useNotification();
 
@@ -36,15 +41,17 @@ const LoginForm = () => {
     useMutation({
       mutationFn: async (data: GetOtpCodeCommand) =>
         (await axios.post(getOtpCodeUrl, data)).data,
-      onSuccess: (res: ResponseData) => {
+      onSuccess: (res: GetOtpCodeResponse) => {
         if (res.success) {
           customNotification({
             api: api,
             type: "success",
             message: "رمز عبور موقت برای شما ارسال شد",
           });
+
+          //TODO: remove below mutate
           mutateCheckOtpCode({
-            phone_number: "09125806954",
+            phone_number: "09106738968",
             password: "12345",
           });
         } else {
@@ -80,13 +87,16 @@ const LoginForm = () => {
     useMutation({
       mutationFn: async (data: CheckOtpCodeCommand) =>
         (await axios.post(checkOtpCodeUrl, data)).data,
-      onSuccess: (res: ResponseData) => {
+      onSuccess: (res: CheckOtpCodeResponse) => {
         if (res.success) {
           customNotification({
             api: api,
             type: "success",
             message: "خوش آمدید",
           });
+
+          //TODO: set OTP Context
+          userContext?.setToken(res.access);
         } else {
           customNotification({
             api: api,
@@ -138,7 +148,10 @@ const LoginForm = () => {
               },
             ]}
           >
-            <Input addonBefore={<span className="dark:text-white">+98</span>} />
+            <Input
+              addonBefore={<span className="dark:text-white">+98</span>}
+              defaultValue={"09106738968"}
+            />
           </Form.Item>
 
           <Form.Item label={<span></span>}>
@@ -156,13 +169,20 @@ const LoginForm = () => {
             </Button>
           </Form.Item>
         </div>
+        {/*  {userContext?.token}
 
-        {/* <Button
-        type="text"
-        className="w-[100%]   text-center text-white pr-3  rounded-lg font-bold  "
-      >
-        ثبت نام
-      </Button> */}
+        <Button
+          className="w-[100%]   text-center pr-3  rounded-lg font-bold  "
+          onClick={() => userContext?.setToken("sifsfbsfbifb")}
+        >
+          set
+        </Button>
+        <Button
+          className="w-[100%]   text-center pr-3  rounded-lg font-bold  "
+          onClick={() => console.log(userContext?.token)}
+        >
+          check
+        </Button> */}
       </Form>
     </>
   );
