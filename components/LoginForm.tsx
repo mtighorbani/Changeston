@@ -1,15 +1,16 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button, Form, Input, notification } from "antd";
 import axios from "axios";
-import { checkOtpCodeUrl, getOtpCodeUrl } from "@/global/urls";
+import { checkOtpCodeUrl, getOtpCodeUrl, userDetailsUrl } from "@/global/urls";
 import { customNotification } from "./CustomNotification";
 import {
   CheckOtpCodeCommand,
   CheckOtpCodeResponse,
   GetOtpCodeCommand,
   GetOtpCodeResponse,
+  UserDetailResponse,
 } from "@/models/models";
 import { CountdownProps } from "antd/es/statistic/Countdown";
 import { useEffect, useState } from "react";
@@ -37,6 +38,7 @@ const LoginForm = () => {
   }, [counter]);
 
   // ** API Calls
+  // get otp code
   const { mutate: mutateGetOtpCode, isPending: pendingGetOtpCode } =
     useMutation({
       mutationFn: async (data: GetOtpCodeCommand) =>
@@ -83,18 +85,13 @@ const LoginForm = () => {
       },
     });
 
+  // check otp code
   const { mutate: mutateCheckOtpCode, isPending: pendingCheckOtpCode } =
     useMutation({
       mutationFn: async (data: CheckOtpCodeCommand) =>
         (await axios.post(checkOtpCodeUrl, data)).data,
       onSuccess: (res: CheckOtpCodeResponse) => {
         if (res.success) {
-          customNotification({
-            api: api,
-            type: "success",
-            message: "خوش آمدید",
-          });
-
           //TODO: set OTP Context
           userContext?.setToken(res.access);
         } else {
@@ -113,6 +110,40 @@ const LoginForm = () => {
         });
       },
     });
+
+  //user detail
+  const {
+    data: userDetail,
+    isFetching: isFetchingUserDetail,
+    refetch: refetchUserDetail,
+  } = useQuery<UserDetailResponse>({
+    queryFn: async () =>
+      (
+        await axios.get(userDetailsUrl, {
+          headers: { Authorization: `Bearer ${userContext?.token}` },
+        })
+      ).data,
+    queryKey: ["userDetail"],
+    enabled: false,
+  });
+
+  useEffect(() => {
+    if (userContext?.token) {
+      refetchUserDetail();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userContext?.token]);
+
+  useEffect(() => {
+    if (userDetail?.success) {
+      customNotification({
+        api: api,
+        type: "success",
+        message: `عزیز خوش آمدید ${userDetail.full_name}`,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userDetail]);
 
   // ** Handlers
   const onSubmitHandler = (data: GetOtpCodeCommand) => {
