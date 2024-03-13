@@ -10,8 +10,8 @@ import {
   GetOtpCodeCommand,
   ResponseData,
 } from "@/models/models";
-import Countdown from "antd/es/statistic/Countdown";
-import { useState } from "react";
+import { CountdownProps } from "antd/es/statistic/Countdown";
+import { useEffect, useState } from "react";
 
 const layout = {
   labelCol: { span: 8 },
@@ -21,28 +21,21 @@ const layout = {
 const LoginForm = () => {
   // ** Notification
   const [api, contextHolder] = notification.useNotification();
+
   // ** Count Down
-  const [waitForNewRequest, setWaitForNewRequest] = useState<number>(10);
+  const [counter, setCounter] = useState<number>(0);
+
+  useEffect(() => {
+    const timer =
+      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(Number(timer));
+  }, [counter]);
 
   // ** API Calls
   const { mutate: mutateGetOtpCode, isPending: pendingGetOtpCode } =
     useMutation({
       mutationFn: async (data: GetOtpCodeCommand) =>
-        (
-          await axios.post(getOtpCodeUrl, data, {
-            headers: {
-              "Cache-Control": "no-cache",
-              "Postman-Token": "<calculated when request is sent>",
-              "Content-Type": "application/json",
-              "Content-Length": "<calculated when request is sent>",
-              Host: "<calculated when request is sent>",
-              "User-Agent": "PostmanRuntime/7.36.3",
-              Accept: "*/*",
-              "Accept-Encoding": "gzip, deflate, br",
-              Connection: "keep-alive",
-            },
-          })
-        ).data,
+        (await axios.post(getOtpCodeUrl, data)).data,
       onSuccess: (res: ResponseData) => {
         if (res.success) {
           customNotification({
@@ -50,19 +43,30 @@ const LoginForm = () => {
             type: "success",
             message: "رمز عبور موقت برای شما ارسال شد",
           });
-        } else {
-          customNotification({
-            api: api,
-            type: "error",
-            message:
-              "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+          mutateCheckOtpCode({
+            phone_number: "09125806954",
+            password: "12345",
           });
+        } else {
+          if (res.error?.code === 4) {
+            customNotification({
+              api: api,
+              type: "error",
+              message:
+                "رمز عبور برای شما ارسال شده است، برای ارسال مجدد لطفا صبر کنید",
+            });
+            setCounter(res.error.wait_for || 0);
+          } else {
+            customNotification({
+              api: api,
+              type: "error",
+              message:
+                "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+            });
+          }
         }
       },
       onError: () => {
-        //TODO: Remove below line
-        // setWaitForNewRequest(10);
-
         customNotification({
           api: api,
           type: "error",
@@ -76,12 +80,20 @@ const LoginForm = () => {
     useMutation({
       mutationFn: async (data: CheckOtpCodeCommand) =>
         (await axios.post(checkOtpCodeUrl, data)).data,
-      onSuccess: () => {
-        customNotification({
-          api: api,
-          type: "success",
-          message: "خوش آمدید",
-        });
+      onSuccess: (res: ResponseData) => {
+        if (res.success) {
+          customNotification({
+            api: api,
+            type: "success",
+            message: "خوش آمدید",
+          });
+        } else {
+          customNotification({
+            api: api,
+            type: "error",
+            message: "متاسفانه دریافت اطلاعات کاربر با خطا مواجه شد!",
+          });
+        }
       },
       onError: () => {
         customNotification({
@@ -129,23 +141,20 @@ const LoginForm = () => {
             <Input addonBefore={<span className="dark:text-white">+98</span>} />
           </Form.Item>
 
-          <Form.Item label={<span className="dark:text-white"></span>}>
+          <Form.Item label={<span></span>}>
             <Button
               loading={pendingGetOtpCode}
               className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
               htmlType="submit"
-              // disabled={waitForNewRequest > 0}
+              disabled={counter > 0}
             >
-              ورود
+              {counter > 0 ? (
+                <span>لطفا صبر کنید {counter}</span>
+              ) : (
+                <span>ورود</span>
+              )}
             </Button>
           </Form.Item>
-          {/* {(Date.now() + waitForNewRequest * 1000) > 0 ??(
-            <Countdown
-              className="text-white"
-              value={Date.now() + waitForNewRequest * 1000}
-              format="ss"
-            />
-          )} */}
         </div>
 
         {/* <Button

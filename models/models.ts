@@ -2,6 +2,7 @@
 interface error {
   code: number | undefined;
   message: string | undefined;
+  wait_for?: number | undefined
 }
 
 export interface ResponseData {

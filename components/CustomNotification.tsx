@@ -11,7 +11,7 @@ export const customNotification = (props: NotificationProps) => {
   props.api[props.type]({
     message: props.message,
     description: props.description,
-    duration: 2,
+    duration: 3,
     placement: "topLeft",
   });
 };
