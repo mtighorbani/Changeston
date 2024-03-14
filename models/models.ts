@@ -30,9 +30,9 @@ export interface CheckOtpCodeResponse {
 
 // ** user detail
 export interface UserDetailResponse {
-  phone_number: GetOtpCodeCommand["phone_number"];
-  full_name: string;
-  month_limit: number;
+  phone_number: GetOtpCodeCommand["phone_number"] | undefined;
+  full_name: string | undefined;
+  month_limit: number | undefined;
   success?: boolean;
   detail?: string;
   code?: string;

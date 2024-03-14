@@ -14,6 +14,7 @@ import {
 } from "@/models/models";
 import { CountdownProps } from "antd/es/statistic/Countdown";
 import { useEffect, useState } from "react";
+import { useTokenContext } from "@/context/TokenContext";
 import { useUserContext } from "@/context/UserContext";
 
 const layout = {
@@ -23,7 +24,9 @@ const layout = {
 
 const LoginForm = () => {
   // ** Context
+  const tokenContext = useTokenContext();
   const userContext = useUserContext();
+
 
   // ** Notification
   const [api, contextHolder] = notification.useNotification();
@@ -93,7 +96,7 @@ const LoginForm = () => {
       onSuccess: (res: CheckOtpCodeResponse) => {
         if (res.success) {
           //TODO: set OTP Context
-          userContext?.setToken(res.access);
+          tokenContext?.setToken(res.access);
         } else {
           customNotification({
             api: api,
@@ -120,7 +123,7 @@ const LoginForm = () => {
     queryFn: async () =>
       (
         await axios.get(userDetailsUrl, {
-          headers: { Authorization: `Bearer ${userContext?.token}` },
+          headers: { Authorization: `Bearer ${tokenContext?.token}` },
         })
       ).data,
     queryKey: ["userDetail"],
@@ -128,11 +131,11 @@ const LoginForm = () => {
   });
 
   useEffect(() => {
-    if (userContext?.token) {
+    if (tokenContext?.token) {
       refetchUserDetail();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userContext?.token]);
+  }, [tokenContext?.token]);
 
   useEffect(() => {
     if (userDetail?.success) {
@@ -200,17 +203,17 @@ const LoginForm = () => {
             </Button>
           </Form.Item>
         </div>
-        {/*  {userContext?.token}
+        {/*  {userContext?.userDetail?.phone_number}
 
         <Button
           className="w-[100%]   text-center pr-3  rounded-lg font-bold  "
-          onClick={() => userContext?.setToken("sifsfbsfbifb")}
+          onClick={() => userContext?.setUserDetail({full_name: 'aloo',phone_number:'1461264514',month_limit: 4})}
         >
           set
         </Button>
         <Button
           className="w-[100%]   text-center pr-3  rounded-lg font-bold  "
-          onClick={() => console.log(userContext?.token)}
+          onClick={() => console.log(userContext?.userDetail?.phone_number)}
         >
           check
         </Button> */}
