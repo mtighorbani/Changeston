@@ -16,6 +16,8 @@ import { CountdownProps } from "antd/es/statistic/Countdown";
 import { useEffect, useState } from "react";
 import { useTokenContext } from "@/context/TokenContext";
 import { useUserContext } from "@/context/UserContext";
+import { InputOTP } from "antd-input-otp";
+import { useRouter } from "next/navigation";
 
 const layout = {
   labelCol: { span: 8 },
@@ -25,8 +27,12 @@ const layout = {
 const LoginForm = () => {
   // ** Context
   const tokenContext = useTokenContext();
-  const userContext = useUserContext();
 
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+
+  const [firstLoginStep, setFirstLoginStep] = useState<boolean>(true);
+
+  // const router = useRouter();
 
   // ** Notification
   const [api, contextHolder] = notification.useNotification();
@@ -53,12 +59,7 @@ const LoginForm = () => {
             type: "success",
             message: "رمز عبور موقت برای شما ارسال شد",
           });
-
-          //TODO: remove below mutate
-          mutateCheckOtpCode({
-            phone_number: "09106738968",
-            password: "12345",
-          });
+          setFirstLoginStep(false);
         } else {
           if (res.error?.code === 4) {
             customNotification({
@@ -95,8 +96,8 @@ const LoginForm = () => {
         (await axios.post(checkOtpCodeUrl, data)).data,
       onSuccess: (res: CheckOtpCodeResponse) => {
         if (res.success) {
-          //TODO: set OTP Context
           tokenContext?.setToken(res.access);
+          // router.replace('/')
         } else {
           customNotification({
             api: api,
@@ -149,9 +150,26 @@ const LoginForm = () => {
   }, [userDetail]);
 
   // ** Handlers
-  const onSubmitHandler = (data: GetOtpCodeCommand) => {
-    console.log(data);
+  const onGetOtpHandler = (data: GetOtpCodeCommand) => {
+    setPhoneNumber(data.phone_number);
     mutateGetOtpCode(data);
+  };
+
+  const onSubmitOtpHandler = (data: any) => {
+    console.log(data.password);
+    let tempOtp = "";
+    //TODO: FIX this
+    tempOtp =
+      data.password[0] +
+      data.password[1] +
+      data.password[2] +
+      data.password[3] +
+      data.password[4];
+    console.log(tempOtp);
+    mutateCheckOtpCode({
+      phone_number: phoneNumber,
+      password: tempOtp,
+    });
   };
 
   /* // ** RegExp
@@ -160,49 +178,63 @@ const LoginForm = () => {
   return (
     <>
       {contextHolder}
+      <Button
+        style={{
+          display: `${firstLoginStep ? "none" : "block"}`,
+        }}
+        type="link"
+        onClick={() => {
+          setFirstLoginStep(true);
+        }}
+      >
+        تغییر شماره تلفن
+      </Button>
+
       <Form
-        dir="rtl"
+        dir="ltr"
         {...layout}
         name="login-data"
-        onFinish={onSubmitHandler}
-        style={{ maxWidth: 600, minWidth: 500 }}
+        onFinish={onGetOtpHandler}
+        style={{
+          maxWidth: 600,
+          minWidth: 500,
+          display: `${!firstLoginStep ? "none" : "block"}`,
+        }}
         // validateMessages={validateMessages}
-        className=" max-sm:max-w-28 ml-28"
+        className=" max-sm:max-w-28 "
       >
-        <div>
-          <Form.Item
-            name="phone_number"
-            label={<span className="dark:text-white">شماره موبایل</span>}
-            rules={[
-              {
-                required: true,
-                message: "شماره تماس ضروری و می بایست 10 رقم باشد",
-                min: 10,
-                // pattern: phoneRegExp
-              },
-            ]}
-          >
-            <Input
-              addonBefore={<span className="dark:text-white">+98</span>}
-              defaultValue={"09106738968"}
-            />
-          </Form.Item>
+        <Form.Item
+          name="phone_number"
+          // label={<span className="dark:text-white">شماره موبایل</span>}
+          rules={[
+            {
+              required: true,
+              message: "شماره تماس ضروری و می بایست 10 رقم باشد",
+              min: 10,
+              // pattern: phoneRegExp
+            },
+          ]}
+        >
+          <Input
+            addonBefore={<span className="dark:text-white">+98</span>}
+            defaultValue={"09106738968"}
+          />
+        </Form.Item>
 
-          <Form.Item label={<span></span>}>
-            <Button
-              loading={pendingGetOtpCode}
-              className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
-              htmlType="submit"
-              disabled={counter > 0}
-            >
-              {counter > 0 ? (
-                <span>لطفا صبر کنید {counter}</span>
-              ) : (
-                <span>ورود</span>
-              )}
-            </Button>
-          </Form.Item>
-        </div>
+        <Form.Item>
+          <Button
+            loading={pendingGetOtpCode}
+            className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+            htmlType="submit"
+            disabled={counter > 0}
+          >
+            {counter > 0 ? (
+              <span>لطفا صبر کنید {counter}</span>
+            ) : (
+              <span>تایید و دریافت کد</span>
+            )}
+          </Button>
+        </Form.Item>
         {/*  {userContext?.userDetail?.phone_number}
 
         <Button
@@ -217,6 +249,31 @@ const LoginForm = () => {
         >
           check
         </Button> */}
+      </Form>
+      <Form
+        {...layout}
+        name="otp-data"
+        dir="ltr"
+        onFinish={onSubmitOtpHandler}
+        style={{
+          maxWidth: 600,
+          minWidth: 500,
+          display: `${firstLoginStep ? "none" : "block"}`,
+        }}
+        className=" max-sm:max-w-28 "
+      >
+        <Form.Item name="password">
+          <InputOTP length={5} inputType="numeric" />
+        </Form.Item>
+        <Form.Item>
+          <Button
+            loading={pendingCheckOtpCode}
+            className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+            htmlType="submit"
+          >
+            <span>ورود</span>
+          </Button>
+        </Form.Item>
       </Form>
     </>
   );

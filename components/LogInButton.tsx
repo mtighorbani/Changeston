@@ -10,7 +10,7 @@ const LogInButton = () => {
   const router = useRouter()
 
   const OpenLoginHandler = ()=>{
-    router.push('/login')
+    router.replace('/login')
   }
   return (
     <div>
