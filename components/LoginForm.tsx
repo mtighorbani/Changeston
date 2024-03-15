@@ -12,12 +12,10 @@ import {
   GetOtpCodeResponse,
   UserDetailResponse,
 } from "@/models/models";
-import { CountdownProps } from "antd/es/statistic/Countdown";
 import { useEffect, useState } from "react";
 import { useTokenContext } from "@/context/TokenContext";
 import { useUserContext } from "@/context/UserContext";
 import { InputOTP } from "antd-input-otp";
-import { useRouter } from "next/navigation";
 import { useModalContext } from "@/context/ModalContext";
 
 const layout = {
@@ -160,11 +158,11 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (userDetail?.success) {
-      /* customNotification({
+      customNotification({
         api: api,
         type: "success",
-        message: `عزیز خوش آمدید ${userDetail.full_name}`,
-      }); */
+        message: `خوش آمدید`,
+      });
       userContext?.setUserDetail({
         full_name: userDetail.full_name,
         month_limit: userDetail.month_limit,

@@ -4,6 +4,9 @@ import "./globals.css";
 import { Providers } from "./provider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Modal } from "antd";
+import LoginForm from "@/components/LoginForm";
+import { useModalContext } from "@/context/ModalContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +28,7 @@ export default function RootLayout({
             <link rel="icon" href="/changeston-favicon-color.ico" sizes="any" />
           </header>
           <Navbar />
+
           {children}
           <Footer />
         </Providers>
