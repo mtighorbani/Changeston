@@ -172,8 +172,9 @@ const LoginForm = () => {
     });
   };
 
-  /* // ** RegExp
-  const phoneRegExp = /^(?:(0|0098|\+98)9(0[1-5]|[1 3]\d|2[0-2]|9[0-4]|98)\d{7}|)$/ */
+  // ** RegExp
+  const phoneRegExp =
+    /^(?:(0|0098|\+98)9(0[1-5]|[1 3]\d|2[0-2]|9[0-4]|98)\d{7}|)$/;
 
   return (
     <>
@@ -200,7 +201,6 @@ const LoginForm = () => {
           minWidth: 500,
           display: `${!firstLoginStep ? "none" : "block"}`,
         }}
-        // validateMessages={validateMessages}
         className=" max-sm:max-w-28 "
       >
         <Form.Item
@@ -209,15 +209,14 @@ const LoginForm = () => {
           rules={[
             {
               required: true,
-              message: "شماره تماس ضروری و می بایست 10 رقم باشد",
-              min: 10,
-              // pattern: phoneRegExp
+              message: "شماره تلفن وارد شده نا معتبر است",
+              pattern: phoneRegExp,
             },
           ]}
         >
           <Input
-            addonBefore={<span className="dark:text-white">+98</span>}
-            defaultValue={"09106738968"}
+            maxLength={11}
+            placeholder="شماره موبایل خود را وارد کنید (مثال:09123456789)"
           />
         </Form.Item>
 
