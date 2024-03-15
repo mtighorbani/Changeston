@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  GetOtpCodeCommand,
-  GetOtpCodeResponse,
-  PurchasePostData,
-} from "@/models/models";
+import { PurchasePostData } from "@/models/models";
 import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { customNotification } from "./CustomNotification";
@@ -16,12 +12,12 @@ import { useModalContext } from "@/context/ModalContext";
 
 const CryptoPurchaseForm = (props: PurchasePostData) => {
   const [api, contextHolder] = notification.useNotification();
-  const [currencyAmountResponse, setCurrencyAmountResponse] = useState<any>(null);
+  const [currencyAmountResponse, setCurrencyAmountResponse] =
+    useState<any>(null);
 
   const tokenContext = useTokenContext();
   const modalContext = useModalContext();
 
-  
   const currencyAmountFn = async () => {
     try {
       const response = await axios.get(currencyAmount);
@@ -29,13 +25,11 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
     } catch (error) {
       console.error("Error fetching currency amount:", error);
     }
-  }
-  
+  };
+
   useEffect(() => {
     currencyAmountFn();
-      
   }, []);
-
 
   const { mutate: mutatePurchasePostData, isPending: pendingPurchasePostData } =
     useMutation({
@@ -101,7 +95,10 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
                 نوع ارز : {props.currency_type}
               </p>
               <p className="font-bold text-lg pt-2 mr-6">
-                نام: {props.receiver_name}
+                نام:{" "}
+                {props.receiver_name.includes("%40")
+                  ? props.receiver_name.replaceAll("%40", "@")
+                  : props.receiver_name}
               </p>
               <p className="font-bold text-lg pt-2 mr-6">
                 مقدار ارز : {props.amount}{" "}
@@ -111,7 +108,10 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
           <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full min-h-14 mt-5 rounded-xl">
             <p className="text-cente pt-4 pr-4 font-bold text-md">
               {" "}
-              آدرس ایمیل : {props.receiver_email}
+              آدرس ایمیل :{" "}
+              {props.receiver_email.includes("%40")
+                ? props.receiver_email.replaceAll("%40", "@")
+                : props.receiver_email}
             </p>
             <p
               dir="rtl"
