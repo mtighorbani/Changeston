@@ -29,18 +29,18 @@ const LoginForm = () => {
   // ** Context
   const tokenContext = useTokenContext();
   const modalContext = useModalContext();
+  const userContext = useUserContext();
   const [phoneNumberForm] = Form.useForm();
   const [otpForm] = Form.useForm();
 
-  // ** Handlers 
-  const handleResetPhoneNumberForm = ()=>{
-    phoneNumberForm.resetFields()
-  }
+  // ** Handlers
+  const handleResetPhoneNumberForm = () => {
+    phoneNumberForm.resetFields();
+  };
 
-  const handleResetOtpForm = () =>{
-    otpForm.resetFields()
-  }
-
+  const handleResetOtpForm = () => {
+    otpForm.resetFields();
+  };
 
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
@@ -113,10 +113,10 @@ const LoginForm = () => {
         if (res.success) {
           tokenContext?.setToken(res.access);
           modalContext?.setIsLoginModalOpen(false);
-          handleResetOtpForm()
+          handleResetOtpForm();
           setFirstLoginStep(true);
         } else {
-          handleResetOtpForm()
+          handleResetOtpForm();
 
           customNotification({
             api: api,
@@ -159,10 +159,15 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (userDetail?.success) {
-      customNotification({
+      /* customNotification({
         api: api,
         type: "success",
         message: `عزیز خوش آمدید ${userDetail.full_name}`,
+      }); */
+      userContext?.setUserDetail({
+        full_name: userDetail.full_name,
+        month_limit: userDetail.month_limit,
+        phone_number: userDetail.phone_number,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

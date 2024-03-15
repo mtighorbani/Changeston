@@ -1,3 +1,5 @@
+"use client";
+
 import {
   GetOtpCodeCommand,
   GetOtpCodeResponse,
@@ -10,9 +12,11 @@ import { wiseDataPost } from "@/global/urls";
 import axios from "axios";
 import { notification } from "antd";
 import { headers } from "next/headers";
+import { useTokenContext } from "@/context/TokenContext";
 
 const CryptoPurchaseForm = (props: PurchasePostData) => {
   const [api, contextHolder] = notification.useNotification();
+  const tokenContext = useTokenContext();
 
   const { mutate: mutatePurchasePostData, isPending: pendingGetOtpCode } =
     useMutation({
@@ -20,8 +24,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
         (
           await axios.post(wiseDataPost, data, {
             headers: {
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNTA2MDk3LCJpYXQiOjE3MTA1MDQ4OTcsImp0aSI6IjVlMTI4ZTJjMmE2ZTQ5YzI5MDhkY2Y0OWIxZDE1NDE3IiwidXNlcl9pZCI6MTN9.50XhZeRw8BBj-7mqQehrtj0rDJh2hLv5E9Te_7G4Ie0",
+              Authorization: `Bearer ${tokenContext?.token}`,
             },
           })
         ).data,

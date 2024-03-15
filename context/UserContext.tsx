@@ -1,6 +1,5 @@
 import { UserDetailResponse } from "@/models/models";
-import { useQueryClient } from "@tanstack/react-query";
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 
 interface UserContextType {
   userDetail: UserDetailResponse | undefined;
