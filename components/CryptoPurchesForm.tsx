@@ -11,66 +11,67 @@ import axios from "axios";
 import { notification } from "antd";
 import { headers } from "next/headers";
 
-const CryptoPurchaseForm = ({
-  amount,
-  currency_type,
-  receiver_name,
-  receiver_email,
-  iban,
-  group_id,
-  payment_method,
-}: PurchasePostData) => {
+const CryptoPurchaseForm = (props: PurchasePostData) => {
   const [api, contextHolder] = notification.useNotification();
 
-  const LogInErrHandler = () => {
-    const { mutate: mutateGetOtpCode, isPending: pendingGetOtpCode } =
-      useMutation({
-        mutationFn: async (data: PurchasePostData) =>
-          (
-            await axios.post(wiseDataPost, data, {
-              headers: {
-                Authorization:
-                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNTAwMDIyLCJpYXQiOjE3MTA0OTg4MDcsImp0aSI6IjNjNzcwYzJlOTZkNTRmMGNiY2UxMDIwMTYyOTNjYWFiIiwidXNlcl9pZCI6MTJ9.NTzPEX28KbRO_Ub8hfWv0a_xjTmdiDw0Otk7LyDV-Uk",
-              },
-            
-            },)
-          ).data,
-        onSuccess: (res: GetOtpCodeResponse) => {
-          if (res.success) {
-            customNotification({
-              api: api,
-              type: "success",
-              message: "درحال اتصال به درگاه",
-            });
-            setFirstLoginStep(false);
-          } else {
-            if (res.error?.code === 4) {
-              customNotification({
-                api: api,
-                type: "error",
-                message:
-                  "رمز عبور برای شما ارسال شده است، برای ارسال مجدد لطفا صبر کنید",
-              });
-              setCounter(res.error.wait_for || 0);
-            } else {
-              customNotification({
-                api: api,
-                type: "error",
-                message:
-                  "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
-              });
-            }
-          }
-        },
-        onError: () => {
+  const { mutate: mutatePurchasePostData, isPending: pendingGetOtpCode } =
+    useMutation({
+      mutationFn: async (data: PurchasePostData) =>
+        (
+          await axios.post(wiseDataPost, data, {
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNTAwMDIyLCJpYXQiOjE3MTA0OTg4MDcsImp0aSI6IjNjNzcwYzJlOTZkNTRmMGNiY2UxMDIwMTYyOTNjYWFiIiwidXNlcl9pZCI6MTJ9.NTzPEX28KbRO_Ub8hfWv0a_xjTmdiDw0Otk7LyDV-Uk",
+            },
+          })
+        ).data,
+      onSuccess: (res: GetOtpCodeResponse) => {
+        if (res.success) {
           customNotification({
             api: api,
-            type: "error",
-            message:
-              "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+            type: "success",
+            message: "درحال اتصال به درگاه",
           });
-        },
-      });
+          setFirstLoginStep(false);
+        } else {
+          if (res.error?.code === 4) {
+            customNotification({
+              api: api,
+              type: "error",
+              message:
+                "رمز عبور برای شما ارسال شده است، برای ارسال مجدد لطفا صبر کنید",
+            });
+            setCounter(res.error.wait_for || 0);
+          } else {
+            customNotification({
+              api: api,
+              type: "error",
+              message:
+                "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+            });
+          }
+        }
+      },
+      onError: () => {
+        customNotification({
+          api: api,
+          type: "error",
+          message:
+            "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+        });
+      },
+    });
+
+  const LogInErrHandler = () => {
+    mutatePurchasePostData({
+      amount: props.amount,
+      currency_type: props.currency_type,
+      group_id: props.group_id,
+      iban: props.iban,
+      payment_method: props.payment_method,
+      receiver_email: props.receiver_email,
+      receiver_name: props.receiver_name,
+    });
   };
 
   return (
@@ -79,19 +80,23 @@ const CryptoPurchaseForm = ({
         <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
           <div className="felx block  ">
             <p className="font-bold text-lg pt-4 mr-6">
-              نوع ارز : {currency_type}
+              نوع ارز : {props.currency_type}
             </p>
-            <p className="font-bold text-lg pt-2 mr-6">نام: {receiver_name}</p>
-            <p className="font-bold text-lg pt-2 mr-6">مقدار ارز : {amount} </p>
+            <p className="font-bold text-lg pt-2 mr-6">
+              نام: {props.receiver_name}
+            </p>
+            <p className="font-bold text-lg pt-2 mr-6">
+              مقدار ارز : {props.amount}{" "}
+            </p>
           </div>
         </div>
         <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full min-h-14 mt-5 rounded-xl">
           <p className="text-cente pt-4 pr-4 font-bold text-md">
             {" "}
-            آدرس ایمیل : {receiver_email}
+            آدرس ایمیل : {props.receiver_email}
           </p>
           <p dir="rtl" className="text-cente pt-4 pb-4 pr-4 font-bold text-md">
-            شناسه: {iban}
+            شناسه: {props.iban}
           </p>
         </div>
         <div>
@@ -115,7 +120,7 @@ const CryptoPurchaseForm = ({
         </div>
         <div
           onClick={LogInErrHandler}
-          className="w-[30%]  h-10 text-center pt-2 cursor-not-allowed text-white pr-3 mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+          className="w-[30%]  h-10 text-center pt-2  text-white pr-3 mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
         >
           تایید و پرداخت
         </div>
