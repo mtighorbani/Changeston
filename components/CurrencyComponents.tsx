@@ -2,25 +2,29 @@ import React, { useState } from "react";
 import CryptoPurchaseForm from "./CryptoPurchesForm";
 import { Button, Form, Input, Select } from "antd";
 import { PurchasePostData } from "@/models/models";
+import { useRouter } from 'next/router'
+import { Query } from "@tanstack/react-query";
 
 const CurrencyComponents = ({ id }: any) => {
   const [purchasePage, setParchasePge] = useState<boolean>(false);
-
-  const purchasePageHandler = () => {
+  const [formValues, setFormValues] = useState<PurchasePostData >();
+  
+  
+  const purchaseValueHnadler = (value:PurchasePostData)=>{
+    setFormValues(value)
     id(3);
     setParchasePge(true);
-  };
+  }
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
 
    const onFinish = (values: PurchasePostData) => {
-   
-   console.log(values)
-   
-
+    purchaseValueHnadler(values)
+   console.log(formValues)
   };
+  
   const validateMessages = {
     required: "${label} is required!",
     types: {
@@ -63,8 +67,8 @@ const CurrencyComponents = ({ id }: any) => {
               <Select<PurchasePostData>
                 
                 options={[
-                  { value: "USD", label: "دلار" },
-                  { value: "EUR", label: "یورو" },
+                  { value: "usd", label: "دلار" },
+                  { value: "euro", label: "یورو" },
                 ]}
               />
             </Form.Item>
@@ -101,24 +105,26 @@ const CurrencyComponents = ({ id }: any) => {
             </Form.Item>
 
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-              <Button
-                className="w-[40%]  h-10 text-center cursor-not-allowed text-white pr-3    rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
-                htmlType="submit"
-                onClick={purchasePageHandler}
-              >
-                ثبت درخواست
-              </Button>
+                <Button
+                onClick={()=>purchaseValueHnadler}
+                  className="w-[40%]  h-10 text-center  text-white pr-3    rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+                  htmlType="submit"
+                >
+                  ثبت درخواست
+                </Button>
             </Form.Item>
 
           </Form>
         </div>
       ) : (
         <CryptoPurchaseForm
-          crypto={crypto}
-          amount={"35"}
-          cardAddress={"AccountEmailAddress"}
-          Name={"Name"}
-          AccountEmailAddress={""}
+            iban={formValues?.iban || ''}
+            currency_type={formValues?.currency_type || ''}
+            receiver_email={formValues?.receiver_email || ''}
+            receiver_name={formValues?.receiver_name || ''}
+            amount={formValues?.amount || 0}
+            group_id="4"
+            payment_method="novino"
         />
       )}
     </>

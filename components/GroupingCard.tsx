@@ -6,6 +6,7 @@ import purchesStep from "@/Array/purchesStep";
 import ProductList from "./ProductsList";
 
 import CurrencyComponents from "./CurrencyComponents";
+import { PurchasePostData } from "@/models/models";
 
 const ProductsCard = () => {
   const [id, setId] = useState(1);
@@ -18,7 +19,6 @@ const ProductsCard = () => {
     setProductId(0);
     setId(1);
   };
-
   const setIdHandler = () => {
     setId(NextId);
     isVisible(false);
@@ -83,7 +83,9 @@ const ProductsCard = () => {
           
         )
          : productId == 2?
-        <CurrencyComponents id={idSetter}/>:
+         
+         <CurrencyComponents id={idSetter} />:
+         
         
         visible == true ? (
           
