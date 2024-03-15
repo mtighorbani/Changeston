@@ -10,15 +10,16 @@ import React from "react";
 import { customNotification } from "./CustomNotification";
 import { wiseDataPost } from "@/global/urls";
 import axios from "axios";
-import { notification } from "antd";
-import { headers } from "next/headers";
+import { Button, notification } from "antd";
 import { useTokenContext } from "@/context/TokenContext";
+import { useModalContext } from "@/context/ModalContext";
 
 const CryptoPurchaseForm = (props: PurchasePostData) => {
   const [api, contextHolder] = notification.useNotification();
   const tokenContext = useTokenContext();
+  const modalContext = useModalContext();
 
-  const { mutate: mutatePurchasePostData, isPending: pendingGetOtpCode } =
+  const { mutate: mutatePurchasePostData, isPending: pendingPurchasePostData } =
     useMutation({
       mutationFn: async (data: PurchasePostData) =>
         (
@@ -28,40 +29,31 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
             },
           })
         ).data,
-      onSuccess: (res: GetOtpCodeResponse) => {
+      onSuccess: (res: any) => {
         if (res.success) {
           customNotification({
             api: api,
             type: "success",
             message: "درحال اتصال به درگاه",
           });
-          setFirstLoginStep(false);
         } else {
-          if (res.error?.code === 4) {
-            customNotification({
-              api: api,
-              type: "error",
-              message:
-                "رمز عبور برای شما ارسال شده است، برای ارسال مجدد لطفا صبر کنید",
-            });
-            setCounter(res.error.wait_for || 0);
-          } else {
-            customNotification({
-              api: api,
-              type: "error",
-              message:
-                "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
-            });
-          }
+          customNotification({
+            api: api,
+            type: "error",
+            message: "متاسفانه پرداخت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+          });
         }
       },
-      onError: () => {
-        customNotification({
-          api: api,
-          type: "error",
-          message:
-            "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
-        });
+      onError: (err: any) => {
+        if (err.response.status === 401) {
+          modalContext?.setIsLoginModalOpen(true);
+        } else {
+          customNotification({
+            api: api,
+            type: "error",
+            message: "متاسفانه پرداخت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+          });
+        }
       },
     });
 
@@ -129,12 +121,13 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
               </label>
             </div>
           </div>
-          <div
+          <Button
             onClick={LogInErrHandler}
+            loading={pendingPurchasePostData}
             className="w-[30%]  h-10 text-center pt-2  text-white pr-3 mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
           >
             تایید و پرداخت
-          </div>
+          </Button>
         </div>
       </div>
     </>
@@ -142,10 +135,3 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
 };
 
 export default CryptoPurchaseForm;
-function setFirstLoginStep(arg0: boolean) {
-  throw new Error("Function not implemented.");
-}
-
-function setCounter(arg0: any) {
-  throw new Error("Function not implemented.");
-}
