@@ -18,6 +18,7 @@ import { useTokenContext } from "@/context/TokenContext";
 import { useUserContext } from "@/context/UserContext";
 import { InputOTP } from "antd-input-otp";
 import { useRouter } from "next/navigation";
+import { useModalContext } from "@/context/ModalContext";
 
 const layout = {
   labelCol: { span: 8 },
@@ -27,6 +28,19 @@ const layout = {
 const LoginForm = () => {
   // ** Context
   const tokenContext = useTokenContext();
+  const modalContext = useModalContext();
+  const [phoneNumberForm] = Form.useForm();
+  const [otpForm] = Form.useForm();
+
+  // ** Handlers 
+  const handleResetPhoneNumberForm = ()=>{
+    phoneNumberForm.resetFields()
+  }
+
+  const handleResetOtpForm = () =>{
+    otpForm.resetFields()
+  }
+
 
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
@@ -95,10 +109,15 @@ const LoginForm = () => {
       mutationFn: async (data: CheckOtpCodeCommand) =>
         (await axios.post(checkOtpCodeUrl, data)).data,
       onSuccess: (res: CheckOtpCodeResponse) => {
+        //TODO: handle exceptions
         if (res.success) {
           tokenContext?.setToken(res.access);
-          // router.replace('/')
+          modalContext?.setIsLoginModalOpen(false);
+          handleResetOtpForm()
+          setFirstLoginStep(true);
         } else {
+          handleResetOtpForm()
+
           customNotification({
             api: api,
             type: "error",
@@ -262,7 +281,7 @@ const LoginForm = () => {
         className=" max-sm:max-w-28 "
       >
         <Form.Item name="password">
-          <InputOTP length={5} inputType="numeric" />
+          <InputOTP autoFocus={true} length={5} inputType="numeric" />
         </Form.Item>
         <Form.Item>
           <Button

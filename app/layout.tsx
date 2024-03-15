@@ -19,15 +19,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" suppressHydrationWarning>
-     <body className={inter.className}>
-      <Providers>
-      <header><link rel="icon" href="/changeston-favicon-color.ico" sizes="any" /></header>
-      <Navbar/>
-        {children}
-        <Footer/>
-      </Providers>
+      <body className={inter.className}>
+        <Providers>
+          <header>
+            <link rel="icon" href="/changeston-favicon-color.ico" sizes="any" />
+          </header>
+          <Navbar />
+          {children}
+          <Footer />
+        </Providers>
       </body>
-
     </html>
   );
 }
