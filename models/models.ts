@@ -44,3 +44,13 @@ export interface UserDetailResponse {
     }
   ];
 }
+
+export interface PurchasePostData{
+  group_id:'4';
+  currency_type:string;
+  amount:10;
+  receiver_name:string;
+  receiver_email:string;
+  iban:string;
+  payment_method:'novino';
+}

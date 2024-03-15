@@ -8,9 +8,10 @@ interface FormProps {
   cardAddress:string
   AccountEmailAddress:string
   
+  crypto:any
 }
 
-const CryptoPurchaseForm = ({Name, amount,cardAddress,AccountEmailAddress  }:FormProps) => {
+const CryptoPurchaseForm = ({Name, amount,cardAddress,AccountEmailAddress,crypto  }:FormProps) => {
   const LogInErrHandler = ()=>{
     alert('با عرض پوزش در حال حاضر امکان خرید و ساخت اکانت وجود ندارد')
   }
@@ -82,7 +83,7 @@ const CryptoPurchaseForm = ({Name, amount,cardAddress,AccountEmailAddress  }:For
         <div  className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
 
           <div  className="felx block  ">
-            <p className="font-bold text-lg pt-4 mr-6">نوع ارز : دلار</p>
+            <p className="font-bold text-lg pt-4 mr-6">نوع ارز : </p>
             <p className="font-bold text-lg pt-2 mr-6">نام: {Name}</p>
             <p className="font-bold text-lg pt-2 mr-6">مقدار ارز : {amount}  </p>
 
