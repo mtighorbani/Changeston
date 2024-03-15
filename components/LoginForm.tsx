@@ -112,6 +112,7 @@ const LoginForm = () => {
         //TODO: handle exceptions
         if (res.success) {
           tokenContext?.setToken(res.access);
+          tokenContext?.setRefreshToken(res.refresh);
           modalContext?.setIsLoginModalOpen(false);
           handleResetOtpForm();
           setFirstLoginStep(true);
