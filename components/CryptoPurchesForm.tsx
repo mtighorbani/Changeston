@@ -6,9 +6,9 @@ import {
   PurchasePostData,
 } from "@/models/models";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { customNotification } from "./CustomNotification";
-import { wiseDataPost } from "@/global/urls";
+import { currencyAmount, wiseDataPost } from "@/global/urls";
 import axios from "axios";
 import { Button, notification } from "antd";
 import { useTokenContext } from "@/context/TokenContext";
@@ -16,8 +16,26 @@ import { useModalContext } from "@/context/ModalContext";
 
 const CryptoPurchaseForm = (props: PurchasePostData) => {
   const [api, contextHolder] = notification.useNotification();
+  const [currencyAmountResponse, setCurrencyAmountResponse] = useState<any>(null);
+
   const tokenContext = useTokenContext();
   const modalContext = useModalContext();
+
+  
+  const currencyAmountFn = async () => {
+    try {
+      const response = await axios.get(currencyAmount);
+      setCurrencyAmountResponse(response.data);
+    } catch (error) {
+      console.error("Error fetching currency amount:", error);
+    }
+  }
+  
+  useEffect(() => {
+    currencyAmountFn();
+      
+  }, []);
+
 
   const { mutate: mutatePurchasePostData, isPending: pendingPurchasePostData } =
     useMutation({

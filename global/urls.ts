@@ -17,3 +17,5 @@ export const logoutUrl = baseUrl + "v1/logout/";
 export const userDetailsUrl = baseUrl + "v1/user/";
 
 export const wiseDataPost = baseUrl + "v1/paymentlink/"
+
+export const currencyAmount = baseUrl + "v1/financialdet/"
