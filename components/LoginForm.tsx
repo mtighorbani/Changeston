@@ -72,6 +72,7 @@ const LoginForm = () => {
             message: "رمز عبور موقت برای شما ارسال شد",
           });
           setFirstLoginStep(false);
+          handleResetPhoneNumberForm();
         } else {
           if (res.error?.code === 4) {
             customNotification({
@@ -112,17 +113,16 @@ const LoginForm = () => {
           tokenContext?.setToken(res.access);
           tokenContext?.setRefreshToken(res.refresh);
           modalContext?.setIsLoginModalOpen(false);
-          handleResetOtpForm();
           setFirstLoginStep(true);
         } else {
-          handleResetOtpForm();
-
           customNotification({
             api: api,
             type: "error",
             message: "متاسفانه دریافت اطلاعات کاربر با خطا مواجه شد!",
           });
         }
+        handleResetOtpForm();
+        handleResetPhoneNumberForm();
       },
       onError: () => {
         customNotification({
@@ -130,6 +130,8 @@ const LoginForm = () => {
           type: "error",
           message: "متاسفانه دریافت اطلاعات کاربر با خطا مواجه شد!",
         });
+        handleResetOtpForm();
+        handleResetPhoneNumberForm();
       },
     });
 
@@ -215,6 +217,7 @@ const LoginForm = () => {
       </Button>
 
       <Form
+        form={phoneNumberForm}
         dir="ltr"
         {...layout}
         name="login-data"
@@ -257,22 +260,9 @@ const LoginForm = () => {
             )}
           </Button>
         </Form.Item>
-        {/*  {userContext?.userDetail?.phone_number}
-
-        <Button
-          className="w-[100%]   text-center pr-3  rounded-lg font-bold  "
-          onClick={() => userContext?.setUserDetail({full_name: 'aloo',phone_number:'1461264514',month_limit: 4})}
-        >
-          set
-        </Button>
-        <Button
-          className="w-[100%]   text-center pr-3  rounded-lg font-bold  "
-          onClick={() => console.log(userContext?.userDetail?.phone_number)}
-        >
-          check
-        </Button> */}
       </Form>
       <Form
+        form={otpForm}
         {...layout}
         name="otp-data"
         dir="ltr"
