@@ -21,7 +21,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
           await axios.post(wiseDataPost, data, {
             headers: {
               Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNTAwMDIyLCJpYXQiOjE3MTA0OTg4MDcsImp0aSI6IjNjNzcwYzJlOTZkNTRmMGNiY2UxMDIwMTYyOTNjYWFiIiwidXNlcl9pZCI6MTJ9.NTzPEX28KbRO_Ub8hfWv0a_xjTmdiDw0Otk7LyDV-Uk",
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNTA2MDk3LCJpYXQiOjE3MTA1MDQ4OTcsImp0aSI6IjVlMTI4ZTJjMmE2ZTQ5YzI5MDhkY2Y0OWIxZDE1NDE3IiwidXNlcl9pZCI6MTN9.50XhZeRw8BBj-7mqQehrtj0rDJh2hLv5E9Te_7G4Ie0",
             },
           })
         ).data,
@@ -75,57 +75,66 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
   };
 
   return (
-    <div dir="rtl" className=" justify-center flex h-[60%] mt-20 w-full mb-30">
-      <div className="w-[35%] max-sm:w-full max-sm:pb-8 rounded-xl  min-h-[300px] dark:bg-black bg-[#EEEEEE] mt-4 h-[420px]  ">
-        <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
-          <div className="felx block  ">
-            <p className="font-bold text-lg pt-4 mr-6">
-              نوع ارز : {props.currency_type}
-            </p>
-            <p className="font-bold text-lg pt-2 mr-6">
-              نام: {props.receiver_name}
-            </p>
-            <p className="font-bold text-lg pt-2 mr-6">
-              مقدار ارز : {props.amount}{" "}
-            </p>
+    <>
+      {contextHolder}
+      <div
+        dir="rtl"
+        className=" justify-center flex h-[60%] mt-20 w-full mb-30"
+      >
+        <div className="w-[35%] max-sm:w-full max-sm:pb-8 rounded-xl  min-h-[300px] dark:bg-black bg-[#EEEEEE] mt-4 h-[420px]  ">
+          <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
+            <div className="felx block  ">
+              <p className="font-bold text-lg pt-4 mr-6">
+                نوع ارز : {props.currency_type}
+              </p>
+              <p className="font-bold text-lg pt-2 mr-6">
+                نام: {props.receiver_name}
+              </p>
+              <p className="font-bold text-lg pt-2 mr-6">
+                مقدار ارز : {props.amount}{" "}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full min-h-14 mt-5 rounded-xl">
-          <p className="text-cente pt-4 pr-4 font-bold text-md">
-            {" "}
-            آدرس ایمیل : {props.receiver_email}
-          </p>
-          <p dir="rtl" className="text-cente pt-4 pb-4 pr-4 font-bold text-md">
-            شناسه: {props.iban}
-          </p>
-        </div>
-        <div>
-          <div className="flex items-center mt-4">
-            <input
-              id="RulConfirm"
-              type="radio"
-              name="ruls"
-              value="confirm"
-              className="w-4 h-4 border-gray-300 mr-3 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-              checked
-            />
-            <label
-              typeof="country-option-1"
-              className="block ms-2   text-sm font-medium text-gray-900 dark:text-gray-300 "
+          <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full min-h-14 mt-5 rounded-xl">
+            <p className="text-cente pt-4 pr-4 font-bold text-md">
+              {" "}
+              آدرس ایمیل : {props.receiver_email}
+            </p>
+            <p
+              dir="rtl"
+              className="text-cente pt-4 pb-4 pr-4 font-bold text-md"
             >
-              قوانین و ضوابط سایت را مطالعه کرده و می پذیرم. مشاهده قوانین و
-              ضوابط
-            </label>
+              شناسه: {props.iban}
+            </p>
           </div>
-        </div>
-        <div
-          onClick={LogInErrHandler}
-          className="w-[30%]  h-10 text-center pt-2  text-white pr-3 mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
-        >
-          تایید و پرداخت
+          <div>
+            <div className="flex items-center mt-4">
+              <input
+                id="RulConfirm"
+                type="radio"
+                name="ruls"
+                value="confirm"
+                className="w-4 h-4 border-gray-300 mr-3 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                checked
+              />
+              <label
+                typeof="country-option-1"
+                className="block ms-2   text-sm font-medium text-gray-900 dark:text-gray-300 "
+              >
+                قوانین و ضوابط سایت را مطالعه کرده و می پذیرم. مشاهده قوانین و
+                ضوابط
+              </label>
+            </div>
+          </div>
+          <div
+            onClick={LogInErrHandler}
+            className="w-[30%]  h-10 text-center pt-2  text-white pr-3 mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+          >
+            تایید و پرداخت
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
