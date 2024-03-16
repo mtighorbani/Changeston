@@ -92,26 +92,19 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
           <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
             <div className="felx block  ">
               <p className="font-bold text-lg pt-4 mr-6">
-                نوع ارز : {props.currency_type}
+                نوع ارز : {decodeURIComponent(props.currency_type)}
               </p>
               <p className="font-bold text-lg pt-2 mr-6">
-                نام:{" "}
-                {props.receiver_name.includes("%40")
-                  ? props.receiver_name.replaceAll("%40", "@")
-                  : props.receiver_name}
+                نام: {decodeURIComponent(props.receiver_name)}
               </p>
               <p className="font-bold text-lg pt-2 mr-6">
-                مقدار ارز : {props.amount}{" "}
+                مقدار ارز : {props.amount}
               </p>
             </div>
           </div>
           <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full min-h-14 mt-5 rounded-xl">
             <p className="text-cente pt-4 pr-4 font-bold text-md">
-              {" "}
-              آدرس ایمیل :{" "}
-              {props.receiver_email.includes("%40")
-                ? props.receiver_email.replaceAll("%40", "@")
-                : props.receiver_email}
+              آدرس ایمیل : {decodeURIComponent(props.receiver_email)}
             </p>
             <p
               dir="rtl"
