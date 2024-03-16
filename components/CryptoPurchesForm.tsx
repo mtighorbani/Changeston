@@ -1,6 +1,6 @@
 "use client";
 
-import { PurchasePostData } from "@/models/models";
+import { PaymentLinkResponse, PurchasePostData } from "@/models/models";
 import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { customNotification } from "./CustomNotification";
@@ -9,6 +9,8 @@ import axios from "axios";
 import { Button, notification } from "antd";
 import { useTokenContext } from "@/context/TokenContext";
 import { useModalContext } from "@/context/ModalContext";
+import { useRouter } from "next/navigation";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const CryptoPurchaseForm = (props: PurchasePostData) => {
   const [api, contextHolder] = notification.useNotification();
@@ -17,6 +19,9 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
 
   const tokenContext = useTokenContext();
   const modalContext = useModalContext();
+
+  // Router
+  const router = useRouter();
 
   const currencyAmountFn = async () => {
     try {
@@ -41,13 +46,15 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
             },
           })
         ).data,
-      onSuccess: (res: any) => {
+      onSuccess: (res: PaymentLinkResponse) => {
         if (res.success) {
           customNotification({
             api: api,
             type: "success",
-            message: "درحال اتصال به درگاه",
+            message: "درحال انتقال به درگاه پرداخت",
+            icon: <LoadingOutlined />,
           });
+          router.push(res?.gateway);
         } else {
           customNotification({
             api: api,
@@ -69,7 +76,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
       },
     });
 
-  const LogInErrHandler = () => {
+  const LogInSubmitHandler = () => {
     mutatePurchasePostData({
       amount: props.amount,
       currency_type: props.currency_type,
@@ -133,7 +140,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
             </div>
           </div>
           <Button
-            onClick={LogInErrHandler}
+            onClick={LogInSubmitHandler}
             loading={pendingPurchasePostData}
             className="w-[30%]  h-10 text-center pt-2  text-white pr-3 mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
           >

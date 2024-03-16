@@ -15,7 +15,6 @@ export interface GetOtpCodeResponse {
   error?: Error | undefined;
 }
 
-
 // ** check otp code
 export interface CheckOtpCodeCommand {
   phone_number: GetOtpCodeCommand["phone_number"];
@@ -46,19 +45,19 @@ export interface UserDetailResponse {
   ];
 }
 
-export interface PurchasePostData{
-  group_id:'4';
-  currency_type:string;
-  amount:number;
-  receiver_name:string;
-  receiver_email:string;
-  iban:string;
-  payment_method:'novino';
+export interface PurchasePostData {
+  group_id: "4";
+  currency_type: string;
+  amount: number;
+  receiver_name: string;
+  receiver_email: string;
+  iban: string;
+  payment_method: "novino";
 }
 
-
-export interface GetPaymentLink {
+// ** payment link
+export interface PaymentLinkResponse {
   success?: boolean | undefined;
   error?: Error | undefined;
-  gateway:string
+  gateway: string;
 }
