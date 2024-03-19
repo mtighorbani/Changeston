@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  GetOtpCodeCommand,
-  GetOtpCodeResponse,
-  PurchasePostData,
-} from "@/models/models";
+import { PaymentLinkResponse, PurchasePostData } from "@/models/models";
 import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { customNotification } from "./CustomNotification";
@@ -13,15 +9,20 @@ import axios from "axios";
 import { Button, notification } from "antd";
 import { useTokenContext } from "@/context/TokenContext";
 import { useModalContext } from "@/context/ModalContext";
+import { useRouter } from "next/navigation";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const CryptoPurchaseForm = (props: PurchasePostData) => {
   const [api, contextHolder] = notification.useNotification();
-  const [currencyAmountResponse, setCurrencyAmountResponse] = useState<any>(null);
+  const [currencyAmountResponse, setCurrencyAmountResponse] =
+    useState<any>(null);
 
   const tokenContext = useTokenContext();
   const modalContext = useModalContext();
 
-  
+  // Router
+  const router = useRouter();
+
   const currencyAmountFn = async () => {
     try {
       const response = await axios.get(currencyAmount);
@@ -29,13 +30,11 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
     } catch (error) {
       console.error("Error fetching currency amount:", error);
     }
-  }
-  
+  };
+
   useEffect(() => {
     currencyAmountFn();
-      
   }, []);
-
 
   const { mutate: mutatePurchasePostData, isPending: pendingPurchasePostData } =
     useMutation({
@@ -47,13 +46,15 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
             },
           })
         ).data,
-      onSuccess: (res: any) => {
+      onSuccess: (res: PaymentLinkResponse) => {
         if (res.success) {
           customNotification({
             api: api,
             type: "success",
-            message: "درحال اتصال به درگاه",
+            message: "درحال انتقال به درگاه پرداخت",
+            icon: <LoadingOutlined />,
           });
+          router.push(res?.gateway);
         } else {
           customNotification({
             api: api,
@@ -75,7 +76,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
       },
     });
 
-  const LogInErrHandler = () => {
+  const LogInSubmitHandler = () => {
     mutatePurchasePostData({
       amount: props.amount,
       currency_type: props.currency_type,
@@ -98,20 +99,19 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
           <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
             <div className="felx block  ">
               <p className="font-bold text-lg pt-4 mr-6">
-                نوع ارز : {props.currency_type}
+                نوع ارز : {decodeURIComponent(props.currency_type)}
               </p>
               <p className="font-bold text-lg pt-2 mr-6">
-                نام: {props.receiver_name}
+                نام: {decodeURIComponent(props.receiver_name)}
               </p>
               <p className="font-bold text-lg pt-2 mr-6">
-                مقدار ارز : {props.amount}{" "}
+                مقدار ارز : {props.amount}
               </p>
             </div>
           </div>
           <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full min-h-14 mt-5 rounded-xl">
             <p className="text-cente pt-4 pr-4 font-bold text-md">
-              {" "}
-              آدرس ایمیل : {props.receiver_email}
+              آدرس ایمیل : {decodeURIComponent(props.receiver_email)}
             </p>
             <p
               dir="rtl"
@@ -140,7 +140,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
             </div>
           </div>
           <Button
-            onClick={LogInErrHandler}
+            onClick={LogInSubmitHandler}
             loading={pendingPurchasePostData}
             className="w-[30%]  h-10 text-center pt-2  text-white pr-3 mt-10 mr-6  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
           >

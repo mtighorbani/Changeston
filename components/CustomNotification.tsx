@@ -5,6 +5,7 @@ interface NotificationProps {
   type: "success" | "info" | "warning" | "error";
   message?: string | undefined;
   description?: string | undefined;
+  icon?: any;
 }
 
 export const customNotification = (props: NotificationProps) => {
@@ -13,5 +14,6 @@ export const customNotification = (props: NotificationProps) => {
     description: props.description,
     duration: 3,
     placement: "topLeft",
+    icon: props.icon,
   });
 };
