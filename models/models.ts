@@ -48,7 +48,7 @@ export interface UserDetailResponse {
 export interface PurchasePostData {
   group_id: "4";
   currency_type: string;
-  amount: number;
+  amount: any;
   receiver_name: string;
   receiver_email: string;
   iban: string;
@@ -60,4 +60,16 @@ export interface PaymentLinkResponse {
   success?: boolean | undefined;
   error?: Error | undefined;
   gateway: string;
+}
+
+
+// Currency Amount
+export interface CurrencyAmount{
+  giftcard:number;
+  forigncurrency:number;
+  inapp:number;
+  wise:number;
+  verifiedpanel:number;
+  usd:number;
+  euro:number
 }

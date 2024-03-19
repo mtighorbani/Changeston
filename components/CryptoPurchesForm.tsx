@@ -1,6 +1,10 @@
 "use client";
 
-import { PaymentLinkResponse, PurchasePostData } from "@/models/models";
+import {
+  CurrencyAmount,
+  PaymentLinkResponse,
+  PurchasePostData,
+} from "@/models/models";
 import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { customNotification } from "./CustomNotification";
@@ -15,7 +19,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 const CryptoPurchaseForm = (props: PurchasePostData) => {
   const [api, contextHolder] = notification.useNotification();
   const [currencyAmountResponse, setCurrencyAmountResponse] =
-    useState<any>(null);
+    useState<CurrencyAmount>();
 
   const tokenContext = useTokenContext();
   const modalContext = useModalContext();
@@ -25,7 +29,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
 
   const currencyAmountFn = async () => {
     try {
-      const response = await axios.get(currencyAmount);
+      const response = await axios.get<CurrencyAmount>(currencyAmount);
       setCurrencyAmountResponse(response.data);
     } catch (error) {
       console.error("Error fetching currency amount:", error);
@@ -78,7 +82,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
 
   const LogInSubmitHandler = () => {
     mutatePurchasePostData({
-      amount: props.amount,
+      amount: parseInt(props.amount),
       currency_type: props.currency_type,
       group_id: props.group_id,
       iban: props.iban,
@@ -88,16 +92,26 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
     });
   };
 
+  const rialAmount =
+    currencyAmountResponse && props.currency_type == "usd"
+      ? props.amount * currencyAmountResponse?.usd + props.amount * currencyAmountResponse.wise * currencyAmountResponse.usd
+      : currencyAmountResponse && props.currency_type == "euro"
+      ? props.amount * currencyAmountResponse.euro + props.amount * currencyAmountResponse.wise * currencyAmountResponse.euro
+      : "";
+
+  console.log(currencyAmountResponse?.euro , 'euro')
+  console.log(currencyAmountResponse?.usd , 'usd')
+
   return (
     <>
       {contextHolder}
       <div
         dir="rtl"
-        className=" justify-center flex h-[60%] mt-20 w-full mb-30"
+        className=" justify-center flex min-h-[60%] mt-20 w-full mb-30"
       >
-        <div className="w-[35%] max-sm:w-full max-sm:pb-8 rounded-xl  min-h-[300px] dark:bg-black bg-[#EEEEEE] mt-4 h-[420px]  ">
-          <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
-            <div className="felx block  ">
+        <div className="w-[35%] max-sm:w-full max-sm:pb-8 rounded-xl   dark:bg-black bg-[#EEEEEE] mt-4 min-h-[420px] pb-8   ">
+          <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full min-h-33 mt-8 rounded-xl pb-4 ">
+            <div className=" block  ">
               <p className="font-bold text-lg pt-4 mr-6">
                 نوع ارز : {decodeURIComponent(props.currency_type)}
               </p>
@@ -105,7 +119,10 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
                 نام: {decodeURIComponent(props.receiver_name)}
               </p>
               <p className="font-bold text-lg pt-2 mr-6">
-                مقدار ارز : {props.amount}
+                مقدار ارز : {props.amount} 
+              </p>
+              <p className="font-bold text-lg pt-2 mr-6">
+                مبلغ قابل پرداخت : {rialAmount.toLocaleString()} تومان
               </p>
             </div>
           </div>
