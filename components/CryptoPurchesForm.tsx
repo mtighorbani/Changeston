@@ -99,8 +99,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
       ? props.amount * currencyAmountResponse.euro + props.amount * currencyAmountResponse.wise * currencyAmountResponse.euro
       : "";
 
-  console.log(currencyAmountResponse?.euro , 'euro')
-  console.log(currencyAmountResponse?.usd , 'usd')
+
 
   return (
     <>
