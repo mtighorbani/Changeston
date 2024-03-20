@@ -52,7 +52,7 @@ export interface PurchasePostData {
   receiver_name: string;
   receiver_email: string;
   iban: string;
-  payment_method: "novino";
+  payment_method: "zibal";
 }
 
 // ** payment link

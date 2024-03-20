@@ -17,7 +17,7 @@ const PayV2 = () => {
       currency_type={params.currency_type}
       group_id="4"
       iban={params.iban}
-      payment_method="novino"
+      payment_method="zibal"
       receiver_email={params.receiver_email}
       receiver_name={params.receiver_name}
     />

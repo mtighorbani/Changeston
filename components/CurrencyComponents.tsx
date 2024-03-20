@@ -124,7 +124,7 @@ const CurrencyComponents = ({ id }: any) => {
             receiver_name={formValues?.receiver_name || ''}
             amount={formValues?.amount || 0}
             group_id="4"
-            payment_method="novino"
+            payment_method="zibal"
         />
       )}
     </>
