@@ -19,3 +19,5 @@ export const userDetailsUrl = baseUrl + "v1/user/";
 export const wiseDataPost = baseUrl + "v1/paymentlink/"
 
 export const currencyAmount = baseUrl + "v1/financialdet/"
+
+ export const paymentValidate = baseUrl + "v1/paymentverify/"
