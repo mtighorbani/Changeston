@@ -7,7 +7,7 @@ import {
 } from "@/models/models";
 import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { customNotification } from "./CustomNotification";
+import { customNotification } from "../global/customNotification";
 import { currencyAmount, wiseDataPost } from "@/global/urls";
 import axios from "axios";
 import { Button, notification } from "antd";

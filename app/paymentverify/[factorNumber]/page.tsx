@@ -1,4 +1,5 @@
 "use client";
+import { errorMessage } from "@/global/errorMessage";
 import { paymentValidate } from "@/global/urls";
 import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
@@ -10,7 +11,6 @@ const PaymentVerify = () => {
   const params = useParams<{ factorNumber: string }>();
 
   const searchParams = useSearchParams();
-
   const Success = searchParams.get("success");
   const Status = searchParams.get("status");
   const TrackId = searchParams.get("trackId");
@@ -18,10 +18,10 @@ const PaymentVerify = () => {
   const paymentValidationCheck = async () => {
     try {
       const response = await axios.get(`${paymentValidate}${TrackId}`);
-      await setPaymentStatus(response.data.success);
-      console.log("hi", paymentStatus);
+      setPaymentStatus(response.data.success);
+      console.log(errorMessage(response.data.error));
     } catch (error) {
-      console.error("Error fetching currency amount:", error);
+      console.error(error);
     }
   };
   useEffect(() => {

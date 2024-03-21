@@ -5,7 +5,7 @@ import { Button, Modal, notification } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { IoIosLogIn } from "react-icons/io";
-import { customNotification } from "./CustomNotification";
+import { customNotification } from "../global/customNotification";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { logoutUrl } from "@/global/urls";

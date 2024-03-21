@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button, Form, Input, notification } from "antd";
 import axios from "axios";
 import { checkOtpCodeUrl, getOtpCodeUrl, userDetailsUrl } from "@/global/urls";
-import { customNotification } from "./CustomNotification";
+import { customNotification } from "../global/customNotification";
 import {
   CheckOtpCodeCommand,
   CheckOtpCodeResponse,

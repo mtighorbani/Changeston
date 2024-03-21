@@ -1,8 +1,9 @@
 // ** Response
-interface Error {
+export interface Error {
   code: number | undefined;
-  message: string | undefined;
+  message?: string | undefined;
   wait_for?: number | undefined;
+  remain?: number | undefined;
 }
 
 // ** get otp code
@@ -62,14 +63,13 @@ export interface PaymentLinkResponse {
   gateway: string;
 }
 
-
 // Currency Amount
-export interface CurrencyAmount{
-  giftcard:number;
-  forigncurrency:number;
-  inapp:number;
-  wise:number;
-  verifiedpanel:number;
-  usd:number;
-  euro:number
+export interface CurrencyAmount {
+  giftcard: number;
+  forigncurrency: number;
+  inapp: number;
+  wise: number;
+  verifiedpanel: number;
+  usd: number;
+  euro: number;
 }
