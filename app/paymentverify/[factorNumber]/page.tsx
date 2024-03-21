@@ -1,41 +1,43 @@
 "use client";
-import { useTokenContext } from "@/context/TokenContext";
 import { paymentValidate } from "@/global/urls";
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const PaymentVerify = () => {
-  const [paymetStatus,setPaymentStatus] = useState('')
-
-  const searchParams = useSearchParams();
+  const [paymentStatus, setPaymentStatus] = useState<boolean>(false);
   // شماره فاکتور
   const params = useParams<{ factorNumber: string }>();
 
-  const Authority = searchParams.get("Authority");
-  // شناسه فاکتور
-  const TrackId:any = searchParams.get(`trackId`);
+  const searchParams = useSearchParams();
 
+  const Success = searchParams.get("success");
+  const Status = searchParams.get("status");
+  const TrackId = searchParams.get("trackId");
 
-const paymentValidationCheck = async () => {
-  try {
-    const response = await axios.get(`${paymentValidate}${TrackId}`);
-    setPaymentStatus(response.data);
-  } catch (error) {
-    console.error("Error fetching currency amount:", error);
-  }
-};
-useEffect(()=>{
-  paymentValidationCheck()
-},[])
+  const paymentValidationCheck = async () => {
+    try {
+      const response = await axios.get(`${paymentValidate}${TrackId}`);
+      await setPaymentStatus(response.data.success);
+      console.log("hi", paymentStatus);
+    } catch (error) {
+      console.error("Error fetching currency amount:", error);
+    }
+  };
+  useEffect(() => {
+    paymentValidationCheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  return (
-    // TODO: شناسه پرداخت و سایر یفلد ها باید داخل متن استفاده بشن
+  return paymentStatus ? (
     <div>
-      {
-        paymetStatus
-      }
+      Success!!! success: {Success}, status: {Status}, trackId: {TrackId},
+      factorNumber: {params.factorNumber}
+    </div>
+  ) : (
+    <div>
+      Failed!!! success: {Success}, status: {Status}, trackId: {TrackId},
+      factorNumber: {params.factorNumber}
     </div>
   );
 };
