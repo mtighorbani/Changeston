@@ -35,13 +35,13 @@ export interface UserDetailResponse {
   full_name: string | undefined;
   month_limit: number | undefined;
   success?: boolean;
-  detail?: string;
-  code?: string;
+  detail?: string | undefined;
+  code?: number | undefined;
   messages?: [
     {
-      token_class: string;
-      token_type: string;
-      message: string;
+      token_class: string | undefined;
+      token_type: string | undefined;
+      message: string | undefined;
     }
   ];
 }

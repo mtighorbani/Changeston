@@ -10,6 +10,7 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { logoutUrl } from "@/global/urls";
 import { useTokenContext } from "@/context/TokenContext";
+import { errorMessage } from "@/global/errorMessage";
 
 const LogInButton = () => {
   // ** Context
@@ -40,21 +41,29 @@ const LogInButton = () => {
           { headers: { Authorization: `Bearer ${tokenContext?.token}` } }
         )
       ).data,
-    onSuccess: () => {
-      customNotification({
-        api: api,
-        type: "success",
-        message: "با موفقیت خارج شدید",
-      });
-      tokenContext?.setToken(undefined);
-      tokenContext?.setRefreshToken(undefined);
-      handleCloseLogoutModal();
+    onSuccess: (res) => {
+      if (res.success) {
+        customNotification({
+          api: api,
+          type: "success",
+          message: "با موفقیت خارج شدید",
+        });
+        tokenContext?.setToken(undefined);
+        tokenContext?.setRefreshToken(undefined);
+        handleCloseLogoutModal();
+      } else {
+        customNotification({
+          api: api,
+          type: "error",
+          message: errorMessage(res.error),
+        });
+      }
     },
     onError: () => {
       customNotification({
         api: api,
         type: "error",
-        message: "متاسفانه خروج با خطا مواجه شد! لطفا مجددا تلاش کنید",
+        message: errorMessage(undefined),
       });
     },
   });

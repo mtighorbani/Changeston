@@ -17,6 +17,7 @@ import { useTokenContext } from "@/context/TokenContext";
 import { useUserContext } from "@/context/UserContext";
 import { InputOTP } from "antd-input-otp";
 import { useModalContext } from "@/context/ModalContext";
+import { errorMessage } from "@/global/errorMessage";
 
 const layout = {
   labelCol: { span: 8 },
@@ -69,35 +70,26 @@ const LoginForm = () => {
           customNotification({
             api: api,
             type: "success",
-            message: "رمز عبور موقت برای شما ارسال شد",
+            message: "رمز عبور موقت برای شما ارسال شد.",
           });
           setFirstLoginStep(false);
           handleResetPhoneNumberForm();
         } else {
-          if (res.error?.code === 4) {
-            customNotification({
-              api: api,
-              type: "error",
-              message:
-                "رمز عبور برای شما ارسال شده است، برای ارسال مجدد لطفا صبر کنید",
-            });
-            setCounter(res.error.wait_for || 0);
-          } else {
-            customNotification({
-              api: api,
-              type: "error",
-              message:
-                "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
-            });
+          if (res.error?.wait_for) {
+            setCounter(res.error.wait_for);
           }
+          customNotification({
+            api: api,
+            type: "error",
+            message: errorMessage(res.error),
+          });
         }
       },
       onError: () => {
         customNotification({
           api: api,
           type: "error",
-          message:
-            "متاسفانه ارسال رمز عبور موقت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+          message: errorMessage(undefined),
         });
       },
     });
@@ -108,7 +100,6 @@ const LoginForm = () => {
       mutationFn: async (data: CheckOtpCodeCommand) =>
         (await axios.post(checkOtpCodeUrl, data)).data,
       onSuccess: (res: CheckOtpCodeResponse) => {
-        //TODO: handle exceptions
         if (res.success) {
           tokenContext?.setToken(res.access);
           tokenContext?.setRefreshToken(res.refresh);
@@ -118,7 +109,7 @@ const LoginForm = () => {
           customNotification({
             api: api,
             type: "error",
-            message: "متاسفانه دریافت اطلاعات کاربر با خطا مواجه شد!",
+            message: errorMessage(res.error),
           });
         }
         handleResetOtpForm();
@@ -128,7 +119,7 @@ const LoginForm = () => {
         customNotification({
           api: api,
           type: "error",
-          message: "متاسفانه دریافت اطلاعات کاربر با خطا مواجه شد!",
+          message: errorMessage(undefined),
         });
         handleResetOtpForm();
         handleResetPhoneNumberForm();
@@ -170,7 +161,13 @@ const LoginForm = () => {
         month_limit: userDetail.month_limit,
         phone_number: userDetail.phone_number,
       });
-    }
+    } /* else {
+      customNotification({
+        api: api,
+        type: "error",
+        message: errorMessage({code: userDetail?.code}),
+      });
+    } */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDetail]);
 

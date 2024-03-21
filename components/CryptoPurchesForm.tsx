@@ -15,6 +15,7 @@ import { useTokenContext } from "@/context/TokenContext";
 import { useModalContext } from "@/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { LoadingOutlined } from "@ant-design/icons";
+import { errorMessage } from "@/global/errorMessage";
 
 const CryptoPurchaseForm = (props: PurchasePostData) => {
   const [api, contextHolder] = notification.useNotification();
@@ -63,7 +64,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
           customNotification({
             api: api,
             type: "error",
-            message: "متاسفانه پرداخت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+            message: errorMessage(res.error),
           });
         }
       },
@@ -74,7 +75,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
           customNotification({
             api: api,
             type: "error",
-            message: "متاسفانه پرداخت با خطا مواجه شد! لطفا مجددا تلاش کنید",
+            message: errorMessage(undefined),
           });
         }
       },
@@ -94,12 +95,12 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
 
   const rialAmount =
     currencyAmountResponse && props.currency_type == "usd"
-      ? props.amount * currencyAmountResponse?.usd + props.amount * currencyAmountResponse.wise * currencyAmountResponse.usd
+      ? props.amount * currencyAmountResponse?.usd +
+        props.amount * currencyAmountResponse.wise * currencyAmountResponse.usd
       : currencyAmountResponse && props.currency_type == "euro"
-      ? props.amount * currencyAmountResponse.euro + props.amount * currencyAmountResponse.wise * currencyAmountResponse.euro
+      ? props.amount * currencyAmountResponse.euro +
+        props.amount * currencyAmountResponse.wise * currencyAmountResponse.euro
       : "";
-
-
 
   return (
     <>
@@ -118,7 +119,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
                 نام: {decodeURIComponent(props.receiver_name)}
               </p>
               <p className="font-bold text-lg pt-2 mr-6">
-                مقدار ارز : {props.amount} 
+                مقدار ارز : {props.amount}
               </p>
               <p className="font-bold text-lg pt-2 mr-6">
                 مبلغ قابل پرداخت : {rialAmount.toLocaleString()} تومان
