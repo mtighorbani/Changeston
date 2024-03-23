@@ -1,56 +1,80 @@
 "use client";
-import { errorMessage } from "@/global/errorMessage";
 import { paymentValidate } from "@/global/urls";
 import { useQuery } from "@tanstack/react-query";
 import { Spin } from "antd";
 import axios from "axios";
 import { useParams, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import SuccessImg from "@/asset/images/success.png";
+import FailedImg from "@/asset/images/Faile.png";
+import Image from "next/image";
+import { paymentResult } from "@/models/models";
 
 const PaymentVerify = () => {
-  // const [paymentStatus, setPaymentStatus] = useState<boolean>(false);
   // شماره فاکتور
   const params = useParams<{ factorNumber: string }>();
 
   const searchParams = useSearchParams();
-  // const Success = searchParams.get("success");
-  // const Status = searchParams.get("status");
-  const TrackId = searchParams.get("trackId");
 
-  /*   const paymentValidationCheck = async () => {
-    try {
-      const response = await axios.get(`${paymentValidate}${TrackId}`);
-      setPaymentStatus(response.data.success);
-      console.log(errorMessage(response.data.error));
-    } catch (error) {
-      console.error(error);
-    }
-  }; */
+  const TrackId = searchParams.get("trackId");
 
   const {
     data: paymentValidateData,
     refetch: refetchPaymentValidate,
     isFetching: isFetchingPaymentValidate,
-  } = useQuery({
+  } = useQuery<paymentResult>({
     queryFn: async () => (await axios.get(`${paymentValidate}${TrackId}`)).data,
     queryKey: ["paymentValidateData"],
-    enabled: false,
-  });
-  useEffect(() => {
-    // paymentValidationCheck();
-    refetchPaymentValidate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [TrackId]);
+    });
+ 
 
   return isFetchingPaymentValidate ? (
-    <Spin />
-  ) : paymentValidateData ? (
-    <div>
-      Success!!! trackId: {TrackId}, factorNumber: {params.factorNumber}
+    <div className=" m-auto mt-24 min-h-lvh justify-center max-w-[700px]   " > 
+     <p className=" text-4xl text-bold"> ... درحال بررسی نتیجه پرداخت. لطفا شکیبا باشید</p>
     </div>
   ) : (
-    <div>
-      Failed!!! trackId: {TrackId}, factorNumber: {params.factorNumber}
+    <div className=" felx  max-w-[500px] mx-auto  min-h-lvh " dir="rtl">
+      {paymentValidateData?.success == true ? (
+        <div>
+          <Image
+            src={SuccessImg}
+            className="mx-auto"
+            height={500}
+            alt="SuccessPayment"
+          />
+          <div className=" text-center">
+            <h1 className="  text-3xl font-bold">
+              پرداخت شما با موفقیت انجام شد
+            </h1>
+            <div className=" text-gray-400 mt-2 text-lg font-semibold">
+              <p>جهت پیکیری سفارش خود با پشتیبانی در ارتباط باشید</p>
+              <p>شماره پیگیری سفارش : {TrackId}</p>
+              <p>شماره فاکتور : {params.factorNumber}</p>
+            </div>
+          </div>
+        </div>
+      ) : paymentValidateData?.success == false ? (
+        <div>
+          <Image
+            src={FailedImg}
+            className="mx-auto"
+            height={500}
+            alt="SuccessPayment"
+          />
+          <div className=" text-center mt-4">
+            <h1 className="  text-3xl font-bold">
+              پرداخت شما با خطا مواجه شده است
+            </h1>
+            <div className=" text-gray-400 mt-2 text-lg font-semibold">
+              <p>
+               در صورتی که از حساب شما مبلغی کسر شده است. ظرف 24 ساعت اینده به حساب شما باز خواهد گشت
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

@@ -73,3 +73,12 @@ export interface CurrencyAmount {
   usd: number;
   euro: number;
 }
+
+
+export interface paymentResult {
+  success:boolean;
+  error?:{
+    code:number;
+    massage:string;
+  }
+}
