@@ -1,12 +1,24 @@
+import React from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { useUser } from "@/hooks/useUser";
 import { User } from "@/models/models";
-import { createContext } from "react";
+export type AuthContextType = {
+  user: User | null;
+  login: (user: User) => void;
+  logout: () => void;
+  isAuthenticated: boolean;
+};
 
-interface AuthContext {
-    user: User | null;
-    setUser: (user: User | null) => void;
-  }
-  
-  export const AuthContext = createContext<AuthContext>({
-    user: null,
-    setUser: () => {},
-  });
+export const AuthContext = React.createContext<AuthContextType | null>(null!);
+
+export const AuthProvider = (props: React.PropsWithChildren) => {
+  const { login, logout, isAuthenticated } = useAuth();
+  const { user } = useUser();
+  const { children } = props;
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
