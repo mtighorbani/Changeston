@@ -74,11 +74,18 @@ export interface CurrencyAmount {
   euro: number;
 }
 
-
 export interface paymentResult {
-  success:boolean;
-  error?:{
-    code:number;
-    massage:string;
-  }
+  success: boolean;
+  error?: {
+    code: number;
+    massage: string;
+  };
+}
+
+//TODO: change this user model
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  authToken?: string;
 }
