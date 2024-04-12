@@ -6,24 +6,24 @@ import {
   PurchasePostData,
 } from "@/models/models";
 import { useMutation } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { customNotification } from "../global/customNotification";
 import { currencyAmount, wiseDataPost } from "@/global/urls";
 import axios from "axios";
 import { Button, notification } from "antd";
-import { useTokenContext } from "@/context/TokenContext";
 import { useModalContext } from "@/context/ModalContext";
 import { useRouter } from "next/navigation";
 import { LoadingOutlined } from "@ant-design/icons";
 import { errorMessage } from "@/global/errorMessage";
+import { AuthContext } from "@/context/AuthContext";
 
 const CryptoPurchaseForm = (props: PurchasePostData) => {
   const [api, contextHolder] = notification.useNotification();
   const [currencyAmountResponse, setCurrencyAmountResponse] =
     useState<CurrencyAmount>();
 
-  const tokenContext = useTokenContext();
   const modalContext = useModalContext();
+  const auth = useContext(AuthContext);
 
   // Router
   const router = useRouter();
@@ -47,7 +47,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
         (
           await axios.post(wiseDataPost, data, {
             headers: {
-              Authorization: `Bearer ${tokenContext?.token}`,
+              Authorization: `Bearer ${auth?.getUser()?.accessToken}`,
             },
           })
         ).data,

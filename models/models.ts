@@ -84,8 +84,9 @@ export interface paymentResult {
 
 //TODO: change this user model
 export interface User {
-  id: string;
-  name: string;
-  email: string;
-  authToken?: string;
+  phone_number?: GetOtpCodeCommand["phone_number"] | undefined;
+  full_name?: string | undefined;
+  month_limit?: number | undefined;
+  accessToken?: string;
+  refreshToken?: string
 }

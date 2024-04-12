@@ -3,7 +3,7 @@ import { useUser } from "./useUser";
 import { User } from "@/models/models";
 
 export const useAuth = () => {
-  const { addUser, removeUser, user } = useUser();
+  const { addUser, removeUser, user,getUser } = useUser();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -22,5 +22,5 @@ export const useAuth = () => {
     removeUser();
   };
 
-  return { login, logout, user, isAuthenticated };
+  return { login, logout, user, isAuthenticated,getUser };
 };

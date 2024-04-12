@@ -12,12 +12,11 @@ import {
   GetOtpCodeResponse,
   UserDetailResponse,
 } from "@/models/models";
-import { useEffect, useState } from "react";
-import { useTokenContext } from "@/context/TokenContext";
-import { useUserContext } from "@/context/UserContext";
+import { useContext, useEffect, useState } from "react";
 import { InputOTP } from "antd-input-otp";
 import { useModalContext } from "@/context/ModalContext";
 import { errorMessage } from "@/global/errorMessage";
+import { AuthContext } from "@/context/AuthContext";
 
 const layout = {
   labelCol: { span: 8 },
@@ -26,9 +25,8 @@ const layout = {
 
 const LoginForm = () => {
   // ** Context
-  const tokenContext = useTokenContext();
+  const auth = useContext(AuthContext);
   const modalContext = useModalContext();
-  const userContext = useUserContext();
   const [phoneNumberForm] = Form.useForm();
   const [otpForm] = Form.useForm();
 
@@ -101,8 +99,7 @@ const LoginForm = () => {
         (await axios.post(checkOtpCodeUrl, data)).data,
       onSuccess: (res: CheckOtpCodeResponse) => {
         if (res.success) {
-          tokenContext?.setToken(res.access);
-          tokenContext?.setRefreshToken(res.refresh);
+          auth?.login({ accessToken: res.access, refreshToken: res.refresh });
           modalContext?.setIsLoginModalOpen(false);
           setFirstLoginStep(true);
         } else {
@@ -135,7 +132,7 @@ const LoginForm = () => {
     queryFn: async () =>
       (
         await axios.get(userDetailsUrl, {
-          headers: { Authorization: `Bearer ${tokenContext?.token}` },
+          headers: { Authorization: `Bearer ${auth?.getUser()?.accessToken}` },
         })
       ).data,
     queryKey: ["userDetail"],
@@ -143,11 +140,11 @@ const LoginForm = () => {
   });
 
   useEffect(() => {
-    if (tokenContext?.token) {
+    if (auth?.getUser()?.accessToken) {
       refetchUserDetail();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tokenContext?.token]);
+  }, [auth?.getUser()?.accessToken]);
 
   useEffect(() => {
     if (userDetail?.success) {
@@ -156,7 +153,9 @@ const LoginForm = () => {
         type: "success",
         message: `خوش آمدید`,
       });
-      userContext?.setUserDetail({
+
+      auth?.login({
+        ...auth.login,
         full_name: userDetail.full_name,
         month_limit: userDetail.month_limit,
         phone_number: userDetail.phone_number,
