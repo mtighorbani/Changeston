@@ -3,8 +3,8 @@ import { useLocalStorage } from "./useLocalStorage";
 import { User } from "@/models/models";
 
 export const useUser = () => {
-  const { setItem, removeItem } = useLocalStorage();
-  const [user, setUser] = useState<User | null>(null!);
+  const { setItem, removeItem,getItem } = useLocalStorage();
+  const [user, setUser] = useState<User | null>(JSON.parse(getItem('user') as string) || null!);
 
   const addUser = (user: User) => {
     setUser(user);

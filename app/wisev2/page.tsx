@@ -1,6 +1,6 @@
 "use client";
 import CryptoPurchaseForm from "@/components/CryptoPurchesForm";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const PayV2 = () => {
   const searchParams = useSearchParams();
