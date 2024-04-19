@@ -155,7 +155,7 @@ const LoginForm = () => {
       });
 
       auth?.login({
-        ...auth.login,
+        ...auth.user,
         full_name: userDetail.full_name,
         month_limit: userDetail.month_limit,
         phone_number: userDetail.phone_number,
@@ -177,7 +177,6 @@ const LoginForm = () => {
   };
 
   const onSubmitOtpHandler = (data: any) => {
-    console.log(data.password);
     let tempOtp = "";
     //TODO: FIX this
     tempOtp =
@@ -186,7 +185,6 @@ const LoginForm = () => {
       data.password[2] +
       data.password[3] +
       data.password[4];
-    console.log(tempOtp);
     mutateCheckOtpCode({
       phone_number: phoneNumber,
       password: tempOtp,
