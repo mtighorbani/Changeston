@@ -103,7 +103,7 @@ const LogInButton = () => {
         ]}
       ></Modal>
       <div>
-        {/* <Button
+        <Button
           onClick={() => {
             auth?.login({
               accessToken: "4445458",
@@ -117,7 +117,7 @@ const LogInButton = () => {
           login
         </Button>
         <Button onClick={() => {console.log(auth?.user)}}>{auth?.isAuthenticated ? 'Authenticated' : 'not Authenticated'}</Button>
-        <Button onClick={() => auth?.logout()}>logout</Button> */}
+        <Button onClick={() => auth?.logout()}>logout</Button>
         {auth?.isAuthenticated ? (
           <Button
             onClick={handleOpenLogoutModal}

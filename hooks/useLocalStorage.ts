@@ -1,12 +1,12 @@
 export const useLocalStorage = () => {
   const setItem = (key: string, value: string) => {
-    localStorage.setItem(key, value);
+    typeof window !== "undefined" && localStorage.setItem(key, value);
   };
   const getItem = (key: string) => {
-    return localStorage.getItem(key);
+    return typeof window !== "undefined" && localStorage.getItem(key);
   };
   const removeItem = (key: string) => {
-    localStorage.removeItem(key);
+    typeof window !== "undefined" && localStorage.removeItem(key);
   };
   return { setItem, getItem, removeItem };
 };

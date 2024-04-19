@@ -5,7 +5,7 @@ import { User } from "@/models/models";
 export const useAuth = () => {
   const { addUser, removeUser, user } = useUser();
   const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem("isAuthenticated") ? true : false
+    typeof window !== 'undefined' && localStorage.getItem("isAuthenticated") ? true : false
   );
 
   useEffect(() => {
