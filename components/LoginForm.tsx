@@ -132,7 +132,7 @@ const LoginForm = () => {
     queryFn: async () =>
       (
         await axios.get(userDetailsUrl, {
-          headers: { Authorization: `Bearer ${auth?.getUser()?.accessToken}` },
+          headers: { Authorization: `Bearer ${auth?.user?.accessToken}` },
         })
       ).data,
     queryKey: ["userDetail"],
@@ -140,11 +140,11 @@ const LoginForm = () => {
   });
 
   useEffect(() => {
-    if (auth?.getUser()?.accessToken) {
+    if (auth?.user?.accessToken) {
       refetchUserDetail();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth?.getUser()?.accessToken]);
+  }, [auth?.user?.accessToken]);
 
   useEffect(() => {
     if (userDetail?.success) {

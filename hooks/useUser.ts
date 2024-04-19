@@ -12,14 +12,11 @@ export const useUser = () => {
     setItem("isAuthenticated", JSON.stringify(true));
   };
 
-  //TODO: remove getUser & use user
-  const getUser = () => JSON.parse(getItem("user")!);
-
   const removeUser = () => {
     setUser(null);
     removeItem("user");
     removeItem("isAuthenticated");
   };
 
-  return { user, addUser, removeUser, getUser };
+  return { user, addUser, removeUser };
 };

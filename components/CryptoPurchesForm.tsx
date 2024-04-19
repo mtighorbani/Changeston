@@ -47,7 +47,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
         (
           await axios.post(wiseDataPost, data, {
             headers: {
-              Authorization: `Bearer ${auth?.getUser()?.accessToken}`,
+              Authorization: `Bearer ${auth?.user?.accessToken}`,
             },
           })
         ).data,

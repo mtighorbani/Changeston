@@ -3,7 +3,7 @@ import { useUser } from "./useUser";
 import { User } from "@/models/models";
 
 export const useAuth = () => {
-  const { addUser, removeUser, user, getUser } = useUser();
+  const { addUser, removeUser, user } = useUser();
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("isAuthenticated") ? true : false
   );
@@ -21,5 +21,5 @@ export const useAuth = () => {
     setIsAuthenticated(false)
   };
 
-  return { login, logout, user, isAuthenticated, getUser };
+  return { login, logout, user, isAuthenticated };
 };
