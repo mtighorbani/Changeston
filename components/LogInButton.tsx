@@ -103,21 +103,6 @@ const LogInButton = () => {
         ]}
       ></Modal>
       <div>
-        {/* <Button
-          onClick={() => {
-            auth?.login({
-              accessToken: "4445458",
-              full_name: "majid",
-              month_limit: 5,
-              phone_number: "0994162948",
-              refreshToken: "5556657",
-            });
-          }}
-        >
-          login
-        </Button>
-        <Button onClick={() => {console.log(auth?.user)}}>{auth?.isAuthenticated ? 'Authenticated' : 'not Authenticated'}</Button>
-        <Button onClick={() => auth?.logout()}>logout</Button> */}
         {auth?.isAuthenticated ? (
           <Button
             onClick={handleOpenLogoutModal}
