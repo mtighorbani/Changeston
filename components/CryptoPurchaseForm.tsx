@@ -4,11 +4,15 @@ import {
   CurrencyAmount,
   PaymentLinkResponse,
   PurchasePostData,
+
 } from "@/models/models";
 import { useMutation } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
 import { customNotification } from "../global/customNotification";
-import { currencyAmount, wiseDataPost } from "@/global/urls";
+import {
+  currencyAmount,
+  wiseDataPost,
+} from "@/global/urls";
 import axios from "axios";
 import { Button, notification } from "antd";
 import { useModalContext } from "@/context/ModalContext";
@@ -69,28 +73,28 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
         }
       },
       onError: (err: any) => {
-        if (err.response.status === 401) {
-          modalContext?.setIsLoginModalOpen(true);
-        } else {
-          customNotification({
-            api: api,
-            type: "error",
-            message: errorMessage(undefined),
-          });
-        }
+        customNotification({
+          api: api,
+          type: "error",
+          message: errorMessage(undefined),
+        });
       },
     });
 
   const LogInSubmitHandler = () => {
-    mutatePurchasePostData({
-      amount: parseInt(props.amount),
-      currency_type: props.currency_type,
-      group_id: props.group_id,
-      iban: props.iban,
-      payment_method: props.payment_method,
-      receiver_email: props.receiver_email,
-      receiver_name: props.receiver_name,
-    });
+    if (!auth?.isAuthenticated) {
+      modalContext?.setIsLoginModalOpen(true);
+    } else {
+      mutatePurchasePostData({
+        amount: parseInt(props.amount),
+        currency_type: props.currency_type,
+        group_id: props.group_id,
+        iban: props.iban,
+        payment_method: props.payment_method,
+        receiver_email: props.receiver_email,
+        receiver_name: props.receiver_name,
+      });
+    }
   };
 
   const rialAmount =

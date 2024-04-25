@@ -1,25 +1,67 @@
 "use client";
 
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import LogInButton from "./LogInButton";
 import ThemeSwitch from "./Theme";
 import BurgerMenu from "./BurgerMenu";
 import Image from "next/image";
 import Logo from "../asset/images/changeston-high-resolution-logo-transparent.png";
-import { Modal } from "antd";
+import { Modal, notification } from "antd";
 import LoginForm from "./LoginForm";
 import { useModalContext } from "@/context/ModalContext";
+import {
+  refreshAccessTokenModel,
+  refreshAccessTokenResponse,
+} from "@/models/models";
+import { customNotification } from "@/global/customNotification";
+import { errorMessage } from "@/global/errorMessage";
+import { useMutation } from "@tanstack/react-query";
+import { refreshAccessTokenUrl } from "@/global/urls";
+import axios from "axios";
+import { AuthContext } from "@/context/AuthContext";
 
 const Navbar = () => {
   const modalContext = useModalContext();
+  const [api, contextHolder] = notification.useNotification();
+  const auth = useContext(AuthContext);
+
+  // TODO: Make this global hook
+  const { mutate: mutateRefreshAccessToken } = useMutation({
+    mutationFn: async (data: refreshAccessTokenModel) =>
+      (await axios.post(refreshAccessTokenUrl, data)).data,
+    onSuccess: async (res: refreshAccessTokenResponse) => {
+      if (auth?.isAuthenticated) {
+        auth?.login({ ...auth.user, accessToken: res.access });
+        console.log("hello??");
+      }
+    },
+    onError: (err: refreshAccessTokenResponse) => {
+      customNotification({
+        api: api,
+        type: "error",
+        message: errorMessage(err.error),
+      });
+    },
+  });
+
+  useEffect(() => {
+    if (auth?.isAuthenticated) {
+      const interval = setInterval(() => {
+        mutateRefreshAccessToken({ refresh: auth?.user?.refreshToken });
+      }, 15 * 60 * 1000);
+
+      return () => clearInterval(interval);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth?.isAuthenticated]);
 
   return (
     <>
+      {contextHolder}
       <Modal
         footer={false}
         open={modalContext?.isLoginModalOpen}
         onCancel={() => modalContext?.setIsLoginModalOpen(false)}
-
       >
         <LoginForm />
       </Modal>

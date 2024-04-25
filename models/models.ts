@@ -29,6 +29,17 @@ export interface CheckOtpCodeResponse {
   error: Error | undefined;
 }
 
+
+//** refresh access token 
+export interface refreshAccessTokenModel {
+  refresh: string | undefined
+}
+
+export interface refreshAccessTokenResponse{
+  access: string | undefined
+  success: boolean | undefined
+  error: Error | undefined
+}
 // ** user detail
 export interface UserDetailResponse {
   phone_number: GetOtpCodeCommand["phone_number"] | undefined;

@@ -140,7 +140,7 @@ const LoginForm = () => {
   });
 
   useEffect(() => {
-    if (auth?.user?.accessToken) {
+    if (auth?.user?.accessToken && !auth.isAuthenticated) {
       refetchUserDetail();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

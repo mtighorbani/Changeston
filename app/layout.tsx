@@ -4,9 +4,7 @@ import "./globals.css";
 import { Providers } from "./provider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Modal } from "antd";
-import LoginForm from "@/components/LoginForm";
-import { useModalContext } from "@/context/ModalContext";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
