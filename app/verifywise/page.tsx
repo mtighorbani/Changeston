@@ -26,7 +26,7 @@ const VerifyWise = () => {
             key={step.id}
             id={3}
             step={step}
-            productVisibleHandler={() => router.back()}
+            productVisibleHandler={() => router.replace('/')}
           />
         ))}
       </div>
