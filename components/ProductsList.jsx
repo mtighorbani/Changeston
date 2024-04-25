@@ -8,19 +8,19 @@ import ConfirmForm from "./ConfirmForm";
 
 const ProductList = ({ productId,id }) => {
   const [purchaseVisible, setPurchaseVisible] = useState(true);
-  const [purchesId, SetPurchesId] = useState(0);
+  const [purchaseId, SetPurchaseId] = useState(0);
   const [ImgUrl,SetImgUrl] = useState()
   const [purchasePrice,purchaseSetPrice] = useState("")
   const [FaName , setFaName] = useState("")
 
 
   const ProductsListMap = moreDetails.map((item) => {
-    const purchesPageHandler = () => {
+    const purchasePageHandler = () => {
       setPurchaseVisible(false);
       SetImgUrl(item.Photo)
       purchaseSetPrice(item.prrice)
       setFaName(item.FaName)     
-      SetPurchesId(item.purchesId)
+      SetPurchaseId(item.purchaseId)
        
       
     };
@@ -28,11 +28,11 @@ const ProductList = ({ productId,id }) => {
     if (productId == item.id) {
       return (
 
-          <div key={item.purchesId} onClick={ ()=>id(3) }>
+          <div key={item.purchaseId} onClick={ ()=>id(3) }>
             <div
               className=" max-sm:mt-2 cursor-pointer hover:shadow-2xl hover:shadow-cyan-500/50 rounded-xl max-w-[360px] text-center justify-center  max-h-[400px] max-sm:mb-0 mb-10"
               key={item.id}
-              onClick={purchesPageHandler}
+              onClick={purchasePageHandler}
             >
               <Image
                 src={item.Photo}
@@ -63,7 +63,7 @@ const ProductList = ({ productId,id }) => {
       {ProductsListMap}
     </div>
   ) : (
-    <ConfirmForm purchesId={purchesId} imgUrl={ImgUrl} price={purchasePrice} FaName={FaName} />
+    <ConfirmForm purchaseId={purchaseId} imgUrl={ImgUrl} price={purchasePrice} FaName={FaName} />
   );
 };
 

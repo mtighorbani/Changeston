@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Products } from "@/Array/Ptoducts";
 import Image from "next/image";
-import purchaseStep from "@/Array/purchesStep";
+import purchaseStep from "@/Array/purchaseStep";
 import ProductList from "./ProductsList";
 
 import CurrencyComponents from "./CurrencyComponents";

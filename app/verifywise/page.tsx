@@ -1,6 +1,6 @@
 "use client";
-import purchaseStep from "@/Array/purchesStep";
-import CryptoPurchaseForm from "@/components/CryptoPurchesForm";
+import purchaseStep from "@/Array/purchaseStep";
+import CryptoPurchaseForm from "@/components/CryptoPurchaseForm";
 import PurchaseStepBox from "@/components/PurchaseStepBox";
 import { useRouter, useSearchParams } from "next/navigation";
 

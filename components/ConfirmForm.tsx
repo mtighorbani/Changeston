@@ -7,10 +7,10 @@ interface FormProps {
   imgUrl: StaticImageData
   price: string
   FaName:string
-  purchesId:number
+  purchaseId:number
 }
 
-const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
+const ConfirmForm = ({imgUrl,price,FaName, purchaseId: purchaseId }:FormProps) => {
   const LogInErrHandler = ()=>{
     alert('با عرض پوزش در حال حاضر امکان خرید و ساخت اکانت وجود ندارد')
   }
@@ -80,10 +80,10 @@ const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
           می شود.
         </div>
       </div>
-      <div key={purchesId}  className="w-[35%] rounded-xl max-sm:w-full max-sm:pb-6  min-h-[300px] dark:bg-black bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
+      <div key={purchaseId}  className="w-[35%] rounded-xl max-sm:w-full max-sm:pb-6  min-h-[300px] dark:bg-black bg-[#EEEEEE] mt-4 max-h=[700px] ml-[14%] ">
         <div  className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-32 mt-8 rounded-xl ">
 
-          <div key={purchesId} className="flex justify-between">
+          <div key={purchaseId} className="flex justify-between">
             <Image src={imgUrl} alt={FaName} className="h-[80%] max-sm:pt-7 pr-4 w-[30%] rounded-sm pt-3 relative"/>
             <p className="font-extrabold text-xl m-auto max-sm:pt-7">{FaName}</p>
 
