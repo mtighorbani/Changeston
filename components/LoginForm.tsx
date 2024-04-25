@@ -198,21 +198,24 @@ const LoginForm = () => {
   return (
     <>
       {contextHolder}
-      <Button
-        style={{
-          display: `${firstLoginStep ? "none" : "block"}`,
-        }}
-        type="link"
-        onClick={() => {
-          setFirstLoginStep(true);
-        }}
-      >
-        تغییر شماره تلفن
-      </Button>
+      <div dir="rtl" className=" m-3">
+        <Button
+        
+          style={{
+            display: `${firstLoginStep ? "none" : "block"}`,
+          }}
+          type="link"
+          onClick={() => {
+            setFirstLoginStep(true);
+          }}
+        >
+          تغییر شماره تلفن
+        </Button>
+      </div>
 
       <Form
         form={phoneNumberForm}
-        dir="ltr"
+        dir="rtl"
         {...layout}
         name="login-data"
         onFinish={onGetOtpHandler}
@@ -221,40 +224,44 @@ const LoginForm = () => {
           minWidth: 500,
           display: `${!firstLoginStep ? "none" : "block"}`,
         }}
-        className=" max-sm:max-w-28 "
+        className=" max-sm:max-w-28  "
       >
-        <Form.Item
-          name="phone_number"
-          // label={<span className="dark:text-white">شماره موبایل</span>}
-          rules={[
-            {
-              required: true,
-              message: "شماره تلفن وارد شده نا معتبر است",
-              pattern: phoneRegExp,
-            },
-          ]}
-        >
-          <Input
-            maxLength={11}
-            placeholder="شماره موبایل خود را وارد کنید (مثال:09123456789)"
-          />
-        </Form.Item>
-
-        <Form.Item>
-          <Button
-            loading={pendingGetOtpCode}
-            className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
-            htmlType="submit"
-            disabled={counter > 0}
+        <div dir="rtl" className=" w-[100%] text-black mr-16 ">
+          <p className=" font-extrabold text-lg mt-4 mb-2">
+            شماره تماس خود را وارد کنید
+          </p>
+          <Form.Item
+            name="phone_number"
+            className=" text-black "
+            // label={<span className="dark:text-white">شماره موبایل</span>}
+            rules={[
+              {
+                required: true,
+                message: "شماره تلفن وارد شده نا معتبر است",
+                pattern: phoneRegExp,
+              },
+            ]}
           >
-            {counter > 0 ? (
-              <span>لطفا صبر کنید {counter}</span>
-            ) : (
-              <span>تایید و دریافت کد</span>
-            )}
-          </Button>
-        </Form.Item>
+            <Input className="text-black" maxLength={11} />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              loading={pendingGetOtpCode}
+              className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+              htmlType="submit"
+              disabled={counter > 0}
+            >
+              {counter > 0 ? (
+                <span>لطفا صبر کنید {counter}</span>
+              ) : (
+                <span>تایید و دریافت کد</span>
+              )}
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
+
       <Form
         form={otpForm}
         {...layout}
@@ -266,20 +273,22 @@ const LoginForm = () => {
           minWidth: 500,
           display: `${firstLoginStep ? "none" : "block"}`,
         }}
-        className=" max-sm:max-w-28 "
+        className=" max-sm:max-w-28 w-[100%] "
       >
-        <Form.Item name="password">
-          <InputOTP autoFocus={true} length={5} inputType="numeric" />
-        </Form.Item>
-        <Form.Item>
-          <Button
-            loading={pendingCheckOtpCode}
-            className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
-            htmlType="submit"
-          >
-            <span>ورود</span>
-          </Button>
-        </Form.Item>
+        <div dir="rtl" className=" mr-24">
+          <Form.Item name="password">
+            <InputOTP autoFocus={true} length={5} inputType="numeric" />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              loading={pendingCheckOtpCode}
+              className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+              htmlType="submit"
+            >
+              <span>ورود</span>
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </>
   );

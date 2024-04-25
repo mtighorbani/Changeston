@@ -17,9 +17,9 @@ const Navbar = () => {
     <>
       <Modal
         footer={false}
-        title={"ورود / ثبت نام"}
         open={modalContext?.isLoginModalOpen}
         onCancel={() => modalContext?.setIsLoginModalOpen(false)}
+
       >
         <LoginForm />
       </Modal>
