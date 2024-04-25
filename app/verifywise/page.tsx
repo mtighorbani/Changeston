@@ -2,14 +2,16 @@
 import CryptoPurchaseForm from "@/components/CryptoPurchesForm";
 import { useSearchParams } from "next/navigation";
 
-const PayV2 = () => {
+const VerifyWise = () => {
   const searchParams = useSearchParams();
   const receiver_name = searchParams.get("receiver_name");
   const currency_type = searchParams.get("currency_type");
   const amount = searchParams.get("amount");
   const receiver_email = searchParams.get("receiver_email");
   const iban = searchParams.get("iban");
-
+  // const group_id = searchParams.get('group_id')
+  // const payment_method = searchParams.get('payment_method')
+  
   return (
     <CryptoPurchaseForm
       amount={amount}
@@ -23,4 +25,4 @@ const PayV2 = () => {
   );
 };
 
-export default PayV2;
+export default VerifyWise;

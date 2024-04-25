@@ -1,30 +1,26 @@
-import React, { useState } from "react";
-import CryptoPurchaseForm from "./CryptoPurchesForm";
+"use client";
+
+import React from "react";
 import { Button, Form, Input, Select } from "antd";
 import { PurchasePostData } from "@/models/models";
-import { useRouter } from 'next/router'
-import { Query } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+// import { Query } from "@tanstack/react-query";
 
 const CurrencyComponents = ({ id }: any) => {
-  const [purchasePage, setParchasePge] = useState<boolean>(false);
-  const [formValues, setFormValues] = useState<PurchasePostData >();
-  
-  
-  const purchaseValueHnadler = (value:PurchasePostData)=>{
-    setFormValues(value)
-    id(3);
-    setParchasePge(true);
-  }
+  // ** Router
+  const router = useRouter();
+
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
 
-   const onFinish = (values: PurchasePostData) => {
-    purchaseValueHnadler(values)
-   console.log(formValues)
+  const onFinish = (values: PurchasePostData) => {
+    router.push(
+      `/verifywise?receiver_name=${values.receiver_name}&currency_type=${values.currency_type}&amount=${values.amount}&receiver_email=${values.receiver_email}&iban=${values.iban}`
+    );
   };
-  
+
   const validateMessages = {
     required: "${label} is required!",
     types: {
@@ -38,7 +34,7 @@ const CurrencyComponents = ({ id }: any) => {
 
   return (
     <>
-      {!purchasePage ? (
+      {
         <div
           dir="rtl"
           className=" m-auto w-[50%] max-sm:w-full rounded-lg h-[450px] max-sm:h-[620px] dark:bg-black bg-[#EEEEEE] mt-24"
@@ -65,7 +61,6 @@ const CurrencyComponents = ({ id }: any) => {
               label={<span className=" dark:text-white">نوع ارز</span>}
             >
               <Select<PurchasePostData>
-                
                 options={[
                   { value: "usd", label: "دلار" },
                   { value: "euro", label: "یورو" },
@@ -105,28 +100,16 @@ const CurrencyComponents = ({ id }: any) => {
             </Form.Item>
 
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                <Button
-                onClick={()=>purchaseValueHnadler}
-                  className="w-[40%]  h-10 text-center  text-white pr-3    rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
-                  htmlType="submit"
-                >
-                  ثبت درخواست
-                </Button>
+              <Button
+                className="w-[40%]  h-10 text-center  text-white pr-3    rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+                htmlType="submit"
+              >
+                ثبت درخواست
+              </Button>
             </Form.Item>
-
           </Form>
         </div>
-      ) : (
-        <CryptoPurchaseForm
-            iban={formValues?.iban || ''}
-            currency_type={formValues?.currency_type || ''}
-            receiver_email={formValues?.receiver_email || ''}
-            receiver_name={formValues?.receiver_name || ''}
-            amount={formValues?.amount || 0}
-            group_id="4"
-            payment_method="zibal"
-        />
-      )}
+      }
     </>
   );
 };

@@ -13,16 +13,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ModalContextProvider>
       <AuthProvider>
-        {/* <TokenContextProvider> */}
-        {/* <UserContextProvider> */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <QueryClientProvider client={queryClient}>
             {children}
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </ThemeProvider>
-        {/* </UserContextProvider> */}
-        {/* </TokenContextProvider> */}
       </AuthProvider>
     </ModalContextProvider>
   );
