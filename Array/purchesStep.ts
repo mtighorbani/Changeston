@@ -1,4 +1,6 @@
-const purchesStep = [
+import { PurchaseStepsModel } from "@/models/models";
+
+const purchaseStep: PurchaseStepsModel[] = [
     {
       id: 3,
       name: "بررسی و پرداخت",
@@ -13,4 +15,4 @@ const purchesStep = [
     }
   ];
 
-  export default  purchesStep
+  export default  purchaseStep

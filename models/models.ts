@@ -90,3 +90,10 @@ export interface User {
   accessToken?: string;
   refreshToken?: string
 }
+
+
+//Purchase Steps Model
+export interface PurchaseStepsModel {
+  id: number | undefined
+  name: string | undefined
+}

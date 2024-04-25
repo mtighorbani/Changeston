@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import { Products } from "@/Array/Ptoducts";
 import Image from "next/image";
-import purchesStep from "@/Array/purchesStep";
+import purchaseStep from "@/Array/purchesStep";
 import ProductList from "./ProductsList";
 
 import CurrencyComponents from "./CurrencyComponents";
-import { PurchasePostData } from "@/models/models";
+import PurchaseStepBox from "./PurchaseStepBox";
 
 interface Props {
   isTempPage?: boolean;
@@ -56,30 +56,18 @@ const ProductsCard = (props: Props) => {
     </div>
   ));
 
-  const PurchesStepBox = purchesStep.map((step) => (
-    <div
-      onClick={ProductVisibleHandler}
-      className=" text-black  place-content-center sm:h-[100px] "
-      key={step.id}
-    >
-      <div
-        className={`sm:h-[40%]  shadow-3xl cursor-pointer ${
-          id == step.id
-            ? "bg-gradient-to-r from-[#C8338C] to-[#0A95E5]"
-            : " bg-gray-600"
-        } shadow-gray-50/50 w-[30%] sm:mt-3 max-sm:h-[60%]   text-center py-2  text-white m-auto  rounded-lg `}
-      >
-        {step.id}
-      </div>
-      <p className="mt-1 pt-1 text-center cursor-pointer">{step.name}</p>
-    </div>
-  ));
-
   return (
     <>
       {props.isTempPage ?? (
         <div className="w-[40%]  max-sm:w-[100%] max-sm:h-[15%] sm:ml-[30%] mt-[-60px] grid   grid-cols-3 m-auto place-content-center  gap-3 absolute  ring-2 ring-[#5a8dee] rounded-2xl bg-white  ">
-          {PurchesStepBox}
+          {purchaseStep.map((step) => (
+            <PurchaseStepBox
+              key={step.id}
+              id={id}
+              productVisibleHandler={ProductVisibleHandler}
+              step={step}
+            />
+          ))}
         </div>
       )}
       {props.isTempPage ? (

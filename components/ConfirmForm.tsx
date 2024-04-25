@@ -103,6 +103,7 @@ const ConfirmForm = ({imgUrl,price,FaName, purchesId }:FormProps) => {
               value="confirm"
               className="w-4 h-4 mr-3 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
               checked
+              readOnly
             />
             <label
               typeof="country-option-1"
