@@ -277,7 +277,7 @@ const LoginForm = () => {
       >
         <div dir="rtl" className=" mr-24">
           <Form.Item name="password">
-            <InputOTP autoFocus={true} length={5} inputType="numeric" />
+            <InputOTP dir="ltr" autoFocus={true} length={5} inputType="numeric" />
           </Form.Item>
           <Form.Item>
             <Button
