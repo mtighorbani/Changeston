@@ -48,7 +48,7 @@ const Navbar = () => {
     if (auth?.isAuthenticated) {
       const interval = setInterval(() => {
         mutateRefreshAccessToken({ refresh: auth?.user?.refreshToken });
-      }, 15 * 60 * 1000);
+      }, 1 * 60 * 1000);
 
       return () => clearInterval(interval);
     }
