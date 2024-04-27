@@ -176,16 +176,9 @@ const LoginForm = () => {
     mutateGetOtpCode(data);
   };
 
-  const onSubmitOtpHandler = (data: any) => {
-    let tempOtp = "";
-    //TODO: FIX this
-    tempOtp =
-      data.password[0] +
-      data.password[1] +
-      data.password[2] +
-      data.password[3] +
-      data.password[4];
-    mutateCheckOtpCode({
+  const onSubmitOtpHandler = (data: {password: string[]}) => {
+    let tempOtp = data.password.slice(0,5).join('');
+      mutateCheckOtpCode({
       phone_number: phoneNumber,
       password: tempOtp,
     });
@@ -200,7 +193,6 @@ const LoginForm = () => {
       {contextHolder}
       <div dir="rtl" className=" m-3">
         <Button
-        
           style={{
             display: `${firstLoginStep ? "none" : "block"}`,
           }}
@@ -226,7 +218,7 @@ const LoginForm = () => {
         }}
         className=" max-sm:max-w-28  "
       >
-        <div dir="rtl" className=" w-[100%] text-black mr-16 ">
+        <div dir="rtl" className=" w-[100%] text-black mr-24 ">
           <p className=" font-extrabold text-lg mt-4 mb-2">
             شماره تماس خود را وارد کنید
           </p>
@@ -275,12 +267,10 @@ const LoginForm = () => {
         }}
         className=" max-sm:max-w-28 w-[100%] "
       >
-        <div dir="rtl" className=" mr-24">
-          <Form.Item name="password">
-            <div dir="ltr">
-              <InputOTP  autoFocus={true} length={5} inputType="numeric" />
-            </div>
-          </Form.Item>
+        <div dir="ltr" className=" ml-24">
+            <Form.Item name="password">
+              <InputOTP autoFocus={true} length={5} inputType="numeric" />
+            </Form.Item>
           <Form.Item>
             <Button
               loading={pendingCheckOtpCode}
