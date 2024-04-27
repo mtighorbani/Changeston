@@ -30,9 +30,13 @@ const Navbar = () => {
     mutationFn: async (data: refreshAccessTokenModel) =>
       (await axios.post(refreshAccessTokenUrl, data)).data,
     onSuccess: async (res: refreshAccessTokenResponse) => {
-      if (auth?.isAuthenticated) {
-        auth?.login({ ...auth.user, accessToken: res.access });
-        console.log("hello??");
+      if(res.success){
+        if (auth?.isAuthenticated) {
+          auth?.login({ ...auth.user, accessToken: res.access });
+          console.log("hello??");
+        }
+      }else {
+        auth?.logout()
       }
     },
     onError: (err: refreshAccessTokenResponse) => {
