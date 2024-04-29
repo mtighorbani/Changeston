@@ -90,7 +90,7 @@ const LogInButton = () => {
             onClick={handleCloseLogoutModal}
             className="rounded-md font-[BMitra] "
           >
-            پشیمان شدم
+            خیر
           </Button>,
           <Button
             key={"submit"}
@@ -98,19 +98,19 @@ const LogInButton = () => {
             onClick={LogOutHandler}
             className="transition hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold  rounded-md font-[BMitra] font-bold "
           >
-            بله!خارج می شوم
+            بله! خارج می شوم
           </Button>,
         ]}
       ></Modal>
       <div>
         {auth?.isAuthenticated ? (
-          <Button
+          
+          <button
             onClick={handleOpenLogoutModal}
-            loading={pendingLogOut}
             className="max-sm:hidden  transition duration-300  sm:font-size-[6px] ease-in-out flex hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold max-sm:py-2 max-sm:px-3 py-2 px-4 rounded-md font-[BMitra] font-bold "
           >
             خروج
-          </Button>
+          </button>
         ) : (
           <button
             onClick={OpenLoginHandler}
