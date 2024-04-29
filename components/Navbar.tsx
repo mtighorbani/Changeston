@@ -92,7 +92,7 @@ const Navbar = () => {
             <a href="/rules">قوانین خرید</a>
           </span>
           <span className="px-4 max-sm:hidden pt-3 ">
-            <a href="/myPurchase">خرید های من</a>
+            <a href="/mypurchase">خرید های من</a>
           </span>
         </div>
       </div>
