@@ -29,16 +29,15 @@ export interface CheckOtpCodeResponse {
   error: Error | undefined;
 }
 
-
-//** refresh access token 
+//** refresh access token
 export interface refreshAccessTokenModel {
-  refresh: string | undefined
+  refresh: string | undefined;
 }
 
-export interface refreshAccessTokenResponse{
-  access: string | undefined
-  success: boolean | undefined
-  error: Error | undefined
+export interface refreshAccessTokenResponse {
+  access: string | undefined;
+  success: boolean | undefined;
+  error: Error | undefined;
 }
 // ** user detail
 export interface UserDetailResponse {
@@ -99,12 +98,44 @@ export interface User {
   full_name?: string | undefined;
   month_limit?: number | undefined;
   accessToken?: string;
-  refreshToken?: string
+  refreshToken?: string;
 }
-
 
 //Purchase Steps Model
 export interface PurchaseStepsModel {
-  id: number | undefined
-  name: string | undefined
+  id: number | undefined;
+  name: string | undefined;
+}
+
+// ** UserProducts
+export interface UserProducts {
+  id: number;
+  purchase: number;
+  completed: true;
+  description: string;
+  group_FaName: string;
+  group_type: string;
+  is_cancelled: false;
+  payment_method: string;
+  date_time: string;
+  value: string;
+  tax: string;
+  product_value: number;
+  product_currncytype: string;
+  app: string;
+  code: string;
+}
+
+export interface UserProductsResponse {
+  user_products?: UserProducts[]
+  success?: boolean;
+  detail?: string ;
+  code?: string | number;
+  messages?: [
+    {
+      token_class: string ;
+      token_type: string ;
+      message: string ;
+    }
+  ];
 }

@@ -95,6 +95,9 @@ const Navbar = () => {
           <span className="px-4 max-sm:hidden pt-3 ">
             <a href="/rules">قوانین خرید</a>
           </span>
+          <span className="px-4 max-sm:hidden pt-3 ">
+            <a href="/mypurchase">خرید های من</a>
+          </span>
         </div>
       </div>
       {/* <div className="w-5/6 h-1 bg-gray-500 m-auto"/> */}
