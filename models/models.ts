@@ -130,7 +130,7 @@ export interface UserProductsResponse {
   user_products?: UserProducts[]
   success?: boolean;
   detail?: string ;
-  code?: number ;
+  code?: string | number;
   messages?: [
     {
       token_class: string ;
