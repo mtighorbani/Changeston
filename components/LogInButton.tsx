@@ -1,7 +1,7 @@
 "use client";
 import { useModalContext } from "@/context/ModalContext";
-import { Button, Modal, notification } from "antd";
-import React, { useContext, useState } from "react";
+import { Button, Modal, Spin, notification } from "antd";
+import React, { useContext, useEffect, useState } from "react";
 import { IoIosLogIn } from "react-icons/io";
 import { customNotification } from "../global/customNotification";
 import axios from "axios";
@@ -15,9 +15,15 @@ const LogInButton = () => {
   const auth = useContext(AuthContext);
 
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState<boolean>(false);
+  const [mounted, setMounted] = useState<boolean>(false);
 
   // ** Notification
   const [api, contextHolder] = notification.useNotification();
+
+  // ** Hooks
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // ** Handlers
   const handleCloseLogoutModal = () => {
@@ -69,6 +75,17 @@ const LogInButton = () => {
   const LogOutHandler = () => {
     mutateLogOut();
   };
+
+  if (!mounted) {
+    return (
+      <div>
+        <button className="max-sm:hidden cursor-not-allowed transition duration-300  sm:font-size-[6px] ease-in-out flex hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold max-sm:py-2 max-sm:px-3 py-2 px-4 rounded-md font-[BMitra] font-bold ">
+          ...
+        </button>
+      </div>
+    );
+  }
+
   return (
     <>
       {contextHolder}
