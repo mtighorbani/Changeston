@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { useModalContext } from "@/context/ModalContext";
@@ -85,6 +85,12 @@ import { Skeleton } from "antd";
 const MyPurchase = () => {
   const auth = useContext(AuthContext);
   const modalContext = useModalContext();
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  // ** Hooks
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     refetchUserProducts();
@@ -107,20 +113,27 @@ const MyPurchase = () => {
         })
       ).data,
     queryKey: ["userProducts"],
-    retry: false
+    retry: false,
   });
+
+  if (!mounted) {
+    return null
+  }
 
   return (
     <div dir="rtl" className="  mx-48 min-h-[450px] m-8 ">
       <h1 className=" text-2xl font-bold  mb-8">خرید های من :</h1>
-      <div>{ auth?.isAuthenticated ?
-        isFetchingUserProducts ? (
-          // TODO: مهدی اسکلتون رو برای لودینگ گذاشتم، هرچی میخوای بزار جاش 
-          <Skeleton />
-        ) : (
-          userProducts?.user_products?.map((item) => (
-            <>
+      <div>
+        {auth?.isAuthenticated ? (
+          isFetchingUserProducts ? (
+            // TODO: مهدی اسکلتون رو برای لودینگ گذاشتم، هرچی میخوای بزار جاش
+            <div>
+              <Skeleton />
+            </div>
+          ) : (
+            userProducts?.user_products?.map((item) => (
               <div
+                key={item.id}
                 className={`${
                   item.completed && !item.is_cancelled
                     ? " bg-green-300"
@@ -208,11 +221,12 @@ const MyPurchase = () => {
                   <p dir="ltr"> {item.date_time}</p>
                 </div>
               </div>
-            </>
-          ))
-        )
-        // TODO : مهدی اینارو اوکی کن و متنش رو تغییر بده
-        : 'لطفا ابتدا وارد شوید'}
+            ))
+          )
+        ) : (
+          // TODO : مهدی اینارو اوکی کن و متنش رو تغییر بده
+          <div>لطفا ابتدا وارد شوید</div>
+        )}
       </div>
     </div>
   );
