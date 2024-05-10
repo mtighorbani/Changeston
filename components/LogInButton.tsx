@@ -7,7 +7,6 @@ import { customNotification } from "../global/customNotification";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { logoutUrl } from "@/global/urls";
-import { errorMessage } from "@/global/errorMessage";
 import { AuthContext } from "@/context/AuthContext";
 
 const LogInButton = () => {
@@ -44,28 +43,22 @@ const LogInButton = () => {
         )
       ).data,
     onSuccess: (res) => {
-      if (res.success) {
-        customNotification({
-          api: api,
-          type: "success",
-          message: "با موفقیت خارج شدید",
-        });
-        auth?.logout();
-        handleCloseLogoutModal();
-      } else {
-        customNotification({
-          api: api,
-          type: "error",
-          message: errorMessage(res.error),
-        });
-      }
+      customNotification({
+        api: api,
+        type: "success",
+        message: "با موفقیت خارج شدید",
+      });
+      auth?.logout();
+      handleCloseLogoutModal();
     },
     onError: () => {
       customNotification({
         api: api,
-        type: "error",
-        message: errorMessage(undefined),
+        type: "success",
+        message: "با موفقیت خارج شدید",
       });
+      auth?.logout();
+      handleCloseLogoutModal();
     },
   });
 
@@ -104,7 +97,6 @@ const LogInButton = () => {
       ></Modal>
       <div>
         {auth?.isAuthenticated ? (
-          
           <button
             onClick={handleOpenLogoutModal}
             className="max-sm:hidden  transition duration-300  sm:font-size-[6px] ease-in-out flex hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold max-sm:py-2 max-sm:px-3 py-2 px-4 rounded-md font-[BMitra] font-bold "

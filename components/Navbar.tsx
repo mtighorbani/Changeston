@@ -33,13 +33,13 @@ const Navbar = () => {
       if(res.success){
         if (auth?.isAuthenticated) {
           auth?.login({ ...auth.user, accessToken: res.access });
-          console.log("hello??");
         }
       }else {
         auth?.logout()
       }
     },
     onError: (err: refreshAccessTokenResponse) => {
+      auth?.logout()
       customNotification({
         api: api,
         type: "error",

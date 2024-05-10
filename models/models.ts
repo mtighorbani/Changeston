@@ -111,31 +111,33 @@ export interface PurchaseStepsModel {
 export interface UserProducts {
   id: number;
   purchase: number;
-  completed: true;
+  completed: boolean;
   description: string;
   group_FaName: string;
   group_type: string;
-  is_cancelled: false;
+  is_cancelled: boolean;
   payment_method: string;
   date_time: string;
-  value: string;
-  tax: string;
-  product_value: number;
-  product_currncytype: string;
+  value: number;
+  tax: number;
+  product_value: string;
   app: string;
+  email: string;
+  password: string;
+  product_currncytype: string;
   code: string;
 }
 
 export interface UserProductsResponse {
-  user_products?: UserProducts[]
+  user_products?: UserProducts[];
   success?: boolean;
-  detail?: string ;
+  detail?: string;
   code?: string | number;
   messages?: [
     {
-      token_class: string ;
-      token_type: string ;
-      message: string ;
+      token_class: string;
+      token_type: string;
+      message: string;
     }
   ];
 }
