@@ -11,15 +11,15 @@ const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ModalContextProvider>
-      <AuthProvider>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ModalContextProvider>
+        <AuthProvider>
           <QueryClientProvider client={queryClient}>
             {children}
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
-        </ThemeProvider>
-      </AuthProvider>
-    </ModalContextProvider>
+        </AuthProvider>
+      </ModalContextProvider>
+    </ThemeProvider>
   );
 }

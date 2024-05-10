@@ -176,12 +176,26 @@ const LoginForm = () => {
     mutateGetOtpCode(data);
   };
 
-  const onSubmitOtpHandler = (data: {password: string[]}) => {
-    let tempOtp = data.password.slice(0,5).join('');
+  const onSubmitOtpHandler = (data: { password: string[] }) => {
+    if (data.password) {
+      let tempOtp = data.password.slice(0, 5).join("");
       mutateCheckOtpCode({
-      phone_number: phoneNumber,
-      password: tempOtp,
-    });
+        phone_number: phoneNumber,
+        password: tempOtp,
+      });
+    }
+  };
+
+  const onChangeOtpHandler = (password: string[]) => {
+    if (password) {
+      if (password.length === 5) {
+        let tempOtp = password.slice(0, 5).join("");
+        mutateCheckOtpCode({
+          phone_number: phoneNumber,
+          password: tempOtp,
+        });
+      }
+    }
   };
 
   // ** RegExp
@@ -225,7 +239,7 @@ const LoginForm = () => {
           <Form.Item
             name="phone_number"
             className=" text-black "
-            // label={<span className="dark:text-white">شماره موبایل</span>}
+            
             rules={[
               {
                 required: true,
@@ -234,7 +248,7 @@ const LoginForm = () => {
               },
             ]}
           >
-            <Input className="text-black" maxLength={11} />
+            <Input autoFocus className="text-black" maxLength={11} />
           </Form.Item>
 
           <Form.Item>
@@ -268,9 +282,15 @@ const LoginForm = () => {
         className=" max-sm:max-w-28 w-[100%] "
       >
         <div dir="ltr" className=" ml-24">
-            <Form.Item name="password">
-              <InputOTP autoFocus={true} length={5} inputType="numeric" />
-            </Form.Item>
+          <Form.Item name="password">
+            <InputOTP
+              autoFocus
+              length={5}
+              inputType="numeric"
+              
+              onChange={(e) => onChangeOtpHandler(e)}
+            />
+          </Form.Item>
           <Form.Item>
             <Button
               loading={pendingCheckOtpCode}
