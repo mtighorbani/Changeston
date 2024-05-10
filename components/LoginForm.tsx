@@ -12,7 +12,7 @@ import {
   GetOtpCodeResponse,
   UserDetailResponse,
 } from "@/models/models";
-import { useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { InputOTP } from "antd-input-otp";
 import { useModalContext } from "@/context/ModalContext";
 import { errorMessage } from "@/global/errorMessage";
@@ -39,11 +39,32 @@ const LoginForm = () => {
     otpForm.resetFields();
   };
 
+  const onChangePhoneNumberHandler = (
+    phoneNumber: ChangeEvent<HTMLInputElement>
+  ) => {
+    if (phoneNumber.target.value.length === 0) {
+      setCounter(0);
+    }
+  };
+
+  const onGetOtpHandler = (data: GetOtpCodeCommand) => {
+    setPhoneNumber(data.phone_number);
+    mutateGetOtpCode(data);
+  };
+
+  const onSubmitOtpHandler = (data: { password: string[] }) => {
+    if (data.password) {
+      let tempOtp = data.password.slice(0, 5).join("");
+      mutateCheckOtpCode({
+        phone_number: phoneNumber,
+        password: tempOtp,
+      });
+    }
+  };
+
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   const [firstLoginStep, setFirstLoginStep] = useState<boolean>(true);
-
-  // const router = useRouter();
 
   // ** Notification
   const [api, contextHolder] = notification.useNotification();
@@ -51,11 +72,20 @@ const LoginForm = () => {
   // ** Count Down
   const [counter, setCounter] = useState<number>(0);
 
+  // ** Hooks
   useEffect(() => {
     const timer =
       counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
     return () => clearInterval(Number(timer));
   }, [counter]);
+
+  useEffect(() => {
+    handleResetPhoneNumberForm();
+    handleResetOtpForm();
+    setFirstLoginStep(true);
+    setCounter(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalContext?.isLoginModalOpen]);
 
   // ** API Calls
   // get otp code
@@ -170,22 +200,6 @@ const LoginForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDetail]);
 
-  // ** Handlers
-  const onGetOtpHandler = (data: GetOtpCodeCommand) => {
-    setPhoneNumber(data.phone_number);
-    mutateGetOtpCode(data);
-  };
-
-  const onSubmitOtpHandler = (data: { password: string[] }) => {
-    if (data.password) {
-      let tempOtp = data.password.slice(0, 5).join("");
-      mutateCheckOtpCode({
-        phone_number: phoneNumber,
-        password: tempOtp,
-      });
-    }
-  };
-
   const onChangeOtpHandler = (password: string[]) => {
     if (password) {
       if (password.length === 5) {
@@ -239,7 +253,6 @@ const LoginForm = () => {
           <Form.Item
             name="phone_number"
             className=" text-black "
-            
             rules={[
               {
                 required: true,
@@ -248,7 +261,12 @@ const LoginForm = () => {
               },
             ]}
           >
-            <Input autoFocus className="text-black" maxLength={11} />
+            <Input
+              onChange={(e) => onChangePhoneNumberHandler(e)}
+              autoFocus
+              className="text-black"
+              maxLength={11}
+            />
           </Form.Item>
 
           <Form.Item>
@@ -287,7 +305,6 @@ const LoginForm = () => {
               autoFocus
               length={5}
               inputType="numeric"
-              
               onChange={(e) => onChangeOtpHandler(e)}
             />
           </Form.Item>
