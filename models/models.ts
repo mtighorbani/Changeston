@@ -141,3 +141,23 @@ export interface UserProductsResponse {
     }
   ];
 }
+
+export interface VerifyAccountRes{
+  verfiedpanelsgroup:[
+    {
+      id:number,
+      description:string,
+      name:string,
+      amount:number
+    }
+  ],
+  success:boolean,
+  group:{
+    id:number,
+    FaName:string,
+    Photo:string,
+    name:string,
+    active:true,
+    tax_rate:number 
+  }
+}

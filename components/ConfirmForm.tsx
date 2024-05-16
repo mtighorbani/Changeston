@@ -5,7 +5,7 @@ import React from "react";
 
 interface FormProps {
   imgUrl: StaticImageData
-  price: string
+  price: number
   FaName:string
   purchaseId:number
 }
