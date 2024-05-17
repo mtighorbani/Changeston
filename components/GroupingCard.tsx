@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import purchaseStep from "@/Array/purchaseStep";
 import ProductList from "./ProductsList";
@@ -10,7 +10,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { GroupResponse } from "@/models/models";
 import { groupUrl } from "@/global/urls";
-import { Spin } from "antd";
+import { Spin, notification } from "antd";
+import { customNotification } from "@/global/customNotification";
 
 interface Props {
   isTempPage?: boolean;
@@ -22,16 +23,27 @@ const ProductsCard = (props: Props) => {
   const [productId, setProductId] = useState(-0);
   const NextId = roadMapStepId + 1;
 
+  // ** Notification
+  const [api, contextHolder] = notification.useNotification();
+
   const {
     data: group,
     isFetching: isFetchingGroup,
+    isError: isErrorGroup,
   } = useQuery<GroupResponse>({
-    queryFn: async () =>
-      (
-        await axios.get(groupUrl)
-      ).data,
+    queryFn: async () => (await axios.get(groupUrl)).data,
     queryKey: ["group"],
   });
+
+  useEffect(() => {
+    isErrorGroup &&
+      customNotification({
+        api: api,
+        type: "error",
+        message: "متاسفانه دریافت اطلاعات با خطا مواجه شده است!",
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isErrorGroup]);
 
   const ProductVisibleHandler = () => {
     isVisible(true);
@@ -47,34 +59,43 @@ const ProductsCard = (props: Props) => {
     setRoadMapStepId(roadMapId);
   };
 
-  const groupsItemList = isFetchingGroup ? <Spin/> : group && group.groups.map((item) => (
-    // TODO: remove this condition when all groups added
-    item.id !== 2 && item.id !== 3 &&
-    <div key={item.id} onClick={setIdHandler}>
-      <div
-        onClick={() => setProductId(item.id)}
-        className=" cursor-pointer hover:shadow-2xl mx-6 hover:shadow-cyan-500/50 rounded-md max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
-        key={roadMapStepId}
-      >
-        <Image
-          src={`/images/${item.name}.jpg`}
-          alt={item.name}
-          width={500}
-          height={400}
-          className="w-[400px] h-[200px] rounded-lg"
-        />
-        <p className=" max-sm:font-normal text-xl  font-extrabold font-lg mb-2 mt-4 ">
-          {item.name}
-        </p>
-        <p className="font-extrabold max-sm:font-normal text-xl font-lg pb-10 ">
-          {item.FaName}
-        </p>
-      </div>
-    </div>
-  ));
+  const groupsItemList = isFetchingGroup ? (
+    <Spin />
+  ) : (
+    group &&
+    group.groups.map(
+      (item) =>
+        // TODO: remove this condition when all groups added
+        item.id !== 2 &&
+        item.id !== 3 && (
+          <div key={item.id} onClick={setIdHandler}>
+            <div
+              onClick={() => setProductId(item.id)}
+              className=" cursor-pointer hover:shadow-2xl mx-6 hover:shadow-cyan-500/50 rounded-md max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
+              key={roadMapStepId}
+            >
+              <Image
+                src={`/images/${item.name}.jpg`}
+                alt={item.name}
+                width={500}
+                height={400}
+                className="w-[400px] h-[200px] rounded-lg"
+              />
+              <p className=" max-sm:font-normal text-xl  font-extrabold font-lg mb-2 mt-4 ">
+                {item.name}
+              </p>
+              <p className="font-extrabold max-sm:font-normal text-xl font-lg pb-10 ">
+                {item.FaName}
+              </p>
+            </div>
+          </div>
+        )
+    )
+  );
 
   return (
     <>
+      {contextHolder}
       {props.isTempPage ?? (
         <div className="w-[40%]  max-sm:w-[100%] max-sm:h-[15%] sm:ml-[30%] mt-[-60px] grid   grid-cols-3 m-auto place-content-center  gap-3 absolute  ring-2 ring-[#5a8dee] rounded-2xl bg-white  ">
           {purchaseStep.map((step) => (
