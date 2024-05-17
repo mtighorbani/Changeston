@@ -160,8 +160,7 @@ export interface VerifiedPanelsListResponse {
 }
 
 // ** GiftCard
-
-interface GooglePlay {
+export interface GooglePlay {
   id: number;
   description: string;
   currency_type: string;

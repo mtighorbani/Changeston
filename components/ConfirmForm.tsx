@@ -1,11 +1,12 @@
 import Image, { StaticImageData } from "next/image";
 import React from "react";
 
-interface FormProps {
+interface Props {
   id: number | undefined;
   amount: number | undefined;
   name: string | undefined;
   imgUrl?: StaticImageData;
+  currencyType?: string;
 }
 
 const ConfirmForm = ({
@@ -13,7 +14,8 @@ const ConfirmForm = ({
   amount: amount,
   name: name,
   id: id,
-}: FormProps) => {
+  currencyType,
+}: Props) => {
   const LogInErrHandler = () => {
     alert("با عرض پوزش در حال حاضر امکان خرید و ساخت اکانت وجود ندارد");
   };
@@ -106,6 +108,11 @@ const ConfirmForm = ({
         <div className="bg-[#F9FAFB] dark:bg-[#374151] w-full h-14 mt-5 rounded-xl">
           <p className="text-cente pt-3 pr-4 font-extrabold text-xl">
             جمع مبلغ : {amount}
+            {currencyType
+              ? currencyType === "usd"
+                ? "$"
+                : currencyType === "euro" && "€"
+              : "تومان"}
           </p>
         </div>
         <div>
