@@ -19,6 +19,12 @@ export const userDetailsUrl = baseUrl + "user/";
 // ** user products
 export const userProductsUrl = baseUrl + 'user/products/'
 
+// ** verified panels list
+export const verifiedPanelsListUrl = baseUrl + 'verfiedpanels/list/' 
+
+// ** group
+export const groupUrl = baseUrl + 'group/' 
+
 
 export const wiseDataPost = baseUrl + "paymentlink/"
 

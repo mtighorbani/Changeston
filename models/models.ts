@@ -92,7 +92,6 @@ export interface paymentResult {
   };
 }
 
-//TODO: change this user model
 export interface User {
   phone_number?: GetOtpCodeCommand["phone_number"] | undefined;
   full_name?: string | undefined;
@@ -126,6 +125,38 @@ export interface UserProducts {
   password: string;
   product_currncytype: string;
   code: string;
+}
+
+// ** Group
+export interface Group {
+  id: number;
+  FaName: string;
+  Photo: string;
+  name: string;
+  active: boolean;
+  tax_rate: number;
+}
+
+// ** get Groups response
+export interface GroupResponse {
+  groups: Group[];
+  success: boolean;
+  error: Error;
+}
+
+// ** VerifiedPanelsList
+export interface VerifiedPanels {
+  id: number;
+  description: string;
+  name: string;
+  amount: number;
+}
+
+export interface VerifiedPanelsListResponse {
+  verfiedpanelsgroup: VerifiedPanels[];
+  success: boolean;
+  group: Group;
+  error: Error;
 }
 
 export interface UserProductsResponse {

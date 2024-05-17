@@ -6,7 +6,7 @@ import { PurchasePostData } from "@/models/models";
 import { useRouter } from "next/navigation";
 // import { Query } from "@tanstack/react-query";
 
-const CurrencyComponents = ({ id }: any) => {
+const CurrencyComponents = ({ roadMapIdSetter }: any) => {
   // ** Router
   const router = useRouter();
 
@@ -16,7 +16,7 @@ const CurrencyComponents = ({ id }: any) => {
   };
 
   const onFinish = (values: PurchasePostData) => {
-    id(3)
+    roadMapIdSetter(3)
     router.replace(
       `/verifywise?receiver_name=${values.receiver_name}&currency_type=${values.currency_type}&amount=${values.amount}&receiver_email=${values.receiver_email}&iban=${values.iban}`
     );
