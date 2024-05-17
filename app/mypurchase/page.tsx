@@ -10,78 +10,6 @@ import { userProductsUrl } from "@/global/urls";
 import { UserProductsResponse } from "@/models/models";
 import { Skeleton } from "antd";
 
-/* const userPurchase = {
-  user: {
-    id: 1,
-    full_name: null,
-  },
-  user_products: [
-    {
-      id: 7,
-      purchase: 8,
-      completed: true,
-      description: null,
-      gift_code: "folanofolan",
-      app_name: "googleplay",
-      group_FaName: "گیفت کارد",
-      payment_method: "zibal",
-      date_time: "1402-12-21 21:32:23",
-      value: "313930.0",
-      tax: "1569.65",
-      product_value: 5,
-      product_currncytype: "usd",
-    },
-    {
-      id: 8,
-      purchase: 17,
-      completed: true, // age sefaresh tavasot admin kamel shode bud in true mishe vagarna false
-      description: "sefaresh shom ba movafaghiat takmil shod azizam.",
-      group_FaName: "شارژ پنل وایز",
-      payment_method: "novino",
-      date_time: "1402-12-21 22:28:23",
-      value: "46366",
-      tax: "1333.0",
-      product_value: 10,
-      product_currncytype: "euro",
-    },
-    {
-      id: 9,
-      is_cancelled: false,
-      group_name: "verifiedpanel",
-      purchase: 20,
-      completed: false,
-      description: null,
-      group_FaName: "اکانت وریفای شده",
-      payment_method: "zibal",
-      date_time: "1402-12-28 03:00:01",
-      value: "1500000.0",
-      tax: "0",
-      product_value: "1500000.0",
-      app: "paypal",
-      email: "",
-      password: "",
-    },
-    {
-      id: 9,
-      is_cancelled: true,
-      group_name: "verifiedpanel",
-      purchase: 20,
-      completed: false,
-      description: null,
-      group_FaName: "اکانت وریفای شده",
-      payment_method: "zibal",
-      date_time: "1402-12-28 03:00:01",
-      value: "1500000.0",
-      tax: "0",
-      product_value: "1500000.0",
-      app: "paypal",
-      email: " mahdi1381.ghorbani@gmail.com",
-      `password`: "12345678",
-    },
-  ],
-  success: true,
-};
- */
 const MyPurchase = () => {
   const auth = useContext(AuthContext);
   const modalContext = useModalContext();
@@ -117,7 +45,7 @@ const MyPurchase = () => {
   });
 
   if (!mounted) {
-    return null
+    return null;
   }
 
   return (
