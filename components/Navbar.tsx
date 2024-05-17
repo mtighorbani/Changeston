@@ -10,8 +10,8 @@ import { Modal, notification } from "antd";
 import LoginForm from "./LoginForm";
 import { useModalContext } from "@/context/ModalContext";
 import {
-  refreshAccessTokenModel,
-  refreshAccessTokenResponse,
+  RefreshAccessTokenModel,
+  RefreshAccessTokenResponse,
 } from "@/models/models";
 import { customNotification } from "@/global/customNotification";
 import { errorMessage } from "@/global/errorMessage";
@@ -27,9 +27,9 @@ const Navbar = () => {
 
   // TODO: Make this global hook
   const { mutate: mutateRefreshAccessToken } = useMutation({
-    mutationFn: async (data: refreshAccessTokenModel) =>
+    mutationFn: async (data: RefreshAccessTokenModel) =>
       (await axios.post(refreshAccessTokenUrl, data)).data,
-    onSuccess: async (res: refreshAccessTokenResponse) => {
+    onSuccess: async (res: RefreshAccessTokenResponse) => {
       if(res.success){
         if (auth?.isAuthenticated) {
           auth?.login({ ...auth.user, accessToken: res.access });
@@ -38,7 +38,7 @@ const Navbar = () => {
         auth?.logout()
       }
     },
-    onError: (err: refreshAccessTokenResponse) => {
+    onError: (err: RefreshAccessTokenResponse) => {
       auth?.logout()
       customNotification({
         api: api,

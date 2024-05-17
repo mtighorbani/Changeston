@@ -1,5 +1,5 @@
 // ** base url
-const baseUrl = "https://changeston.com/api/v1/";
+const baseUrl = process.env.NEXT_PUBLIC_PRODUCTION_BASE_URL;
 
 // ** get otp code
 export const getOtpCodeUrl = baseUrl + "otp/code/request/";
@@ -17,17 +17,19 @@ export const logoutUrl = baseUrl + "logout/";
 export const userDetailsUrl = baseUrl + "user/";
 
 // ** user products
-export const userProductsUrl = baseUrl + 'user/products/'
+export const userProductsUrl = baseUrl + "user/products/";
 
 // ** verified panels list
-export const verifiedPanelsListUrl = baseUrl + 'verfiedpanels/list/' 
+export const verifiedPanelsListUrl = baseUrl + "verfiedpanels/list/";
 
 // ** group
-export const groupUrl = baseUrl + 'group/' 
+export const groupUrl = baseUrl + "group/";
 
+// ** git card list
+export const giftCardListUrl = baseUrl + "giftcard/list/";
 
-export const wiseDataPost = baseUrl + "paymentlink/"
+export const wiseDataPost = baseUrl + "paymentlink/";
 
-export const currencyAmount = baseUrl + "financialdet/"
+export const currencyAmount = baseUrl + "financialdet/";
 
- export const paymentValidate = baseUrl + "paymentverify/"
+export const paymentValidate = baseUrl + "paymentverify/";

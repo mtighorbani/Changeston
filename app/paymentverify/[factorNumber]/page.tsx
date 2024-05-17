@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import SuccessImg from "@/asset/images/success.png";
 import FailedImg from "@/asset/images/Faile.png";
 import Image from "next/image";
-import { paymentResult } from "@/models/models";
+import { PaymentResult } from "@/models/models";
 
 const PaymentVerify = () => {
   // شماره فاکتور
@@ -22,7 +22,7 @@ const PaymentVerify = () => {
     data: paymentValidateData,
     refetch: refetchPaymentValidate,
     isFetching: isFetchingPaymentValidate,
-  } = useQuery<paymentResult>({
+  } = useQuery<PaymentResult>({
     queryFn: async () => (await axios.get(`${paymentValidate}${TrackId}`)).data,
     queryKey: ["paymentValidateData"],
     });

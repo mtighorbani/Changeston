@@ -30,11 +30,11 @@ export interface CheckOtpCodeResponse {
 }
 
 //** refresh access token
-export interface refreshAccessTokenModel {
+export interface RefreshAccessTokenModel {
   refresh: string | undefined;
 }
 
-export interface refreshAccessTokenResponse {
+export interface RefreshAccessTokenResponse {
   access: string | undefined;
   success: boolean | undefined;
   error: Error | undefined;
@@ -84,7 +84,7 @@ export interface CurrencyAmount {
   euro: number;
 }
 
-export interface paymentResult {
+export interface PaymentResult {
   success: boolean;
   error?: {
     code: number;
@@ -128,7 +128,7 @@ export interface UserProducts {
 }
 
 // ** Group
-export interface Group {
+interface Group {
   id: number;
   FaName: string;
   Photo: string;
@@ -159,6 +159,27 @@ export interface VerifiedPanelsListResponse {
   error: Error;
 }
 
+// ** GiftCard
+
+interface GooglePlay {
+  id: number;
+  description: string;
+  currency_type: string;
+  amount: number;
+  app: string;
+}
+
+interface GiftCard {
+  google_play: GooglePlay[];
+}
+
+export interface GiftCardListResponse {
+  giftcards: GiftCard;
+  success: boolean;
+  group: Group;
+  error: Error;
+}
+
 export interface UserProductsResponse {
   user_products?: UserProducts[];
   success?: boolean;
@@ -171,24 +192,4 @@ export interface UserProductsResponse {
       message: string;
     }
   ];
-}
-
-export interface VerifyAccountRes{
-  verfiedpanelsgroup:[
-    {
-      id:number,
-      description:string,
-      name:string,
-      amount:number
-    }
-  ],
-  success:boolean,
-  group:{
-    id:number,
-    FaName:string,
-    Photo:string,
-    name:string,
-    active:true,
-    tax_rate:number 
-  }
 }
