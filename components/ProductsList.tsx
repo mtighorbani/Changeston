@@ -4,10 +4,11 @@ import { verifiedPanelsListUrl } from "@/global/urls";
 import { VerifiedPanels, VerifiedPanelsListResponse } from "@/models/models";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmForm from "./ConfirmForm";
 import VerifiedPanelsProduct from "./VerifiedPanelsProduct";
-import { Spin } from "antd";
+import { Spin, notification } from "antd";
+import { customNotification } from "@/global/customNotification";
 
 interface Props {
   productId: number;
@@ -20,15 +21,38 @@ const ProductList = (props: Props) => {
   const [selectedProductForPurchase, setSelectedProductForPurchase] =
     useState<VerifiedPanels>();
 
+  // ** Notification
+  const [api, contextHolder] = notification.useNotification();
+
   // ** API Calls
   const {
     data: verifiedPanelsList,
     isFetching: isFetchingVerifiedPanelsList,
+    isError: isErrorVerifiedPanelsList,
+    refetch: refetchVerifiedPanelsList,
   } = useQuery<VerifiedPanelsListResponse>({
     queryFn: async () => (await axios.get(verifiedPanelsListUrl)).data,
     queryKey: ["verifiedPanelsList"],
-    retry: false,
+    enabled: false,
   });
+
+  useEffect(() => {
+    isErrorVerifiedPanelsList &&
+      customNotification({
+        api: api,
+        type: "error",
+        message: "متاسفانه دریافت اطلاعات با خطا مواجه شده است!",
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isErrorVerifiedPanelsList]);
+
+  useEffect(() => {
+    if (props.productId === 5) {
+      refetchVerifiedPanelsList();
+    } else if (props.productId === 3) {
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ** Handlers
   const purchaseVerifiedPanelsHandler = (item: VerifiedPanels) => {
@@ -38,37 +62,42 @@ const ProductList = (props: Props) => {
     // SetImgUrl(item.Photo);
   };
 
-  return purchaseVisible ? (
-    <ConfirmForm
-      id={selectedProductForPurchase?.id}
-      amount={selectedProductForPurchase?.amount}
-      name={selectedProductForPurchase?.name}
-    />
-  ) : (
-    <div
-      className={
-        "max-sm:grid-cols-1 grid grid-cols-4 justify-between place-content-center max-sm:mx-20 mx-[10%] max-sm:mt-20  mt-28 gap-4  "
-      }
-      dir="rtl"
-    >
-      {isFetchingVerifiedPanelsList ? (
-        <Spin />
-      ) : props.productId === 5 ? (
-        verifiedPanelsList?.verfiedpanelsgroup?.map((item) => {
-          return (
-            <VerifiedPanelsProduct
-              key={item.id}
-              Item={item}
-              onClick={() => {
-                return purchaseVerifiedPanelsHandler(item);
-              }}
-            />
-          );
-        })
+  return (
+    <>
+      {contextHolder}
+      {purchaseVisible ? (
+        <ConfirmForm
+          id={selectedProductForPurchase?.id}
+          amount={selectedProductForPurchase?.amount}
+          name={selectedProductForPurchase?.name}
+        />
       ) : (
-        <div>gift card</div>
+        <div
+          className={
+            "max-sm:grid-cols-1 grid grid-cols-4 justify-between place-content-center max-sm:mx-20 mx-[10%] max-sm:mt-20  mt-28 gap-4  "
+          }
+          dir="rtl"
+        >
+          {props.productId === 5 ? (
+            isFetchingVerifiedPanelsList ? (
+              <Spin />
+            ) : (
+              verifiedPanelsList?.verfiedpanelsgroup?.map((item) => {
+                return (
+                  <VerifiedPanelsProduct
+                    key={item.id}
+                    Item={item}
+                    onClick={() => purchaseVerifiedPanelsHandler(item)}
+                  />
+                );
+              })
+            )
+          ) : (
+            <div>gift card</div>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
