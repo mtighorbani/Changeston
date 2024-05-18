@@ -56,6 +56,13 @@ export interface UserDetailResponse {
   ];
 }
 
+export interface CrdsPurchasePostData{
+  
+  group_id: number,
+  product_id: number,
+  payment_method: "zibal"
+
+}
 export interface PurchasePostData {
   group_id: "4";
   currency_type: string;

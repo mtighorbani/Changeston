@@ -29,6 +29,7 @@ export const groupUrl = baseUrl + "group/";
 export const giftCardListUrl = baseUrl + "giftcard/list/";
 
 export const wiseDataPost = baseUrl + "paymentlink/";
+export const giftCardPurchasePost = baseUrl + "v1/paymentlink/"
 
 export const currencyAmount = baseUrl + "financialdet/";
 
