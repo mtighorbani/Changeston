@@ -11,7 +11,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { customNotification } from "../global/customNotification";
 import {
   currencyAmount,
-  wiseDataPost,
+  paymentLinkUrl,
 } from "@/global/urls";
 import axios from "axios";
 import { Button, notification } from "antd";
@@ -49,7 +49,7 @@ const CryptoPurchaseForm = (props: PurchasePostData) => {
     useMutation({
       mutationFn: async (data: PurchasePostData) =>
         (
-          await axios.post(wiseDataPost, data, {
+          await axios.post(paymentLinkUrl, data, {
             headers: {
               Authorization: `Bearer ${auth?.user?.accessToken}`,
             },
