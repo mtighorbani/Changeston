@@ -103,7 +103,6 @@ const ProductList = (props: Props) => {
     // SetImgUrl(item.Photo);
   };
 
-  console.log(props.productId);
   return (
     <>
       {contextHolder}
