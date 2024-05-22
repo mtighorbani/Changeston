@@ -79,6 +79,7 @@ const MyPurchase = () => {
                     height={400}
                     alt={item.photo}
                     width={500}
+                    priority 
                     unoptimized
                     className="w-[200px] h-[75px] rounded-lg"
                   />
@@ -94,18 +95,18 @@ const MyPurchase = () => {
                     dir="ltr"
                     className=" text-center text-sm col-span-3  my-auto"
                   >
-                    <p>
+                    <div>
                       {" "}
                       <p className="  inline text-sm font-medium">
                         {" "}
                         Email:
                       </p>{" "}
                       {item?.email}
-                    </p>
-                    <p>
+                    </div>
+                    <div>
                       <p className="  inline text-sm font-medium"> Password:</p>{" "}
                       {item.password}
-                    </p>{" "}
+                    </div>{" "}
                   </div>
                 ) : !item.email && item.group_FaName == "verifiedpanel" ? (
                   <div
@@ -117,11 +118,11 @@ const MyPurchase = () => {
                 )}
                 {item.description ? (
                   <div className=" text-center text-sm col-span-3 block my-auto">
-                    <p>
+                    <div>
                       {" "}
                       <p className="  inline text-sm font-medium"> توضیحات: </p>
                       {item.description}
-                    </p>
+                    </div>
                   </div>
                 ) : (
                   ""
@@ -132,14 +133,14 @@ const MyPurchase = () => {
                     className=" text-center text-sm col-span-3 block my-auto"
                   >
                     <p>{item.app}</p>
-                    <p>
+                    <div>
                       {" "}
                       <p className="  inline text-sm font-medium">
                         {" "}
                         Gift code:{" "}
                       </p>
                       {item.code}
-                    </p>
+                    </div>
                   </div>
                 ) : (
                   ""
