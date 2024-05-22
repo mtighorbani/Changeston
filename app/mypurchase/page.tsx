@@ -9,6 +9,7 @@ import { useModalContext } from "@/context/ModalContext";
 import { userProductsUrl } from "@/global/urls";
 import { UserProductsResponse } from "@/models/models";
 import { Skeleton } from "antd";
+import Image from "next/image";
 
 const MyPurchase = () => {
   const auth = useContext(AuthContext);
@@ -72,7 +73,16 @@ const MyPurchase = () => {
                     : ""
                 } !text-black grid grid-cols-8 col-span-2 gap-2 rounded-md ring-1 ring-gray-400 h-[5.7rem] my-5`}
               >
-                <div className=" col-span-2 m-auto">img</div>
+                <div className=" col-span-2 m-auto">
+                  <Image
+                    src={`https://changeston.com/media/photos/${item.group_type}/${item.photo}`}
+                    height={400}
+                    alt={item.photo}
+                    width={500}
+                    unoptimized
+                    className="w-[200px] h-[75px] rounded-lg"
+                  />
+                </div>
                 <div className=" block m-auto my-4   text-center ">
                   <p className=" inline ">{item.group_FaName} </p>
                   <p className=" text-sm font-light">

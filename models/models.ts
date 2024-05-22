@@ -125,6 +125,7 @@ export interface UserProducts {
   password: string;
   product_currncytype: string;
   code: string;
+  photo: string;
 }
 
 // ** Group
