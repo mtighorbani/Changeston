@@ -1,7 +1,6 @@
 'use client'
 import React from 'react';
-import { Button, Form, Input, InputNumber, Select } from 'antd';
-import { Span } from 'next/dist/trace';
+import { Button, Form, Input, Select } from 'antd';
 
 const layout = {
   labelCol: { span: 8 },
@@ -41,21 +40,20 @@ const App: React.FC = () => (
     onFinish={onFinish}
     style={{ maxWidth: 600, minWidth:500 }}
     validateMessages={validateMessages}
-    className=' max-sm:max-w-28'
+    className=' max-sm:max-w-28 py-10'
   >
     <Form.Item name={['user', 'name']} label={<span className=' dark:text-white'>نام</span>} rules={[{ required: true }]}>
-      <Input />
+      <Input type='string' />
     </Form.Item>
     <Form.Item name={['user', 'email']} label={<span className=' dark:text-white'>ایمیل</span>} rules={[{ type: 'email', message: 'ادرس ایمیل به صورت صحیح و ضروری باید وارد شود',required: true}]}>
-      <Input />
+      <Input   dir='ltr' />
     </Form.Item>
     <Form.Item
         name="phone"
         label={<span className=' dark:text-white'>شماره تماس</span>}
-        
         rules={[{ required: true, message: 'شماره تماس ضروری و می بایست 10 رقم باشد',min:10 }]}
       >
-        <Input addonBefore={<span className=' dark:text-white'>+98</span>} style={{ width: '100%' }} />
+        <Input dir='ltr' type='number'  addonAfter={<span  className=' dark:text-white'>+98</span>} style={{ width: '100%' }} />
       </Form.Item>
 
     <Form.Item name={['user', 'introduction']} label={<span className=' dark:text-white'>متن پیام</span>} rules={[{required:true,message:'متن پیام می بایست مشخص شود'}]}>

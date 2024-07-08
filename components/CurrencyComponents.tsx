@@ -55,7 +55,7 @@ const CurrencyComponents = ({ roadMapIdSetter }: any) => {
               label={<span className=" dark:text-white">نام</span>}
               rules={[{ required: true }]}
             >
-              <Input />
+              <Input  />
             </Form.Item>
             <Form.Item
               name={["currency_type"]}
@@ -72,7 +72,7 @@ const CurrencyComponents = ({ roadMapIdSetter }: any) => {
               name={["amount"]}
               label={<span className=" dark:text-white">مقدار ارز</span>}
             >
-              <Input />
+              <Input dir="ltr" type="number" />
             </Form.Item>
             <Form.Item<PurchasePostData>
               name={["receiver_email"]}
@@ -85,8 +85,8 @@ const CurrencyComponents = ({ roadMapIdSetter }: any) => {
                 },
               ]}
             >
-              <Input />
-            </Form.Item>
+              <Input dir="ltr" lang="en" />
+            </Form.Item>  
 
             <Form.Item<PurchasePostData>
               name={["iban"]}
@@ -97,7 +97,7 @@ const CurrencyComponents = ({ roadMapIdSetter }: any) => {
                 },
               ]}
             >
-              <Input />
+              <Input dir="ltr" />
             </Form.Item>
 
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
