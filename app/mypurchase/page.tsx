@@ -9,6 +9,7 @@ import { useModalContext } from "@/context/ModalContext";
 import { userProductsUrl } from "@/global/urls";
 import { UserProductsResponse } from "@/models/models";
 import { Skeleton } from "antd";
+import Image from "next/image";
 
 const MyPurchase = () => {
   const auth = useContext(AuthContext);
@@ -72,7 +73,17 @@ const MyPurchase = () => {
                     : ""
                 } !text-black grid grid-cols-8 col-span-2 gap-2 rounded-md ring-1 ring-gray-400 h-[5.7rem] my-5`}
               >
-                <div className=" col-span-2 m-auto">img</div>
+                <div className=" col-span-2 m-auto">
+                  <Image
+                    src={`https://changeston.com/media/photos/${item.group_type}/${item.photo}`}
+                    height={400}
+                    alt={item.photo}
+                    width={500}
+                    priority 
+                    unoptimized
+                    className="w-[200px] h-[75px] rounded-lg"
+                  />
+                </div>
                 <div className=" block m-auto my-4   text-center ">
                   <p className=" inline ">{item.group_FaName} </p>
                   <p className=" text-sm font-light">
@@ -84,18 +95,18 @@ const MyPurchase = () => {
                     dir="ltr"
                     className=" text-center text-sm col-span-3  my-auto"
                   >
-                    <p>
+                    <div>
                       {" "}
                       <p className="  inline text-sm font-medium">
                         {" "}
                         Email:
                       </p>{" "}
                       {item?.email}
-                    </p>
-                    <p>
+                    </div>
+                    <div>
                       <p className="  inline text-sm font-medium"> Password:</p>{" "}
                       {item.password}
-                    </p>{" "}
+                    </div>{" "}
                   </div>
                 ) : !item.email && item.group_FaName == "verifiedpanel" ? (
                   <div
@@ -107,11 +118,11 @@ const MyPurchase = () => {
                 )}
                 {item.description ? (
                   <div className=" text-center text-sm col-span-3 block my-auto">
-                    <p>
+                    <div>
                       {" "}
                       <p className="  inline text-sm font-medium"> توضیحات: </p>
                       {item.description}
-                    </p>
+                    </div>
                   </div>
                 ) : (
                   ""
@@ -122,14 +133,14 @@ const MyPurchase = () => {
                     className=" text-center text-sm col-span-3 block my-auto"
                   >
                     <p>{item.app}</p>
-                    <p>
+                    <div>
                       {" "}
                       <p className="  inline text-sm font-medium">
                         {" "}
                         Gift code:{" "}
                       </p>
                       {item.code}
-                    </p>
+                    </div>
                   </div>
                 ) : (
                   ""

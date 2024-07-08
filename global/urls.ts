@@ -28,7 +28,7 @@ export const groupUrl = baseUrl + "group/";
 // ** git card list
 export const giftCardListUrl = baseUrl + "giftcard/list/";
 
-export const wiseDataPost = baseUrl + "paymentlink/";
+export const paymentLinkUrl = baseUrl + "paymentlink/";
 
 export const currencyAmount = baseUrl + "financialdet/";
 

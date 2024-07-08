@@ -2,6 +2,7 @@
 
 import { giftCardListUrl, verifiedPanelsListUrl } from "@/global/urls";
 import {
+  GetPaymentLinkCommand,
   GiftCardListResponse,
   GooglePlay,
   VerifiedPanels,
@@ -17,7 +18,7 @@ import VerifiedPanelsProductCard from "./VerifiedPanelsProductCard";
 import GiftCardProductCard from "./GiftCardProductCard";
 
 interface Props {
-  productId: number;
+  groupId: number;
   roadMapIdSetter: (stepId: number) => any;
 }
 
@@ -32,6 +33,13 @@ const ProductList = (props: Props) => {
     selectedGooglePlayProductForPurchase,
     setSelectedGooglePlayProductForPurchase,
   ] = useState<GooglePlay>();
+
+  const [paymentLinkCommand, setPaymentLinkCommand] =
+    useState<GetPaymentLinkCommand>({
+      product_id: 0,
+      group_id: props.groupId,
+      payment_method: "zibal",
+    });
 
   // ** Notification
   const [api, contextHolder] = notification.useNotification();
@@ -80,9 +88,9 @@ const ProductList = (props: Props) => {
   }, [isErrorGiftCardList]);
 
   useEffect(() => {
-    if (props.productId === 5) {
+    if (props.groupId === 5) {
       refetchVerifiedPanelsList();
-    } else if (props.productId === 1) {
+    } else if (props.groupId === 1) {
       refetchGiftCardList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,6 +101,10 @@ const ProductList = (props: Props) => {
     setPurchaseVisible(true);
     setSelectedVerifiedPanelsProductForPurchase(item);
     props.roadMapIdSetter(3);
+    setPaymentLinkCommand({
+      ...paymentLinkCommand,
+      product_id: item.id,
+    });
     // SetImgUrl(item.Photo);
   };
 
@@ -100,27 +112,32 @@ const ProductList = (props: Props) => {
     setPurchaseVisible(true);
     setSelectedGooglePlayProductForPurchase(item);
     props.roadMapIdSetter(3);
+    setPaymentLinkCommand({
+      ...paymentLinkCommand,
+      product_id: item.id,
+    });
     // SetImgUrl(item.Photo);
   };
 
-  console.log(props.productId);
   return (
     <>
       {contextHolder}
       {purchaseVisible ? (
-        props.productId === 5 ? (
+        props.groupId === 5 ? (
           <ConfirmForm
             id={selectedVerifiedPanelsProductForPurchase?.id}
             amount={selectedVerifiedPanelsProductForPurchase?.amount}
             name={selectedVerifiedPanelsProductForPurchase?.name}
+            paymentLinkCommand={paymentLinkCommand}
           />
         ) : (
-          props.productId === 1 && (
+          props.groupId === 1 && (
             <ConfirmForm
               id={selectedGooglePlayProductForPurchase?.id}
               amount={selectedGooglePlayProductForPurchase?.amount}
               currencyType={selectedGooglePlayProductForPurchase?.currency_type}
               name={selectedGooglePlayProductForPurchase?.app}
+              paymentLinkCommand={paymentLinkCommand}
             />
           )
         )
@@ -131,7 +148,7 @@ const ProductList = (props: Props) => {
           }
           dir="rtl"
         >
-          {props.productId === 5 ? (
+          {props.groupId === 5 ? (
             isFetchingVerifiedPanelsList ? (
               <Spin />
             ) : (
@@ -146,7 +163,7 @@ const ProductList = (props: Props) => {
               })
             )
           ) : (
-            props.productId === 1 &&
+            props.groupId === 1 &&
             (isFetchingGiftCardList ? (
               <Spin />
             ) : (

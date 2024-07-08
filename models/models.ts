@@ -125,6 +125,7 @@ export interface UserProducts {
   password: string;
   product_currncytype: string;
   code: string;
+  photo: string;
 }
 
 // ** Group
@@ -179,6 +180,13 @@ export interface GiftCardListResponse {
   error: Error;
 }
 
+export interface GetPaymentLinkCommand {
+  group_id: number;
+  product_id: number;
+  payment_method: "zibal";
+}
+
+// ** UserProducts
 export interface UserProductsResponse {
   user_products?: UserProducts[];
   success?: boolean;

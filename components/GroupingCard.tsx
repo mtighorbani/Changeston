@@ -20,7 +20,7 @@ interface Props {
 const ProductsCard = (props: Props) => {
   const [roadMapStepId, setRoadMapStepId] = useState(1);
   const [visible, isVisible] = useState(true);
-  const [productId, setProductId] = useState(-0);
+  const [groupId, setGroupId] = useState(-0);
   const NextId = roadMapStepId + 1;
 
   // ** Notification
@@ -47,7 +47,7 @@ const ProductsCard = (props: Props) => {
 
   const ProductVisibleHandler = () => {
     isVisible(true);
-    setProductId(0);
+    setGroupId(0);
     setRoadMapStepId(1);
   };
   const setIdHandler = () => {
@@ -70,15 +70,16 @@ const ProductsCard = (props: Props) => {
         item.id !== 3 && (
           <div key={item.id} onClick={setIdHandler}>
             <div
-              onClick={() => setProductId(item.id)}
+              onClick={() => setGroupId(item.id)}
               className=" cursor-pointer hover:shadow-2xl mx-6 hover:shadow-cyan-500/50 rounded-md max-w-[360px] text-center justify-center  max-h-[400px] mb-10"
               key={roadMapStepId}
             >
               <Image
-                src={`/images/${item.name}.jpg`}
+                src={`https://changeston.com/media/photos/${item.Photo}/${item.Photo}`}
+                height={400}
                 alt={item.name}
                 width={500}
-                height={400}
+                unoptimized
                 className="w-[400px] h-[200px] rounded-lg"
               />
               <p className=" max-sm:font-normal text-xl  font-extrabold font-lg mb-2 mt-4 ">
@@ -110,11 +111,11 @@ const ProductsCard = (props: Props) => {
       )}
       {props.isTempPage ? (
         <CurrencyComponents roadMapIdSetter={roadMapIdSetter} />
-      ) : visible == false && productId == 1 ? (
-        <ProductList roadMapIdSetter={roadMapIdSetter} productId={productId} />
-      ) : visible == false && productId == 5 ? (
-        <ProductList roadMapIdSetter={roadMapIdSetter} productId={productId} />
-      ) : productId == 4 ? (
+      ) : visible == false && groupId == 1 ? (
+        <ProductList roadMapIdSetter={roadMapIdSetter} groupId={groupId} />
+      ) : visible == false && groupId == 5 ? (
+        <ProductList roadMapIdSetter={roadMapIdSetter} groupId={groupId} />
+      ) : groupId == 4 ? (
         <CurrencyComponents roadMapIdSetter={roadMapIdSetter} />
       ) : visible == true ? (
         <div
