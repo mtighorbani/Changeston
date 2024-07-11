@@ -219,10 +219,10 @@ const LoginForm = () => {
   return (
     <>
       {contextHolder}
-      <div dir="rtl" className=" m-3">
+      <div dir="rtl" className="m-3">
         <Button
           style={{
-            display: `${firstLoginStep ? "none" : "block"}`,
+            display: firstLoginStep ? "none" : "block",
           }}
           type="link"
           onClick={() => {
@@ -241,18 +241,18 @@ const LoginForm = () => {
         onFinish={onGetOtpHandler}
         style={{
           maxWidth: 600,
-          minWidth: 500,
-          display: `${!firstLoginStep ? "none" : "block"}`,
+          width: "100%",
+          display: firstLoginStep ? "block" : "none",
         }}
-        className=" max-sm:max-w-28  "
+        className="p-4 max-sm:max-w-full max-sm:w-full"
       >
-        <div dir="rtl" className=" w-[100%] text-black mr-24 ">
-          <p className=" font-extrabold text-lg mt-4 mb-2">
+        <div dir="rtl" className="w-full text-black">
+          <p className="font-extrabold text-lg mt-4 mb-2">
             شماره تماس خود را وارد کنید
           </p>
           <Form.Item
             name="phone_number"
-            className=" text-black "
+            className="text-black"
             rules={[
               {
                 required: true,
@@ -262,7 +262,7 @@ const LoginForm = () => {
             ]}
           >
             <Input
-              onChange={(e) => onChangePhoneNumberHandler(e)}
+              onChange={onChangePhoneNumberHandler}
               autoFocus
               className="text-black"
               maxLength={11}
@@ -272,7 +272,7 @@ const LoginForm = () => {
           <Form.Item>
             <Button
               loading={pendingGetOtpCode}
-              className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+              className="w-full h-10 text-center text-white pr-3 rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]"
               htmlType="submit"
               disabled={counter > 0}
             >
@@ -294,24 +294,24 @@ const LoginForm = () => {
         onFinish={onSubmitOtpHandler}
         style={{
           maxWidth: 600,
-          minWidth: 500,
-          display: `${firstLoginStep ? "none" : "block"}`,
+          width: "100%",
+          display: firstLoginStep ? "none" : "block",
         }}
-        className=" max-sm:max-w-28 w-[100%] "
+        className="p-4 max-sm:max-w-full max-sm:w-full"
       >
-        <div dir="ltr" className=" ml-24">
+        <div dir="ltr" className="w-full">
           <Form.Item name="password">
             <InputOTP
               autoFocus
               length={5}
               inputType="numeric"
-              onChange={(e) => onChangeOtpHandler(e)}
+              onChange={onChangeOtpHandler}
             />
           </Form.Item>
           <Form.Item>
             <Button
               loading={pendingCheckOtpCode}
-              className="w-[100%]  h-10 text-center  text-white pr-3  rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]  "
+              className="w-full h-10 text-center text-white pr-3 rounded-lg font-bold bg-gradient-to-r from-[#C8338C] to-[#0A95E5]"
               htmlType="submit"
             >
               <span>ورود</span>
