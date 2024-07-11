@@ -9,7 +9,11 @@ import { useMutation } from "@tanstack/react-query";
 import { logoutUrl } from "@/global/urls";
 import { AuthContext } from "@/context/AuthContext";
 
-const LogInButton = () => {
+interface Props {
+  isSmHidden?: boolean;
+}
+
+const LogInButton = (props: Props) => {
   // ** Context
   const modalContext = useModalContext();
   const auth = useContext(AuthContext);
@@ -79,7 +83,13 @@ const LogInButton = () => {
   if (!mounted) {
     return (
       <div>
-        <button className="max-sm:hidden cursor-not-allowed transition duration-300  sm:font-size-[6px] ease-in-out flex hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold max-sm:py-2 max-sm:px-3 py-2 px-4 rounded-md font-[BMitra] font-bold ">
+        <button
+          className={
+            props.isSmHidden
+              ? "sm:hidden cursor-not-allowed transition duration-300  sm:font-size-[6px] ease-in-out flex hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold max-sm:py-2 max-sm:px-3 py-2 px-4 rounded-md font-[BMitra] font-bold "
+              : "max-sm:hidden cursor-not-allowed transition duration-300  sm:font-size-[6px] ease-in-out flex hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold max-sm:py-2 max-sm:px-3 py-2 px-4 rounded-md font-[BMitra] font-bold "
+          }
+        >
           ...
         </button>
       </div>
@@ -114,19 +124,29 @@ const LogInButton = () => {
       ></Modal>
       <div>
         {auth?.isAuthenticated ? (
-          <button
-            onClick={handleOpenLogoutModal}
-            className="max-sm:hidden  transition duration-300  sm:font-size-[6px] ease-in-out flex hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold max-sm:py-2 max-sm:px-3 py-2 px-4 rounded-md font-[BMitra] font-bold "
-          >
-            خروج
-          </button>
+          <center>
+            <button
+              onClick={handleOpenLogoutModal}
+              className={
+                props.isSmHidden
+                  ? "sm:hidden p-2 text-center"
+                  : "max-sm:hidden  transition duration-300  sm:font-size-[6px] ease-in-out flex hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold max-sm:py-2 max-sm:px-3 py-2 px-4 rounded-md font-[BMitra] font-bold "
+              }
+            >
+              خروج
+            </button>
+          </center>
         ) : (
           <button
             onClick={OpenLoginHandler}
-            className="max-sm:hidden  transition duration-300  sm:font-size-[6px] ease-in-out flex hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold max-sm:py-2 max-sm:px-3 py-2 px-4 rounded-md font-[BMitra] font-bold "
+            className={
+              props.isSmHidden
+                ? "sm:hidden p-2 text-center"
+                : "max-sm:hidden  transition duration-300  sm:font-size-[6px] ease-in-out flex hover:outline bg-[#2089DA]   text-white hover:outline-[#5a8dee] button hover:bg-white hover:text-[#5a8dee] hover:font-extrabold max-sm:py-2 max-sm:px-3 py-2 px-4 rounded-md font-[BMitra] font-bold "
+            }
           >
             ورود / ثبت نام
-            <IoIosLogIn className="max-sm:hidden size-6  ml-2" />
+            <IoIosLogIn className={"max-sm:hidden size-6  ml-2"} />
           </button>
         )}
       </div>
